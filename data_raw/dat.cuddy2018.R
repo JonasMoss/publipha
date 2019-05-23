@@ -76,7 +76,7 @@ dat.cuddy2018 = dplyr::transmute(dat.cuddy2018,
                                  vi = vi)
 
 # Remove outlier
-dat.cuddy2018 = dplyr::filter(dat.cuddy2018, yi < 1.5)
+# dat.cuddy2018 = dplyr::filter(dat.cuddy2018, yi < 1.5)
 
 save(dat.cuddy2018, file = "data/dat.cuddy2018.rda")
 load("data/dat.cuddy2018.rda")
