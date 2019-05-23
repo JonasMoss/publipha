@@ -3,19 +3,29 @@
 \docType{data}
 \name{dat.cuddy2018}
 \alias{dat.cuddy2018}
-\title{Arabidopsis QTL data on gravitropism}
-\format{An object of class \code{"cross"}; see \code{\link[qtl]{read.cross}}.}
+\title{Studies on the Effect of Power Posing}
+\format{The data frame contains the following columns:
+    \tabular{lll}{
+        \strong{author}       \tab \code{character} \tab first author \cr
+        \strong{year}         \tab \code{numeric}   \tab publication year \cr
+        \strong{power}        \tab \code{boolean}   \tab if \code{TRUE}, the outcome was feelin of power \cr
+        \strong{ease}         \tab \code{boolean}   \tab if \code{TRUE}, the outcome was an EASE variable \cr
+        \strong{yi}           \tab \code{numeric}   \tab standardized mean difference \cr
+        \strong{vi}           \tab \code{numeric}   \tab corresponding sampling variance
+   }}
 \source{
-\href{https://phenome.jax.org/projects/Moore1b}{QTL Archive}
+\url{https://osf.io/jx3av/}
 }
 \usage{
-data(dat.cuddy2018)
+dat.cuddy2018
 }
 \description{
-Data from a QTL experiment on gravitropism in
-Arabidopsis, with data on 162 recombinant inbred lines (Ler x
-Cvi). The outcome is the root tip angle (in degrees) at two-minute
-increments over eight hours.
+Results from 27 studies related to power posing.
+}
+\details{
+The data points are taken from the p-curve analysis of Cuddy et al. (2018),
+   restricted to 2 cell designs with mean difference as the outcome
+   variable.
 }
 \examples{
 data(grav)
@@ -24,7 +34,6 @@ phe <- grav$pheno
 \donttest{iplotCurves(phe, times)}
 }
 \references{
-Moore et al. (2013) Genetics 195:1077-1086
-(\href{https://www.ncbi.nlm.nih.gov/pubmed/23979570}{PubMed})
+Cuddy, A. J., Schultz, S. J., & Fosse, N. E. (2018). P-curving a more comprehensive body of research on postural feedback reveals clear evidential value for power-posing effects: Reply to Simmons and Simonsohn (2017). Psychological science, 29(4), 656-666.
 }
 \keyword{datasets}
