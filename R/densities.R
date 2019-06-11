@@ -32,21 +32,22 @@
 #'     with the given p-value from being published. This is normalized so that
 #'     the maximumal element is 1.
 #' @return The normalizing constant.
-
+#'
 I = function(sigma, theta, alpha, eta) {
   k = length(alpha)
-  cutoffs = stats::qnorm(1 - alpha)*sigma
-  cdfs = stats::pnorm(cutoffs, theta, sigma)
+  cutoffs = stats::qnorm(1 - alpha)
+  cdfs = stats::pnorm(cutoffs, theta/sigma, 1)
   sum(sapply(1:(k - 1), function(i) eta[i]*(cdfs[i] - cdfs[i + 1])))
 }
 
 #' @rdname normalizing_constant
 J = function(sigma, theta0, tau, alpha, eta) {
   k = length(alpha)
-  cutoffs = stats::qnorm(1 - alpha)*sigma
-  cdfs = stats::pnorm(cutoffs, theta0, sqrt(tau^2 + sigma^2))
+  cutoffs = stats::qnorm(1 - alpha)
+  cdfs = stats::pnorm(cutoffs, theta0/sigma, sqrt(tau^2 + sigma^2)/sigma)
   sum(sapply(1:(k - 1), function(i) eta[i]*(cdfs[i] - cdfs[i + 1])))
 }
+
 
 #' Selected Normal Effect Size Distribution
 #'
