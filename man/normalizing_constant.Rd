@@ -8,7 +8,7 @@
 \usage{
 I(sigma, theta, alpha, eta)
 
-J(sigma, theta0, tau, alpha, eta)
+J(sigma, theta, tau, alpha, eta)
 }
 \arguments{
 \item{sigma}{Numeric; The standard deviation of the study, due to
@@ -23,11 +23,11 @@ bias.}
 with the given p-value from being published. This is normalized so that
 the maximumal element is 1.}
 
-\item{theta0}{Numeric; The mean of the underlying effect size
-distribution.}
-
 \item{tau}{Numeric; The standard deviation of the underlying effect
 size distribution.}
+
+\item{theta0}{Numeric; The mean of the underlying effect size
+distribution.}
 }
 \value{
 The normalizing constant.
