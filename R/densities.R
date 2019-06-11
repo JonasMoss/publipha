@@ -48,7 +48,6 @@ J = function(sigma, theta0, tau, alpha, eta) {
   sum(sapply(1:(k - 1), function(i) eta[i]*(cdfs[i] - cdfs[i + 1])))
 }
 
-
 #' Selected Normal Effect Size Distribution
 #'
 #' Density, distribution, quantile, random variate generation, and expectation
@@ -180,6 +179,26 @@ rmaps = function(n, theta0, tau, sigma, alpha, eta) {
   }
 
   samples
+
+}
+
+#' @rdname maps
+#' @export
+dmaps = function(x, theta0, tau, sigma, alpha, eta, log = FALSE) {
+
+  if(any(tau <= 0)) stop("'tau' must be positive")
+  cutoffs = stats::qnorm(1 - alpha)
+  indices = .bincode(yi/sqrt(vi), sort(cutoffs))
+  constant = J(sigma, theta0, tau, alpha, eta)
+  probabilities = rev(rev(eta)[indices])
+
+  if(!log) {
+    densities = dnorm(x = x, mean = theta0, sd = sqrt(sigma^2 + tau^2))
+    densities*probabilities/constant
+  } else {
+    densities = dnorm(x = x, mean = theta0, sd = sqrt(sigma^2 + tau^2), log = TRUE)
+    densities + log(probabilities) - log(constant)
+  }
 
 }
 
