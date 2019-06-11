@@ -44,7 +44,7 @@ I = function(sigma, theta, alpha, eta) {
 }
 
 #' @rdname normalizing_constant
-J = function(sigma, theta0, tau, alpha, eta) {
+J = function(sigma, theta, tau, alpha, eta) {
   k = length(alpha)
   cutoffs = stats::qnorm(1 - alpha)
 

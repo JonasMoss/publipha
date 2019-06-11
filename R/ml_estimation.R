@@ -37,7 +37,9 @@ ml_phma = function(yi, vi, alpha = c(0, 0.025,0.05, 1)) {
 
   optimum = nlm(f = f, p = p)
   estimate = optimum$estimate
-  list(theta0 = estimate[1],
-       tau = exp(estimate[2]),
-       eta =  pnorm(estimate[3:length(estimate)]))
+  parameterss = list(theta0 = estimate[1],
+                     tau = exp(estimate[2]),
+                     eta =  pnorm(estimate[3:length(estimate)]))
+  attr(parameters, "maximum") = -optimum$minimum
+
 }
