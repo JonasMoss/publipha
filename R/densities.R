@@ -32,7 +32,7 @@
 #'     with the given p-value from being published. This is normalized so that
 #'     the maximumal element is 1.
 #' @return The normalizing constant.
-#'
+
 I = function(sigma, theta, alpha, eta) {
   k = length(alpha)
   cutoffs = stats::qnorm(1 - alpha)
