@@ -3,9 +3,12 @@
 \name{maps}
 \alias{maps}
 \alias{rmaps}
+\alias{dmaps}
 \title{Marginal Publication Selection Meta-analysis Model}
 \usage{
 rmaps(n, theta0, tau, sigma, alpha, eta)
+
+dmaps(x, theta0, tau, sigma, alpha, eta, log = FALSE)
 }
 \arguments{
 \item{n}{Number of observations. If \code{length(n) > 1}, the length is taken
@@ -29,10 +32,10 @@ the maximumal element is 1.}
 
 \item{x, q}{Numeric vector of quantiles.}
 
-\item{p}{Numeric vector of probabilities.}
-
 \item{log, log.p}{Logical; If \code{TRUE}, probabilities are given as
 \code{log(p)}.}
+
+\item{p}{Numeric vector of probabilities.}
 
 \item{lower.tail}{Logical; If \code{TRUE}, the lower tail is returned.}
 }

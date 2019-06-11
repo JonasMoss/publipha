@@ -7,7 +7,7 @@
 \alias{esnorm}
 \title{Selected Normal Effect Size Distribution}
 \usage{
-dsnorm(x, theta0, tau, sigma, alpha, eta)
+dsnorm(x, theta0, tau, sigma, alpha, eta, log = FALSE)
 
 rsnorm(n, theta0, tau, sigma, alpha, eta)
 
@@ -32,13 +32,13 @@ bias.}
 with the given p-value from being published. This is normalized so that
 the maximumal element is 1.}
 
+\item{log, log.p}{Logical; If \code{TRUE}, probabilities are given as
+\code{log(p)}.}
+
 \item{n}{Number of observations. If \code{length(n) > 1}, the length is taken
 to be the number required.}
 
 \item{p}{Numeric vector of probabilities.}
-
-\item{log, log.p}{Logical; If \code{TRUE}, probabilities are given as
-\code{log(p)}.}
 
 \item{lower.tail}{Logical; If \code{TRUE}, the lower tail is returned.}
 }
