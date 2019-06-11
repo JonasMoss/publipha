@@ -3,11 +3,20 @@
 #' @param yi Numeric vector of effect sies.
 #' @param vi Numeric vector of variances.
 #' @param alpha Numeric vector of thresholds.
-#' @param control Vector of control parameters.
-#' @param data Optional data frame.
+#' @return List of maximum likelihood estimates.
+#' @export
 
-ml_phma = function(yi, vi, alpha = c(0, 0.025,0.05, 1), control = list(),
-                   data) {
+ml_phma = function(yi, vi, alpha = c(0, 0.025,0.05, 1)) {
+
+  log_likelihood_psma = function(yi, vi, theta0, tau, alpha, eta, data) {
+    mean(dmaps(yi,
+               theta0 = theta0,
+               tau = tau,
+               sigma = sqrt(vi),
+               alpha = alpha,
+               eta = eta,
+               log = TRUE))
+  }
 
   f = function(p) {
 
@@ -18,34 +27,17 @@ ml_phma = function(yi, vi, alpha = c(0, 0.025,0.05, 1), control = list(),
     -log_likelihood_psma(yi = yi,
                         vi = vi,
                         theta0 = theta0,
-                        tau = tau,
+                        tau = exp(tau),
                         alpha = alpha,
                         eta = c(1, pnorm(eta)))
 
   }
 
-  p = c(0, 0.1, rep(0, length(alpha) - 2))
+  p = c(0, 0, rep(0, length(alpha) - 2))
 
   optimum = nlm(f = f, p = p)
-
+  estimate = optimum$estimate
+  list(theta0 = estimate[1],
+       tau = exp(estimate[2]),
+       eta =  pnorm(estimate[3:length(estimate)]))
 }
-
-#' Mean log-likelihood of publication bias and p-hacking models
-#'
-#' @param yi Numeric vector of effect sies.
-#' @param vi Numeric vector of variances.
-#' @param alpha Numeric vector of thresholds.
-#' @param data Optional data frame.
-
-log_likelihood_psma = function(yi, vi, theta0, tau, alpha, eta, data) {
-  mean(dsnorm(yi,
-               theta0 = theta0,
-               tau = tau,
-               sigma = sqrt(vi),
-               alpha = alpha,
-               eta = eta,
-               log = TRUE))
-}
-
-
-
