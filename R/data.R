@@ -24,12 +24,6 @@
 #'     Cuddy, A. J., Schultz, S. J., & Fosse, N. E. (2018). P-curving a more comprehensive body of research on postural feedback reveals clear evidential value for power-posing effects: Reply to Simmons and Simonsohn (2017). Psychological science, 29(4), 656-666.
 #'
 #' @source \url{https://osf.io/jx3av/}
-#'
-#' @examples
-#' data(grav)
-#' times <- attr(grav, "time")
-#' phe <- grav$pheno
-#' \donttest{iplotCurves(phe, times)}
 "dat.cuddy2018"
 
 #' Studies on Effect of Violent Video Games on Negative Outcomes
@@ -59,12 +53,6 @@
 #'     Hilgard, J., Engelhardt, C. R., & Rouder, J. N. (2017). Overstated evidence for short-term effects of violent games on affect and behavior: A reanalysis of Anderson et al.(2010).
 #'
 #' @source \url{https://github.com/Joe-Hilgard/Anderson-meta}
-#'
-#' @examples
-#' data(grav)
-#' times <- attr(grav, "time")
-#' phe <- grav$pheno
-#' \donttest{iplotCurves(phe, times)}
 "dat.anderson2010"
 
 
@@ -89,11 +77,6 @@
 #'
 #' @source Baskerville, N. B., Liddy, C., & Hogg, W. (2012). Systematic review and meta-analysis of practice facilitation within primary care settings. The Annals of Family Medicine, 10(1), 63-74.
 #'
-#' @examples
-#' data(grav)
-#' times <- attr(grav, "time")
-#' phe <- grav$pheno
-#' \donttest{iplotCurves(phe, times)}
 "dat.baskerville2012"
 
 
@@ -114,12 +97,6 @@
 #' (\href{https://www.ncbi.nlm.nih.gov/pubmed/23979570}{PubMed})
 #'
 #' @source \href{https://phenome.jax.org/projects/Moore1b}{QTL Archive}
-#'
-#' @examples
-#' data(grav)
-#' times <- attr(grav, "time")
-#' phe <- grav$pheno
-#' \donttest{iplotCurves(phe, times)}
 "dat.motyl2017"
 
 #' Dang 2018
@@ -138,10 +115,4 @@
 #' (\href{https://www.ncbi.nlm.nih.gov/pubmed/23979570}{PubMed})
 #'
 #' @source \href{https://phenome.jax.org/projects/Moore1b}{QTL Archive}
-#'
-#' @examples
-#' data(grav)
-#' times <- attr(grav, "time")
-#' phe <- grav$pheno
-#' \donttest{iplotCurves(phe, times)}
 "dat.dang2018"

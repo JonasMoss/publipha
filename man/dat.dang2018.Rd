@@ -15,12 +15,6 @@ data(dat.dang2018)
 Results from 150 studies of ego depletion, the claim that self-control is a
     limited resource which is tapped whenever self-control is exerted.
 }
-\examples{
-data(grav)
-times <- attr(grav, "time")
-phe <- grav$pheno
-\donttest{iplotCurves(phe, times)}
-}
 \references{
 Moore et al. (2013) Genetics 195:1077-1086
 (\href{https://www.ncbi.nlm.nih.gov/pubmed/23979570}{PubMed})

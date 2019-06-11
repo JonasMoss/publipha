@@ -27,12 +27,6 @@ dat.anderson2010
 Results from 477 studies on the effect of violent video games on negative
    outcomes.
 }
-\examples{
-data(grav)
-times <- attr(grav, "time")
-phe <- grav$pheno
-\donttest{iplotCurves(phe, times)}
-}
 \references{
 Baskerville, N. B., Liddy, C., & Hogg, W. (2012). Systematic review and meta-analysis of practice facilitation within primary care settings. The Annals of Family Medicine, 10(1), 63-74.
     Hilgard, J., Engelhardt, C. R., & Rouder, J. N. (2017). Overstated evidence for short-term effects of violent games on affect and behavior: A reanalysis of Anderson et al.(2010).

@@ -1,0 +1,51 @@
+#' Maximum likelihood estimation of publication bias and p-hacking models
+#'
+#' @param yi Numeric vector of effect sies.
+#' @param vi Numeric vector of variances.
+#' @param alpha Numeric vector of thresholds.
+#' @param control Vector of control parameters.
+#' @param data Optional data frame.
+
+ml_phma = function(yi, vi, alpha = c(0, 0.025,0.05, 1), control = list(),
+                   data) {
+
+  f = function(p) {
+
+    theta0 = p[1]
+    tau = p[2]
+    eta = p[3:length(alpha)]
+
+    -log_likelihood_psma(yi = yi,
+                        vi = vi,
+                        theta0 = theta0,
+                        tau = tau,
+                        alpha = alpha,
+                        eta = c(1, pnorm(eta)))
+
+  }
+
+  p = c(0, 0.1, rep(0, length(alpha) - 2))
+
+  optimum = nlm(f = f, p = p)
+
+}
+
+#' Mean log-likelihood of publication bias and p-hacking models
+#'
+#' @param yi Numeric vector of effect sies.
+#' @param vi Numeric vector of variances.
+#' @param alpha Numeric vector of thresholds.
+#' @param data Optional data frame.
+
+log_likelihood_psma = function(yi, vi, theta0, tau, alpha, eta, data) {
+  mean(dsnorm(yi,
+               theta0 = theta0,
+               tau = tau,
+               sigma = sqrt(vi),
+               alpha = alpha,
+               eta = eta,
+               log = TRUE))
+}
+
+
+

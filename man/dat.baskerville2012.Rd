@@ -24,10 +24,4 @@ dat.baskerville2012
 Results from 23 studies on the effect of practice facilitation in a
     primary care setting.
 }
-\examples{
-data(grav)
-times <- attr(grav, "time")
-phe <- grav$pheno
-\donttest{iplotCurves(phe, times)}
-}
 \keyword{datasets}

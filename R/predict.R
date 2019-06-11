@@ -10,16 +10,16 @@ predict_ = function(object,
 
   type = match.arg(type, c("yi", "effect"))
 
-  if(missing(vi)) vi = object@vi
-  if(is.function(vi)) vi_ = vi
-  if(!is.function(vi)) vi_ = function() vi
+  if(missing(newdata)) vi = object@newdata
+  if(is.function(newdata)) vi_ = newdata
+  if(!is.function(newdata)) vi_ = function() newdata
 
   n = length(vi_())
   mat = matrix(data = NA, nrow = Nreps, ncol = n)
   alpha = object@alpha
   theta0s = extract_theta0(object, identity)
   taus = extract_tau(object, identity)
-  etas = extract_eta(object, identity)
+  eta = extract_eta(object, identity)
 
   indices = sample.int(n = length(theta0s), size = Nreps, replace = TRUE)
 
@@ -151,7 +151,7 @@ Isq = function(object, data) {
 normalizer = function(sigma, tau, theta0, alpha, eta) {
   k = length(alpha)
   cutoffs = qnorm(1 - alpha)
-  cdfs = pnorm(cutoffs, theta0, sqrt(sigma^2 + tau^2), lower.tail = FALSE)
+  cdfs = stats::pnorm(cutoffs, theta0, sqrt(sigma^2 + tau^2), lower.tail = FALSE)
   summands = sapply(1:(k-1), function(i) eta[i]*(cdfs[i] - cdfs[i + 1]))
   sum(summands)
 }
@@ -161,7 +161,7 @@ hellinger = function(sigma, tau, theta0, alpha, eta) {
   cutoffs = qnorm(1 - alpha)
   constant = normalizer(sigma, tau, theta0, alpha, eta)
   weights = eta/constant
-  cdfs = pnorm(cutoffs, theta0, sqrt(sigma^2 + tau^2));
+  cdfs = stats::pnorm(cutoffs, theta0, sqrt(sigma^2 + tau^2));
 
   summands = sapply(1:(k-1), function(i) sqrt(weights[i])*(cdfs[i] - cdfs[i + 1]))
   sqrt(1 - sum(summands))
@@ -172,7 +172,7 @@ l1 = function(sigma, tau, theta0, alpha, eta) {
   cutoffs = qnorm(1 - alpha)
   constant = normalizer(sigma, tau, theta0, alpha, eta)
   weights = eta/constant
-  cdfs = pnorm(cutoffs, theta0, sqrt(sigma^2 + tau^2));
+  cdfs = stats::pnorm(cutoffs, theta0, sqrt(sigma^2 + tau^2));
   summands = sapply(1:(k-1), function(i) abs(1 - weights[i])*(cdfs[i] - cdfs[i + 1]))
   sum(summands)
 }
@@ -182,7 +182,7 @@ kl = function(sigma, tau, theta0, alpha, eta) {
   cutoffs = qnorm(1 - alpha)
   constant = normalizer(sigma, tau, theta0, alpha, eta)
   weights = eta/constant
-  cdfs = pnorm(cutoffs, theta0, sqrt(sigma^2 + tau^2))
+  cdfs = stats::pnorm(cutoffs, theta0, sqrt(sigma^2 + tau^2))
   logs = weights*log(weights)
   logs[weights == 0] = 0
   summands = sapply(1:(k-1), function(i) logs[i]*(cdfs[i] - cdfs[i + 1]))
@@ -191,8 +191,8 @@ kl = function(sigma, tau, theta0, alpha, eta) {
 
 match_parameters = function(alpha1, alpha2, eta1, eta2) {
   new_alpha = sort(union(alpha1, alpha2))
-  new_eta1 = eta1[.bincode(tail(new_alpha, -1), alpha1, include.lowest = TRUE)]
-  new_eta2 = eta2[.bincode(tail(new_alpha, -1), alpha2, include.lowest = TRUE)]
+  new_eta1 = eta1[.bincode(utils::tail(new_alpha, -1), alpha1, include.lowest = TRUE)]
+  new_eta2 = eta2[.bincode(utils::tail(new_alpha, -1), alpha2, include.lowest = TRUE)]
   list(alpha = new_alpha,
        eta1 = new_eta1,
        eta2 = new_eta2)
@@ -211,7 +211,7 @@ tv = function(sigma, tau, theta0, alpha1, eta1, alpha2 = NULL, eta2 = NULL) {
   cutoffs = qnorm(1 - alpha)
   weights1 = eta1_/normalizer(sigma, tau, theta0, alpha, eta1_)
   weights2 = eta2_/normalizer(sigma, tau, theta0, alpha, eta2_)
-  cdfs = pnorm(cutoffs, theta0, sqrt(sigma^2 + tau^2));
+  cdfs = stats::pnorm(cutoffs, theta0, sqrt(sigma^2 + tau^2));
   summands = sapply(1:(k-1), function(i) abs(weights1[i] - weights2[i])*(cdfs[i] - cdfs[i + 1]))
   sum(summands)/2
 }

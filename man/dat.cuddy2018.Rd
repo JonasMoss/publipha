@@ -27,12 +27,6 @@ The data points are taken from the p-curve analysis of Cuddy et al. (2018),
    restricted to 2 cell designs with mean difference as the outcome
    variable.
 }
-\examples{
-data(grav)
-times <- attr(grav, "time")
-phe <- grav$pheno
-\donttest{iplotCurves(phe, times)}
-}
 \references{
 Cuddy, A. J., Schultz, S. J., & Fosse, N. E. (2018). P-curving a more comprehensive body of research on postural feedback reveals clear evidential value for power-posing effects: Reply to Simmons and Simonsohn (2017). Psychological science, 29(4), 656-666.
 }

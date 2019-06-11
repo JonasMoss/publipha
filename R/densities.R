@@ -35,31 +35,32 @@
 
 I = function(sigma, theta, alpha, eta) {
   k = length(alpha)
-  cutoffs = qnorm(1 - alpha)*sigma
-  cdfs = pnorm(cutoffs, theta, sigma)
+  cutoffs = stats::qnorm(1 - alpha)*sigma
+  cdfs = stats::pnorm(cutoffs, theta, sigma)
   sum(sapply(1:(k - 1), function(i) eta[i]*(cdfs[i] - cdfs[i + 1])))
 }
 
 #' @rdname normalizing_constant
 J = function(sigma, theta0, tau, alpha, eta) {
   k = length(alpha)
-  cutoffs = qnorm(1 - alpha)*sigma
-  cdfs = pnorm(cutoffs, theta0, sqrt(tau^2 + sigma^2))
+  cutoffs = stats::qnorm(1 - alpha)*sigma
+  cdfs = stats::pnorm(cutoffs, theta0, sqrt(tau^2 + sigma^2))
   sum(sapply(1:(k - 1), function(i) eta[i]*(cdfs[i] - cdfs[i + 1])))
 }
 
-#' Effect size distribution for the Publication Selection Meta-analysis Model
+#' Selected Normal Effect Size Distribution
 #'
 #' Density, distribution, quantile, random variate generation, and expectation
-#'     calculation for the effect size distribution for the publication
-#'     selection meta-analysis model
+#'     calculation for the effect size distribution for the selected effect size
+#'     distribution of the one-sided normal discrete probability vector
+#'     publication bias model.
 #'
 #' The effect size distribution for the publication selection model is not
 #'     normal, but has itself been selected for. These functions assume a
 #'     normal underyling effect size distribution and one-sided selection on the
 #'     effects.
 #'
-#' @name esprior
+#' @name snorm
 #' @export
 #' @param x,q Numeric vector of quantiles.
 #' @param p Numeric vector of probabilities.
@@ -80,14 +81,20 @@ J = function(sigma, theta0, tau, alpha, eta) {
 #'     \code{log(p)}.
 #' @param lower.tail Logical; If \code{TRUE}, the lower tail is returned.
 
-desprior = Vectorize(function(x, theta0, tau, sigma, alpha, eta) {
-  I(sigma, x, alpha, eta)*dnorm(x, theta0, tau)/
-    J(sigma, theta0, tau, alpha, eta)
+dsnorm = Vectorize(function(x, theta0, tau, sigma, alpha, eta, log = FALSE) {
+  if(log) {
+    log(I(sigma, x, alpha, eta)) + dnorm(x, theta0, tau, log = TRUE)-
+      log(J(sigma, theta0, tau, alpha, eta))
+  } else {
+    I(sigma, x, alpha, eta)*dnorm(x, theta0, tau)/
+      J(sigma, theta0, tau, alpha, eta)
+  }
+
 }, vectorize.args = c("x", "sigma", "theta0", "tau"))
 
-#' @rdname esprior
+#' @rdname snorm
 #' @export
-resprior = function(n, theta0, tau, sigma, alpha, eta) {
+rsnorm = function(n, theta0, tau, sigma, alpha, eta) {
 
   samples = rep(NA, n)
   sigma = rep_len(sigma, length.out = n)
@@ -96,9 +103,9 @@ resprior = function(n, theta0, tau, sigma, alpha, eta) {
 
   for(i in 1:n)  {
     while(TRUE) {
-      proposal = rnorm(1, theta0[i], tau[i])
+      proposal = stats::rnorm(1, theta0[i], tau[i])
       probability = I(sigma[i], proposal, alpha, eta)
-      if(probability > runif(1)) {
+      if(probability > stats::runif(1)) {
         samples[i] = proposal
         break
       }
@@ -109,9 +116,9 @@ resprior = function(n, theta0, tau, sigma, alpha, eta) {
 
 }
 
-#' @rdname eesprior
+#' @rdname snorm
 #' @export
-eesprior = Vectorize(function(theta0, tau, sigma, alpha, eta) {
+esnorm = Vectorize(function(theta0, tau, sigma, alpha, eta) {
   integrand = function(theta)
     theta*desprior(theta, theta0, tau, sigma, alpha, eta)
   integrate(integrand, lower = -Inf, upper = Inf)$value
@@ -159,12 +166,12 @@ rmaps = function(n, theta0, tau, sigma, alpha, eta) {
 
   for(i in 1:n)  {
     while(TRUE) {
-      proposal = rnorm(1, theta0[i], sqrt(tau[i]^2 + sigma[i]^2))
-      position =  .bincode(x = pnorm(-proposal/sigma[i]),
+      proposal = stats::rnorm(1, theta0[i], sqrt(tau[i]^2 + sigma[i]^2))
+      position =  .bincode(x = stats::pnorm(-proposal/sigma[i]),
                            breaks = alpha,
                            include.lowest = TRUE)
 
-      if(runif(1) < eta[position]) {
+      if(stats::runif(1) < eta[position]) {
         samples[i] = proposal
         break
       }
@@ -214,12 +221,12 @@ dps = function(x, theta, sigma, alpha, eta, log = FALSE) {
   theta = rep_len(x = theta, length.out = n)
   sigma = rep_len(x = sigma, length.out = n)
 
-  u = 1 - pnorm(x/sigma)
+  u = 1 - stats::pnorm(x/sigma)
   k = length(alpha)
 
   inclusions = .bincode(x = u, breaks = alpha, include.lowest = TRUE)
-  cutoffs = qnorm(1 - alpha)
-  cdfs = sapply(1:n, function(i) pnorm(cutoffs, theta[i]/sigma[i], 1))
+  cutoffs = stats::qnorm(1 - alpha)
+  cdfs = sapply(1:n, function(i) stats::pnorm(cutoffs, theta[i]/sigma[i], 1))
   probabilities = eta*apply(cdfs, 2, diff)/c(eta%*%apply(cdfs, 2, diff))
 
   numbers = apply(probabilities, 2,
@@ -229,8 +236,8 @@ dps = function(x, theta, sigma, alpha, eta, log = FALSE) {
 
   for(i in unique(inclusions)) {
     indices = (inclusions == i)
-    lower = qnorm(1 - alpha[i + 1])
-    upper = qnorm(1 - alpha[i])*sigma[indices]
+    lower = stats::qnorm(1 - alpha[i + 1])
+    upper = stats::qnorm(1 - alpha[i])*sigma[indices]
     y[indices] = truncnorm::dtruncnorm(x = x[indices],
                                        mean = theta[indices],
                                        sd = sigma[indices],
@@ -250,12 +257,12 @@ pps = function(q, theta, sigma, alpha, eta, lower.tail = TRUE, log.p = FALSE) {
   theta = rep_len(x = theta, length.out = n)
   sigma = rep_len(x = sigma, length.out = n)
 
-  u = 1 - pnorm(q/sigma)
+  u = 1 - stats::pnorm(q/sigma)
   k = length(alpha)
 
   inclusions = .bincode(x = u, breaks = alpha, include.lowest = TRUE)
-  cutoffs = qnorm(1 - alpha)
-  cdfs = sapply(1:n, function(i) pnorm(cutoffs, theta[i]/sigma[i], 1))
+  cutoffs = stats::qnorm(1 - alpha)
+  cdfs = sapply(1:n, function(i) stats::pnorm(cutoffs, theta[i]/sigma[i], 1))
   probabilities = eta*apply(cdfs, 2, diff)/c(eta%*%apply(cdfs, 2, diff))
 
   numbers = apply(probabilities, 2,
@@ -266,8 +273,8 @@ pps = function(q, theta, sigma, alpha, eta, lower.tail = TRUE, log.p = FALSE) {
   for(i in unique(inclusions)) {
     indices = (inclusions == i)
     extra = if(i < (k - 1)) sum(probabilities[(k - 1):(i + 1)]) else 0
-    lower = qnorm(1 - alpha[i + 1])
-    upper = qnorm(1 - alpha[i])*sigma[indices]
+    lower = stats::qnorm(1 - alpha[i + 1])
+    upper = stats::qnorm(1 - alpha[i])*sigma[indices]
     y[indices] = truncnorm::ptruncnorm(q = q[indices],
                                        mean = theta[indices],
                                        sd = sigma[indices],
@@ -290,8 +297,8 @@ rps = function(n, theta, sigma, alpha, eta) {
   sigma = rep_len(sigma, length.out = n)
 
   k = length(alpha)
-  cutoffs = qnorm(1 - alpha)
-  cdfs = sapply(1:n, function(i) pnorm(cutoffs, theta[i]/sigma[i], 1))
+  cutoffs = stats::qnorm(1 - alpha)
+  cdfs = sapply(1:n, function(i) stats::pnorm(cutoffs, theta[i]/sigma[i], 1))
   probabilities = eta*apply(cdfs, 2, diff)/c(eta%*%apply(cdfs, 2, diff))
   numbers = apply(probabilities, 2,
                   function(prob) sample(x = 1:(k - 1), size = 1, prob = prob))
@@ -300,8 +307,8 @@ rps = function(n, theta, sigma, alpha, eta) {
 
   for(i in unique(numbers)) {
     indices = (numbers == i)
-    lower = qnorm(1 - alpha[i + 1])
-    upper = qnorm(1 - alpha[i])
+    lower = stats::qnorm(1 - alpha[i + 1])
+    upper = stats::qnorm(1 - alpha[i])
     samples[indices] = truncnorm::rtruncnorm(n = sum(indices),
                                              mean = theta[indices],
                                              sd = sigma[indices],
@@ -343,7 +350,7 @@ dph = function(x, theta, sigma, alpha, eta, log = FALSE) {
   n = length(x)
   theta = rep_len(x = theta, length.out = n)
   sigma = rep_len(x = sigma, length.out = n)
-  u = 1 - pnorm(x/sigma)
+  u = 1 - stats::pnorm(x/sigma)
   k = length(alpha)
   inclusions = .bincode(x = u, breaks = alpha, include.lowest = TRUE)
   probabilities = eta/sum(eta)
@@ -351,7 +358,7 @@ dph = function(x, theta, sigma, alpha, eta, log = FALSE) {
 
   for(i in (k-1):min(inclusions)) {
     indices = (inclusions <= i)
-    cutoffs = qnorm(1 - alpha[i + 1])*sigma[indices]
+    cutoffs = stats::qnorm(1 - alpha[i + 1])*sigma[indices]
     y[indices] = y[indices] + truncnorm::dtruncnorm(x = x[indices],
                                                     mean = theta[indices],
                                                     sd = sigma[indices],
@@ -374,14 +381,14 @@ rph = function(n, theta, sigma, alpha, eta) {
 
   probabilities = eta/sum(eta)
 
-  numbers = c(c(rmultinom(1, n, probabilities)))
+  numbers = c(c(stats::rmultinom(1, n, probabilities)))
   cumulatives = cumsum(c(0, numbers))
 
   samples = vector("numeric", n)
 
   for(i in (1:length(eta))[numbers != 0]) {
     indices = (cumulatives[i] + 1):cumulatives[i + 1]
-    cutoff = qnorm(1 - alpha[i + 1])
+    cutoff = stats::qnorm(1 - alpha[i + 1])
     samples[indices] = truncnorm::rtruncnorm(n = numbers[i],
                                              mean = theta[indices],
                                              sd = sigma[indices],
@@ -400,7 +407,7 @@ pph = function(q, theta, sigma, alpha, eta, lower.tail = TRUE, log.p = FALSE) {
   n = length(q)
   theta = rep_len(x = theta, length.out = n)
   sigma = rep_len(x = sigma, length.out = n)
-  u = 1 - pnorm(q/sigma)
+  u = 1 - stats::pnorm(q/sigma)
   k = length(alpha)
   inclusions = .bincode(x = u, breaks = alpha, include.lowest = TRUE)
   probabilities = eta/sum(eta)
@@ -408,7 +415,7 @@ pph = function(q, theta, sigma, alpha, eta, lower.tail = TRUE, log.p = FALSE) {
 
   for(i in (k-1):min(inclusions)) {
     indices = (inclusions <= i)
-    cutoffs = qnorm(1 - alpha[i + 1])*sigma[indices]
+    cutoffs = stats::qnorm(1 - alpha[i + 1])*sigma[indices]
     y[indices] = y[indices] + truncnorm::ptruncnorm(q = q[indices],
                                                     mean = theta[indices],
                                                     sd = sigma[indices],

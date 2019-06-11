@@ -17,12 +17,6 @@ Arabidopsis, with data on 162 recombinant inbred lines (Ler x
 Cvi). The outcome is the root tip angle (in degrees) at two-minute
 increments over eight hours.
 }
-\examples{
-data(grav)
-times <- attr(grav, "time")
-phe <- grav$pheno
-\donttest{iplotCurves(phe, times)}
-}
 \references{
 Moore et al. (2013) Genetics 195:1077-1086
 (\href{https://www.ncbi.nlm.nih.gov/pubmed/23979570}{PubMed})

@@ -15,7 +15,7 @@ funnel = function(object, ...) {
   yi = object@yi
   vi = object@vi
 
-  cutoffs = qnorm(alpha, lower.tail = FALSE) ## Assumes the usual cutoffs.
+  cutoffs = stats::qnorm(alpha, lower.tail = FALSE) ## Assumes the usual cutoffs.
   if(is.null(dots$xlim)) dots$xlim = c(1, max(1/vi) + 10)
   if(is.null(dots$ylim)) dots$ylim = c(0, max(yi))
   y = seq(dots$xlim[1], dots$xlim[2] + 10, by = (dots$xlim[2] - dots$xlim[1])/1000)
