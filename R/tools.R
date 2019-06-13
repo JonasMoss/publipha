@@ -42,17 +42,11 @@ extract_eta = function(object, fun = mean, i = NULL) {
 
 extract_Isq= function(object, fun = mean) {
 
-    alpha = data$alphas
-    sigma = mean(sqrt(data$vi))
-    tau0s = rstan::extract(object)$sigma0
-    mean(tau0s^2/(sigma[i]^2 + tau0s^2)
-    c(mean(sapply(1:length(sigma), function(i) mean(tau0s^2/(sigma[i]^2 + tau0s^2)))),
-      mean(tau0s^2/(mean(sigma)^2 + tau0s^2)),
-      mean(tau0s^2)/mean((mean(sigma)^2 + tau0s^2)))
-  }
-  if(is.null(i)) {
-    apply(rstan::extract(object)$eta, 2, fun)
-  } else {
-    fun(rstan::extract(object)$eta[, i])
-  }
+  alpha = object@alpha
+  sigma = sqrt(object@vi)
+  tau = extract_tau(object, fun = identity)
+  Isqs = sapply(tau, function(tau) mean(tau^2/(sigma^2 + tau^2)))
+  fun(Isqs)
+
 }
+
