@@ -39,6 +39,8 @@ From inside `R`, use the following command:
 devtools::install_github("JonasMoss/publipha")
 ```
 
+## Usage
+
 Call the `library` function and use it like a barebones `metafor::rma`.
 The `alpha` tells `psma` or `phma` where they should place the cutoffs
 for significance.
