@@ -97,7 +97,7 @@ dsnorm = Vectorize(function(x, theta0, tau, sigma, alpha, eta, log = FALSE) {
       J(sigma, theta0, tau, alpha, eta)
   }
 
-}, vectorize.args = c("x", "sigma", "theta0", "tau"))
+}, vectorize.args = c("x", "theta0", "tau"))
 
 #' @rdname snorm
 #' @export
@@ -127,7 +127,7 @@ rsnorm = function(n, theta0, tau, sigma, alpha, eta) {
 #' @export
 esnorm = Vectorize(function(theta0, tau, sigma, alpha, eta) {
   integrand = function(theta)
-    theta*desprior(theta, theta0, tau, sigma, alpha, eta)
+    theta*dsnorm(theta, theta0, tau, sigma, alpha, eta)
   integrate(integrand, lower = -Inf, upper = Inf)$value
 }, vectorize.args = c("sigma", "theta0", "tau"))
 
@@ -143,7 +143,7 @@ esnorm = Vectorize(function(theta0, tau, sigma, alpha, eta) {
 #'     normal underyling effect size distribution and one-sided selection on the
 #'     effects.
 #'
-#' @name maps
+#' @name mpsnorm
 #' @export
 #' @param x,q Numeric vector of quantiles.
 #' @param p Numeric vector of probabilities.
@@ -164,7 +164,7 @@ esnorm = Vectorize(function(theta0, tau, sigma, alpha, eta) {
 #'     \code{log(p)}.
 #' @param lower.tail Logical; If \code{TRUE}, the lower tail is returned.
 
-rmaps = function(n, theta0, tau, sigma, alpha, eta) {
+rmpsnorm = function(n, theta0, tau, sigma, alpha, eta) {
 
   samples = rep(NA, n)
   sigma = rep_len(sigma, length.out = n)
@@ -189,9 +189,9 @@ rmaps = function(n, theta0, tau, sigma, alpha, eta) {
 
 }
 
-#' @rdname maps
+#' @rdname mpsnorm
 #' @export
-dmaps = function(x, theta0, tau, sigma, alpha, eta, log = FALSE) {
+dmpsnorm = function(x, theta0, tau, sigma, alpha, eta, log = FALSE) {
 
   if(any(tau <= 0)) stop("'tau' must be positive")
   cutoffs = stats::qnorm(1 - alpha)
@@ -221,7 +221,7 @@ dmaps = function(x, theta0, tau, sigma, alpha, eta, log = FALSE) {
 #'     existence of an underlying effect size distribution. For these, see
 #'     \code{maps}.
 #'
-#' @name ps
+#' @name psnorm
 #' @export
 #' @param x,q Numeric vector of quantiles.
 #' @param p Numeric vector of probabilities.
@@ -242,7 +242,7 @@ dmaps = function(x, theta0, tau, sigma, alpha, eta, log = FALSE) {
 #'     \code{log(p)}.
 #' @param lower.tail Logical; If \code{TRUE}, the lower tail is returned.
 
-dps = function(x, theta, sigma, alpha, eta, log = FALSE) {
+dpsnorm = function(x, theta, sigma, alpha, eta, log = FALSE) {
 
   n = length(x)
   theta = rep_len(x = theta, length.out = n)
@@ -276,9 +276,9 @@ dps = function(x, theta, sigma, alpha, eta, log = FALSE) {
 
 }
 
-#' @rdname ps
+#' @rdname psnorm
 #' @export
-pps = function(q, theta, sigma, alpha, eta, lower.tail = TRUE, log.p = FALSE) {
+ppsnorm = function(q, theta, sigma, alpha, eta, lower.tail = TRUE, log.p = FALSE) {
 
   n = length(q)
   theta = rep_len(x = theta, length.out = n)
@@ -315,9 +315,9 @@ pps = function(q, theta, sigma, alpha, eta, lower.tail = TRUE, log.p = FALSE) {
 
 }
 
-#' @rdname ps
+#' @rdname psnorm
 #' @export
-rps = function(n, theta, sigma, alpha, eta) {
+rpsnorm = function(n, theta, sigma, alpha, eta) {
   stopifnot(length(alpha) == (length(eta) + 1))
 
   theta = rep_len(theta, length.out = n)
@@ -356,7 +356,7 @@ rps = function(n, theta, sigma, alpha, eta) {
 #' These functions assume one-sided selection on the effects, and do not take
 #'     the effect size distribution into account. For that, see \code{mph}.
 #'
-#' @name ph
+#' @name phnorm
 #' @export
 #' @param x,q Numeric vector of quantiles.
 #' @param p Numeric vector of probabilities.
@@ -372,7 +372,7 @@ rps = function(n, theta, sigma, alpha, eta) {
 #'     \code{log(p)}.
 #' @param lower.tail Logical; If \code{TRUE}, the lower tail is returned.
 
-dph = function(x, theta, sigma, alpha, eta, log = FALSE) {
+dphnorm = function(x, theta, sigma, alpha, eta, log = FALSE) {
 
   n = length(x)
   theta = rep_len(x = theta, length.out = n)
@@ -396,9 +396,9 @@ dph = function(x, theta, sigma, alpha, eta, log = FALSE) {
 
 }
 
-#' @rdname ph
+#' @rdname phnorm
 #' @export
-rph = function(n, theta, sigma, alpha, eta) {
+rphnorm = function(n, theta, sigma, alpha, eta) {
 
   stopifnot(length(alpha) == (length(eta) + 1))
 
@@ -426,10 +426,9 @@ rph = function(n, theta, sigma, alpha, eta) {
 
 }
 
-#' @rdname ph
+#' @rdname phnorm
 #' @export
-
-pph = function(q, theta, sigma, alpha, eta, lower.tail = TRUE, log.p = FALSE) {
+pphnorm = function(q, theta, sigma, alpha, eta, lower.tail = TRUE, log.p = FALSE) {
 
   n = length(q)
   theta = rep_len(x = theta, length.out = n)
