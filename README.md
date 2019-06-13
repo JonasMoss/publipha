@@ -1,39 +1,133 @@
-# publipha
 
-*Note:* This project has no pre-release yet! If you're interested in a working package, you will have to wait.
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# publipha <img src="man/figures/logo.png" align="right" width="177" height="65" />
+
+[![DOI](https://zenodo.org/badge/120678148.svg)](https://zenodo.org/badge/latestdoi/120678148)
+
+An `R` package for Bayesian meta-analysis that accounts for publication
+bias or *p*-hacking.
+
+## Overview
+
+publipha is an package for doing Bayesian meta-analysis that accounts
+for publication bias or *p*-hacking. Its main functions are `psma` for
+publication bias meta-analyisis and `phma` for *p*-hacking
+meta-analysis. These functions have approximately the same syntax as
+`rma` from the package
+[`metafor`](https://cran.r-project.org/package=metafor). Its
+functionality is:
+
+  - `psma` does random effects meta-analysis under publication bias with
+    a one-sided *p*-value based *selection probability*. The model is
+    roughly the same as in Hedges (1992).
+  - `phma` does random effects meta-analysis under a certain model of
+    *p*-hacking with a one-sided *p*-value based *propensity to*
+    p*-hack*.
+  - `cma` does classical random effects meta-analysis with the same
+    priors as `psma` and `cma`.
+
+The objects returned from the -`ma` functions are `stan` objects, and
+can be handled by the functions from the
+[`rstan`](https://cran.r-project.org/web/packages/rstan) package, but
+`publipha` offers some convenience functions to handle them with too.
+
+## Installation
+
+From inside `R`, use the following command:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("JonasMoss/publipha")
+```
+
+Call the `library` function and use it like a barebones `metafor::rma`.
+The `alpha` tells `psma` or `phma` where they should place the cutoffs
+for significance.
+
+``` r
+library("publipha")
+# Publication bias model
+set.seed(313) # For reproducibility
+model_psma = publipha::psma(yi = yi,
+                            vi = vi,
+                            alpha = c(0, 0.025, 0.05, 1),
+                            data = metafor::dat.bangertdrowns2004)
+
+# Classical model
+set.seed(313)
+model_cma = publipha::cma(yi = yi,
+                          vi = vi,
+                          alpha = c(0, 0.025, 0.05, 1),
+                          data = metafor::dat.bangertdrowns2004)
+```
+
+You can calculate the posterior means of the meta-analytic mean with
+`extract_theta0`:
+
+``` r
+extract_theta0(model_psma)
+#> [1] 0.1241181
+```
+
+``` r
+extract_theta0(model_cma)
+#> [1] 0.2206233
+```
+
+If you wish to plot a histogram of the posterior distribution of `tau`,
+the standard deviation of the effect size distribution, you can do it
+like this:
+
+``` r
+extract_tau(model_psma, hist)
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="750px" />
 
 ## Description
 
-`straussR` is an `R`-package for Bayesian meta-analysis that corrects for publication bias and p-hacking. Its main features are:
+Kernel density estimation with a *parametric start* was introduced by
+Hjort and Glad in [Nonparametric Density Estimation with a Parametric
+Start (1995)](https://projecteuclid.org/euclid.aos/1176324627). The idea
+is to start out with a parametric density before you do your kernel
+density estimation, so that your actual kernel density estimation will
+be a correction to the original parametric estimate. This is a good idea
+because the resulting estimator will be better than an ordinary kernel
+density estimator whenever the true density is close to your suggestion;
+and the estimator can be superior to the ordinary kernal density
+estimator even when the suggestion is pretty far off.
 
-* Explicit modeling and correction for publication bias and p-hacking. The degree of p-hacking can depend
-  on covariates.
-* The random effects distribution can be chosen among possibly non-normal alternatives.
-* Support for covariates in all the parameters of the random effects distribution, and a large number of links.
-* Flexible choice of priors for all parameters.
+In addition to parametric starts, the package implements some
+*asymmetric kernels*. These kernels are useful when modelling data with
+sharp boundaries, such as data supported on the positive half-line or
+the unit interval. Currently we support the following asymmetric
+kernels:
 
-The sampling is done in [STAN](mc-stan.org/).
+  - Jones and Henderson’s *Gaussian copula KDE*, from [Kernel-Type
+    Density Estimation on the Unit Interval
+    (2007)](https://academic.oup.com/biomet/article-abstract/94/4/977/246269).
+    This is used for data on the unit interval. The bandwidth selection
+    mechanism described in that paper is implemented as well. This
+    kernel is called `gcopula`.
 
-## Example usage
+  - Chen’s two *beta kernels* from [Beta kernel estimators for density
+    functions
+    (1999)](https://www.sciencedirect.com/science/article/pii/S0167947399000109).
+    These are used for data supported on the on the unit interval, and
+    are called `beta` and `beta_biased`.
 
-Here's an artificial example with an imaginary data set. `x` and `y` are two covariates, `z` are 
-the z-values of the studies, and `n` contains the (scaled) number of participants in each study. 
-The effect size distribution is `gumbel`, which is a more reasonable choice than the normal if we
-suspect the effects to be skewed. `p` is the propensity to p-hack, and lives on the unit interval. 
-I use the term `probit(p) ~ 1 + n` since the p-hacking propensity should decrease with the study size, 
-due to the intuition that large studies get published no matter what.
+  - Chen’s two *gamma kernels* from [Probability Density Function
+    Estimation Using Gamma Kernels
+    (2000)](https://link.springer.com/article/10.1023/A:1004165218295).
+    These are used for data supported on the positive half-line, and are
+    called `gamma` and `gamma_biased`.
 
-```r
-formula = z ~ gumbel(mean ~ 1 + x, 
-                     log(sd) ~ 1 + y, 
-                     probit(p) ~ 1 + n)
-                     
-priors = list(mean = list((Intercept) ~ gamma(2, 1),
-                          x ~ weibull(2, 3),
-              sd   = list((Intercept) ~ normal(0, 1)),
-                          y ~ gumbel(0, 1),
-              p    = list((Intercept) ~ student_t(2, 0, 1)),
-                          n ~ skew_normal(0, 1, 10))
+These features can be combined to make asymmetric kernel densities
+estimators with parametric starts, see the example below. The package
+contains only one function, `kdensity`, in addition to the generics
+`plot`, `points`, `lines`, `summary`, and `print`. \#\# References
 
-straussR(formula = formula, data = data, priors = priors)
-```
+  - [Hedges, Larry V. “Modeling publication selection effects in
+    meta-analysis.” Statistical Science (1992):
+    246-255.](https://www.jstor.org/stable/pdf/2246311.pdf)
