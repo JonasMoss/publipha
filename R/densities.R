@@ -195,9 +195,9 @@ dmpsnorm = function(x, theta0, tau, sigma, alpha, eta, log = FALSE) {
 
   if(any(tau <= 0)) stop("'tau' must be positive")
   cutoffs = stats::qnorm(1 - alpha)
-  indices = .bincode(yi/sqrt(vi), sort(cutoffs))
+  indices = .bincode(x/sigma, sort(cutoffs))
   constant = J(sigma, theta0, tau, alpha, eta)
-  probabilities = rev(rev(eta)[indices])
+  probabilities = rev(eta)[indices]
 
   if(!log) {
     densities = dnorm(x = x, mean = theta0, sd = sqrt(sigma^2 + tau^2))
@@ -206,6 +206,34 @@ dmpsnorm = function(x, theta0, tau, sigma, alpha, eta, log = FALSE) {
     densities = dnorm(x = x, mean = theta0, sd = sqrt(sigma^2 + tau^2), log = TRUE)
     densities + log(probabilities) - log(constant)
   }
+
+}
+
+#' @rdname mpsnorm
+#' @export
+pmpsnorm = function(q, theta0, tau, sigma, alpha, eta, lower.tail = TRUE, log.p = FALSE) {
+
+  if(any(tau <= 0)) stop("'tau' must be positive")
+  cutoffs = stats::qnorm(1 - alpha)
+  indices = .bincode(q/sigma, sort(cutoffs))
+  constant = J(sigma, theta0, tau, alpha, eta)
+  probabilities = rev(eta)[indices]
+
+  i = 1:(length(alpha) - 2)
+  extra = c(0, rev(eta)[i]*(pnorm(rev(cutoffs)[i + 1]*sigma,
+                                 mean = theta0,
+                                 sd = sqrt(sigma^2 + tau^2)) -
+                            pnorm(rev(cutoffs)[i]*sigma,
+                                    mean = theta0,
+                                    sd = sqrt(sigma^2 + tau^2))))
+  extra = cumsum(extra)
+
+  upper = pnorm(q = q, mean = theta0, sd = sqrt(sigma^2 + tau^2))
+  lower = pnorm(q = rev(cutoffs)[indices]*sigma, mean = theta0, sd = sqrt(sigma^2 + tau^2))
+  prob = ((upper - lower)*probabilities + extra[indices])/constant
+
+  prob = if(lower.tail) prob else 1 - prob
+  if(!log.p) prob else log(prob)
 
 }
 
