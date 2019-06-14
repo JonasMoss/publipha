@@ -39,8 +39,8 @@ setClass(Class = "mafit",
 #' @param effects The type of meta-analysis model to use. Valid choices are
 #'     "random" and "fixed". Currently only random effects are supported.
 #' @param alpha Numeric vector; Specifies the cuttoffs for significance.
-#'     Should include 0 and 1. Defaults to (0, 0.05, 1).
-#' @param parameters Optional list of prior parameters. See the details.
+#'     Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).
+#' @param prior Optional list of prior parameters. See the details.
 #' @param classical Logical; If \code{TRUE}, runs a classical meta-analysis. If
 #'     \code{FALSE}, runs a Hedges meta-analysis. Currently not supported.
 #' @param ... Passed to \code{rstan::sampling}.
@@ -52,8 +52,8 @@ ma = function(yi,
               likelihood = NULL,
               data,
               effects = c("random", "fixed"),
-              alpha = c(0, 0.05, 1),
-              parameters = NULL,
+              alpha = c(0, 0.025, 0.05, 1),
+              prior = NULL,
               classical = FALSE, ...) {
 
   dots = list(...)
@@ -69,6 +69,7 @@ ma = function(yi,
     }
   }
 
+  ## Finds `yi` and `vi` in `data` if it is supplied.
   if(!missing(data)) {
     yi_name = deparse(substitute(yi))
     vi_name = deparse(substitute(vi))
@@ -78,15 +79,18 @@ ma = function(yi,
     if(!is.null(data[[likelihood_name]])) yi = data[[likelihood_name]]
   }
 
-  if(is.null(parameters)){
-    parameters = list(alpha = alpha,
-                      eta0 = rep(1, length(alpha) - 1),
-                      theta0_mean = 0,
-                      theta0_sd = 1,
-                      tau_mean = 0,
-                      tau_sd = 1)
-  }
+  ## Populate unspecified priors with the default values.
+  if(is.null(prior$eta0)) prior$eta0 = rep(1, length(alpha) - 1)
+  if(is.null(prior$theta0_mean)) prior$theta0_mean = 0
+  if(is.null(prior$theta0_sd)) prior$theta0_sd = 1
+  if(is.null(prior$tau_mean)) prior$tau_mean = 0
+  if(is.null(prior$tau_sd)) prior$tau_sd = 1
 
+  ## `parameters` in ultimately passed to stan.
+  parameters = prior
+  parameters$alpha = alpha
+
+  ## Changes stan default parameters to something conservative.
   if(is.null(dots$control$max_treedepth)) dots$control$max_treedepth = 15
   if(is.null(dots$control$adapt_delta)) dots$control$adapt_delta = 0.99
 
@@ -157,8 +161,8 @@ ma = function(yi,
 #' @param effects The type of meta-analysis model to use. Valid choices are
 #'     "random" and "fixed". Currently only random effects are supported.
 #' @param alpha Numeric vector; Specifies the cuttoffs for significance.
-#'     Should include 0 and 1. Defaults to (0, 0.05, 1).
-#' @param parameters Optional list of prior parameters. See the details.
+#'     Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).
+#' @param prior Optional list of prior parameters. See the details.
 #' @param classical Logical; If \code{TRUE}, runs a classical meta-analysis. If
 #'     \code{FALSE}, runs a Hedges meta-analysis. Currently not supported.
 #' @param ... Passed to \code{rstan::sampling}.
@@ -168,8 +172,8 @@ psma = function(yi,
                 likelihood = c("normal", "fnormal"),
                 data,
                 effects = c("random", "fixed"),
-                alpha = c(0, 0.05, 1),
-                parameters = NULL,
+                alpha = c(0, 0.025, 0.05, 1),
+                prior = NULL,
                 classical = FALSE, ...) {
   args = arguments(expand_dots = TRUE)
   do_call(ma, c(args, bias = "publication selection"))
@@ -192,8 +196,8 @@ psma = function(yi,
 #' @param effects The type of meta-analysis model to use. Valid choices are
 #'     "random" and "fixed". Currently only random effects are supported.
 #' @param alpha Numeric vector; Specifies the cuttoffs for significance.
-#'     Should include 0 and 1. Defaults to (0, 0.05, 1).
-#' @param parameters Optional list of prior parameters. See the details.
+#'     Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).
+#' @param prior Optional list of prior parameters. See the details.
 #' @param classical Logical; If \code{TRUE}, runs a classical meta-analysis. If
 #'     \code{FALSE}, runs a Hedges meta-analysis. Currently not supported.
 #' @param ... Passed to \code{rstan::sampling}.
@@ -203,8 +207,8 @@ phma = function(yi,
                likelihood = c("normal", "fnormal"),
                data,
                effects = c("random", "fixed"),
-               alpha = c(0, 0.05, 1),
-               parameters = NULL,
+               alpha = c(0, 0.025, 0.05, 1),
+               prior = NULL,
                classical = FALSE, ...) {
   args = arguments(expand_dots = TRUE)
   do_call(ma, c(args, bias = "p-hacking"))
@@ -226,7 +230,7 @@ phma = function(yi,
 #'     \code{likelihood}.
 #' @param effects The type of meta-analysis model to use. Valid choices are
 #'     "random" and "fixed". Currently only random effects are supported.
-#' @param parameters Optional list of prior parameters. See the details.
+#' @param prior Optional list of prior parameters. See the details.
 #' @param classical Logical; If \code{TRUE}, runs a classical meta-analysis. If
 #'     \code{FALSE}, runs a Hedges meta-analysis. Currently not supported.
 #' @param ... Passed to \code{rstan::sampling}.
@@ -236,8 +240,8 @@ cma = function(yi,
                 likelihood = c("normal", "fnormal"),
                 data,
                 effects = c("random", "fixed"),
-                alpha = c(0, 0.05, 1),
-                parameters = NULL,
+                alpha = c(0, 0.025, 0.05, 1),
+                prior = NULL,
                 classical = FALSE, ...) {
   args = arguments(expand_dots = TRUE)
   do_call(ma, c(args, bias = "none"))
@@ -253,11 +257,19 @@ cma = function(yi,
 #' @param yi Numeric vector of length code{k} with observed effect size
 #'     estimates.
 #' @param vi Numeric vector of length code{k} with sampling variances.
-#' @param alpha Numeric vector; Specifies the cuttoffs for significance.
-#'     Should include 0 and 1. Defaults to (0, 0.05, 1).
+#' @param likelihood String; Either a vector of length code{k} or a string
+#'     giving the likelihood for each observation. Valid choices are "normal"
+#'     and "fnormal".
+#' @param data Optional list or data frame containing \code{yi}, \code{vi} and
+#'     \code{likelihood}.
+#' @param effects The type of meta-analysis model to use. Valid choices are
+#'     "random" and "fixed". Currently only random effects are supported.
+#' @param prior Optional list of prior parameters. See the details.
+#' @param classical Logical; If \code{TRUE}, runs a classical meta-analysis. If
+#'     \code{FALSE}, runs a Hedges meta-analysis. Currently not supported.
 #' @param ... Passed to \code{rstan::sampling}.
 
-allma = function(yi, vi,data, alpha = c(0, 0.05, 1), ...) {
+allma = function(yi, vi,data, alpha = c(0, 0.025, 0.05, 1), ...) {
   args = arguments(expand_dots = TRUE)
   list(phma = do_call(ma, c(args, bias = "p-hacking")),
        psma = do_call(ma, c(args, bias = "publication selection")),
