@@ -6,7 +6,8 @@
 \alias{extract_theta}
 \alias{extract_tau}
 \alias{extract_eta}
-\title{Extract parameters form an \code{ma} object.}
+\alias{extract_Isq}
+\title{Extract parameters from an \code{ma} object.}
 \usage{
 extract_theta0(object, fun = mean)
 
@@ -15,6 +16,8 @@ extract_theta(object, fun = mean, i = NULL)
 extract_tau(object, fun = mean)
 
 extract_eta(object, fun = mean, i = NULL)
+
+extract_Isq(object, fun = mean)
 }
 \arguments{
 \item{object}{The fitted \code{ma} object.}
@@ -28,5 +31,5 @@ to. Only makes sense for \code{eta} and \code{theta}.}
 The same kind of object as \code{fun} returns.
 }
 \description{
-Extract parameters form an \code{ma} object.
+Extract parameters from an \code{ma} object.
 }

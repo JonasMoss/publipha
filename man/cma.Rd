@@ -5,8 +5,8 @@
 \title{Classical meta-analysis}
 \usage{
 cma(yi, vi, likelihood = c("normal", "fnormal"), data,
-  effects = c("random", "fixed"), alpha = c(0, 0.05, 1),
-  parameters = NULL, classical = FALSE, ...)
+  effects = c("random", "fixed"), alpha = c(0, 0.025, 0.05, 1),
+  prior = NULL, classical = FALSE, ...)
 }
 \arguments{
 \item{yi}{Numeric vector of length code{k} with observed effect size
@@ -24,7 +24,7 @@ and "fnormal".}
 \item{effects}{The type of meta-analysis model to use. Valid choices are
 "random" and "fixed". Currently only random effects are supported.}
 
-\item{parameters}{Optional list of prior parameters. See the details.}
+\item{prior}{Optional list of prior parameters. See the details.}
 
 \item{classical}{Logical; If \code{TRUE}, runs a classical meta-analysis. If
 \code{FALSE}, runs a Hedges meta-analysis. Currently not supported.}

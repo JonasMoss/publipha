@@ -5,8 +5,8 @@
 \title{Meta-analysis with Publication Selection}
 \usage{
 psma(yi, vi, likelihood = c("normal", "fnormal"), data,
-  effects = c("random", "fixed"), alpha = c(0, 0.05, 1),
-  parameters = NULL, classical = FALSE, ...)
+  effects = c("random", "fixed"), alpha = c(0, 0.025, 0.05, 1),
+  prior = NULL, classical = FALSE, ...)
 }
 \arguments{
 \item{yi}{Numeric vector of length code{k} with observed effect size
@@ -25,9 +25,9 @@ and "fnormal".}
 "random" and "fixed". Currently only random effects are supported.}
 
 \item{alpha}{Numeric vector; Specifies the cuttoffs for significance.
-Should include 0 and 1. Defaults to (0, 0.05, 1).}
+Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).}
 
-\item{parameters}{Optional list of prior parameters. See the details.}
+\item{prior}{Optional list of prior parameters. See the details.}
 
 \item{classical}{Logical; If \code{TRUE}, runs a classical meta-analysis. If
 \code{FALSE}, runs a Hedges meta-analysis. Currently not supported.}
