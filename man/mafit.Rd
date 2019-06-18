@@ -17,7 +17,7 @@ Class \code{mafit}: Fitted Meta-analysis model.
 
 \item{\code{alpha}}{Ordered numeric vector of cuttoffs including 0 and 1.}
 
-\item{\code{yi}}{Numeric vector of eDstimated effect sizes.}
+\item{\code{yi}}{Numeric vector of estimated effect sizes.}
 
 \item{\code{vi}}{Numeric vector of study-specific variances.}
 

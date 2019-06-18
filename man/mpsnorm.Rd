@@ -4,11 +4,15 @@
 \alias{mpsnorm}
 \alias{rmpsnorm}
 \alias{dmpsnorm}
+\alias{pmpsnorm}
 \title{Marginal Publication Selection Meta-analysis Model}
 \usage{
 rmpsnorm(n, theta0, tau, sigma, alpha, eta)
 
 dmpsnorm(x, theta0, tau, sigma, alpha, eta, log = FALSE)
+
+pmpsnorm(q, theta0, tau, sigma, alpha, eta, lower.tail = TRUE,
+  log.p = FALSE)
 }
 \arguments{
 \item{n}{Number of observations. If \code{length(n) > 1}, the length is taken
@@ -35,9 +39,9 @@ the maximumal element is 1.}
 \item{log, log.p}{Logical; If \code{TRUE}, probabilities are given as
 \code{log(p)}.}
 
-\item{p}{Numeric vector of probabilities.}
-
 \item{lower.tail}{Logical; If \code{TRUE}, the lower tail is returned.}
+
+\item{p}{Numeric vector of probabilities.}
 }
 \description{
 Density, distribution, quantile, random variate generation, and expectation

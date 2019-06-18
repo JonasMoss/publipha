@@ -2,6 +2,7 @@ setGeneric("loo", package = "loo")
 
 #' Calculate the \code{loo} for an \code{ma} object.
 #'
+#' @include ma.R
 #' @export
 #' @docType methods
 #' @param object The fitted \code{hma} object.

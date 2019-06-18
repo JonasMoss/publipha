@@ -15,8 +15,7 @@ estimates.}
 \item{vi}{Numeric vector of length code{k} with sampling variances.}
 
 \item{likelihood}{String; Either a vector of length code{k} or a string
-giving the likelihood for each observation. Valid choices are "normal"
-and "fnormal".}
+giving the likelihood for each observation. Only "normal" is supported.}
 
 \item{data}{Optional list or data frame containing \code{yi}, \code{vi} and
 \code{likelihood}.}
@@ -25,9 +24,6 @@ and "fnormal".}
 "random" and "fixed". Currently only random effects are supported.}
 
 \item{prior}{Optional list of prior parameters. See the details.}
-
-\item{classical}{Logical; If \code{TRUE}, runs a classical meta-analysis. If
-\code{FALSE}, runs a Hedges meta-analysis. Currently not supported.}
 
 \item{...}{Passed to \code{rstan::sampling}.}
 }

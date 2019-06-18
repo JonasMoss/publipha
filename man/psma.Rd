@@ -15,8 +15,7 @@ estimates.}
 \item{vi}{Numeric vector of length code{k} with sampling variances.}
 
 \item{likelihood}{String; Either a vector of length code{k} or a string
-giving the likelihood for each observation. Valid choices are "normal"
-and "fnormal".}
+giving the likelihood for each observation. Only "normal" is supported.}
 
 \item{data}{Optional list or data frame containing \code{yi}, \code{vi} and
 \code{likelihood}.}
@@ -27,12 +26,18 @@ and "fnormal".}
 \item{alpha}{Numeric vector; Specifies the cuttoffs for significance.
 Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).}
 
-\item{prior}{Optional list of prior parameters. See the details.}
+\item{prior}{Optional list of prior parameters. See the details of \code{ma}.}
 
-\item{classical}{Logical; If \code{TRUE}, runs a classical meta-analysis. If
-\code{FALSE}, runs a Hedges meta-analysis. Currently not supported.}
+\item{...}{Passed to \code{rstan::sampling}.
 
-\item{...}{Passed to \code{rstan::sampling}.}
+\dontrun{
+'model = psma(yi, vi, data = metafor::dat.begg1989,
+             prior = list(eta0 = c(3, 2, 1),
+                          theta0_mean = 0.5,
+                          theta0_sd = 10,
+                          tau_mean = 1,
+                          tau_sd = 1))
+}}
 }
 \description{
 Meta-analysis with Publication Selection

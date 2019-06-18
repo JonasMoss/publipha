@@ -4,7 +4,7 @@
 #'     \code{publication_selection}, \code{p-hacking} or \code{none}.
 #' @slot effect A string saying if random or fixed effects have been used.
 #' @slot alpha Ordered numeric vector of cuttoffs including 0 and 1.
-#' @slot yi Numeric vector of eDstimated effect sizes.
+#' @slot yi Numeric vector of estimated effect sizes.
 #' @slot vi Numeric vector of study-specific variances.
 #' @slot parameters The list of prior parameters used in the fitting.
 #' @name mafit
@@ -22,8 +22,22 @@ setClass(Class = "mafit",
 
 #' Meta-analysis Correcting for Publication Bias or p-hacking
 #'
-#' Do a Bayesian meta-analysis. Correct for publication selection or p-hacking,
-#'     or run an ordinary meta-analysis without correction.
+#' Do a Bayesian random effects meta-analysis. Correct for publication bias
+#'    or p-hacking, or run an ordinary meta-analysis without correction.
+#'
+#' The random effects distribution is normal with mean \code{theta0} and standard
+#'    deviation \code{tau}. The prior for \code{theta0} is normal with parameters
+#'    \code{theta0_mean} (0), \code{theta0_sd} (1), with default values in
+#'    parentheses. The prior for \code{tau} is half normal with parameters
+#'    \code{tau_mean} (1), \code{tau_sd} (1). \code{eta} is the vector of \code{K}
+#'    normalized publication probabilities (publication bias model) or \code{K}
+#'    p-hacking probabilities (p-hacking model). The prior of eta is Dirchlet with
+#'    parameter eta0, which defaults to \code{rep(1, K)}
+#'    for the publication bias model and \code{rep(1, K)} for the p-hacking model.
+#'    eta0 is the prior for the Dirichlet distribution over the non-normalized etas in the
+#'    publication bias model, and they are forced to be decreasing.
+#'    To change the prior parameters, pass them to \code{ma} in a list. See the
+#'    example.
 #'
 #' @export
 #' @param yi Numeric vector of length code{k} with observed effect size
@@ -32,8 +46,7 @@ setClass(Class = "mafit",
 #' @param bias String; If "publication bias", corrects for publication bias. If
 #'     "p-hacking", corrects for p-hacking.
 #' @param likelihood String; Either a vector of length code{k} or a string
-#'     giving the likelihood for each observation. Valid choices are "normal"
-#'     and "fnormal".
+#'     giving the likelihood for each observation. Only "normal" is supported.
 #' @param data Optional list or data frame containing \code{yi}, \code{vi} and
 #'     \code{likelihood}.
 #' @param effects The type of meta-analysis model to use. Valid choices are
@@ -41,10 +54,17 @@ setClass(Class = "mafit",
 #' @param alpha Numeric vector; Specifies the cuttoffs for significance.
 #'     Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).
 #' @param prior Optional list of prior parameters. See the details.
-#' @param classical Logical; If \code{TRUE}, runs a classical meta-analysis. If
-#'     \code{FALSE}, runs a Hedges meta-analysis. Currently not supported.
 #' @param ... Passed to \code{rstan::sampling}.
 #' @return An S4 object of class \code{mafit}.
+#'
+#'\dontrun{
+#' 'model = phma(yi, vi, data = metafor::dat.begg1989,
+#'              prior = list(eta0 = c(3, 2, 1),
+#'                           theta0_mean = 0.5,
+#'                           theta0_sd = 10,
+#'                           tau_mean = 1,
+#'                           tau_sd = 1))
+#'}
 
 ma = function(yi,
               vi,
@@ -64,9 +84,7 @@ ma = function(yi,
   if(is.null(likelihood)) {
     likelihood = "normal"
   } else {
-    for(i in 1:length(likelihood)) {
-      likelihood[i] = match.arg(likelihood, c("normal", "formal"))
-    }
+    stop("Only 'normal' likelihoods supported.")
   }
 
   ## Finds `yi` and `vi` in `data` if it is supplied.
@@ -154,18 +172,24 @@ ma = function(yi,
 #'     estimates.
 #' @param vi Numeric vector of length code{k} with sampling variances.
 #' @param likelihood String; Either a vector of length code{k} or a string
-#'     giving the likelihood for each observation. Valid choices are "normal"
-#'     and "fnormal".
+#'     giving the likelihood for each observation. Only "normal" is supported.
 #' @param data Optional list or data frame containing \code{yi}, \code{vi} and
 #'     \code{likelihood}.
 #' @param effects The type of meta-analysis model to use. Valid choices are
 #'     "random" and "fixed". Currently only random effects are supported.
 #' @param alpha Numeric vector; Specifies the cuttoffs for significance.
 #'     Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).
-#' @param prior Optional list of prior parameters. See the details.
-#' @param classical Logical; If \code{TRUE}, runs a classical meta-analysis. If
-#'     \code{FALSE}, runs a Hedges meta-analysis. Currently not supported.
+#' @param prior Optional list of prior parameters. See the details of \code{ma}.
 #' @param ... Passed to \code{rstan::sampling}.
+#'
+#'\dontrun{
+#' 'model = psma(yi, vi, data = metafor::dat.begg1989,
+#'              prior = list(eta0 = c(3, 2, 1),
+#'                           theta0_mean = 0.5,
+#'                           theta0_sd = 10,
+#'                           tau_mean = 1,
+#'                           tau_sd = 1))
+#'}
 
 psma = function(yi,
                 vi,
@@ -189,8 +213,7 @@ psma = function(yi,
 #'     estimates.
 #' @param vi Numeric vector of length code{k} with sampling variances.
 #' @param likelihood String; Either a vector of length code{k} or a string
-#'     giving the likelihood for each observation. Valid choices are "normal"
-#'     and "fnormal".
+#'     giving the likelihood for each observation. Only "normal" is supported.
 #' @param data Optional list or data frame containing \code{yi}, \code{vi} and
 #'     \code{likelihood}.
 #' @param effects The type of meta-analysis model to use. Valid choices are
@@ -198,9 +221,15 @@ psma = function(yi,
 #' @param alpha Numeric vector; Specifies the cuttoffs for significance.
 #'     Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).
 #' @param prior Optional list of prior parameters. See the details.
-#' @param classical Logical; If \code{TRUE}, runs a classical meta-analysis. If
-#'     \code{FALSE}, runs a Hedges meta-analysis. Currently not supported.
 #' @param ... Passed to \code{rstan::sampling}.
+#'\dontrun{
+#' 'model = phma(yi, vi, data = metafor::dat.begg1989,
+#'              prior = list(eta0 = c(3, 2, 1),
+#'                           theta0_mean = 0.5,
+#'                           theta0_sd = 10,
+#'                           tau_mean = 1,
+#'                           tau_sd = 1))
+#'}
 
 phma = function(yi,
                vi,
@@ -224,15 +253,12 @@ phma = function(yi,
 #'     estimates.
 #' @param vi Numeric vector of length code{k} with sampling variances.
 #' @param likelihood String; Either a vector of length code{k} or a string
-#'     giving the likelihood for each observation. Valid choices are "normal"
-#'     and "fnormal".
+#'     giving the likelihood for each observation. Only "normal" is supported.
 #' @param data Optional list or data frame containing \code{yi}, \code{vi} and
 #'     \code{likelihood}.
 #' @param effects The type of meta-analysis model to use. Valid choices are
 #'     "random" and "fixed". Currently only random effects are supported.
 #' @param prior Optional list of prior parameters. See the details.
-#' @param classical Logical; If \code{TRUE}, runs a classical meta-analysis. If
-#'     \code{FALSE}, runs a Hedges meta-analysis. Currently not supported.
 #' @param ... Passed to \code{rstan::sampling}.
 
 cma = function(yi,

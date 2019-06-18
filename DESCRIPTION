@@ -28,3 +28,14 @@ SystemRequirements: GNU make
 RoxygenNote: 6.1.1
 Suggests: 
     testthat (>= 2.1.0)
+Collate: 
+    'data.R'
+    'densities.R'
+    'ma.R'
+    'generics.R'
+    'ml.R'
+    'publipha-package.R'
+    'stanmodels.R'
+    'tools.R'
+    'utility.R'
+    'zzz.R'
