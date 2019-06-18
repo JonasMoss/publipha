@@ -18,7 +18,8 @@ functionality is:
 
   - `psma` does random effects meta-analysis under publication bias with
     a one-sided *p*-value based *selection probability*. The model is
-    roughly the same as in Hedges (1992).
+    roughly the same as [Hedges’
+    (1992)](\(https://www.jstor.org/stable/pdf/2246311.pdf\))
   - `phma` does random effects meta-analysis under a certain model of
     *p*-hacking with a one-sided *p*-value based *propensity to*
     p*-hack*.
