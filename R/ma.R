@@ -57,7 +57,7 @@ setClass(Class = "mafit",
 #' @param ... Passed to \code{rstan::sampling}.
 #' @return An S4 object of class \code{mafit}.
 #'
-#'\dontrun{
+#'donttest{
 #' 'model = phma(yi, vi, data = metafor::dat.begg1989,
 #'              prior = list(eta0 = c(3, 2, 1),
 #'                           theta0_mean = 0.5,
@@ -182,7 +182,7 @@ ma = function(yi,
 #' @param prior Optional list of prior parameters. See the details of \code{ma}.
 #' @param ... Passed to \code{rstan::sampling}.
 #'
-#'\dontrun{
+#'donttest{
 #' 'model = psma(yi, vi, data = metafor::dat.begg1989,
 #'              prior = list(eta0 = c(3, 2, 1),
 #'                           theta0_mean = 0.5,
@@ -222,7 +222,7 @@ psma = function(yi,
 #'     Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).
 #' @param prior Optional list of prior parameters. See the details.
 #' @param ... Passed to \code{rstan::sampling}.
-#'\dontrun{
+#'donttest{
 #' 'model = phma(yi, vi, data = metafor::dat.begg1989,
 #'              prior = list(eta0 = c(3, 2, 1),
 #'                           theta0_mean = 0.5,
