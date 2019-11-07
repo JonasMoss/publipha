@@ -5,8 +5,6 @@
 
 [![Build
 Status](https://travis-ci.com/JonasMoss/publipha.svg?branch=master)](https://travis-ci.org/JonasMoss/publipha)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/JonasMoss/publipha?branch=master&svg=true)](https://ci.appveyor.com/project/JonasMoss/publipha)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/publipha)](https://cran.r-project.org/package=publipha)
 [![Coverage
 Status](https://codecov.io/gh/JonasMoss/publipha/branch/master/graph/badge.svg)](https://codecov.io/gh/JonasMoss/publipha?branch=master)
@@ -27,8 +25,8 @@ for publication bias or *p*-hacking. Its main functions are:
     roughly the same as that of [(Hedges,
     1992)](\(https://www.jstor.org/stable/pdf/2246311.pdf\))
   - `phma` does random effects meta-analysis under a certain model of
-    *p*-hacking with a one-sided *p*-value based propensity to p*-hack*.
-    This is based on the forthcoming paper (Moss and De Bin, 2019).
+    *p*-hacking with a one-sided *p*-value based propensity to *p*-hack.
+    This is based on the forthcoming paper by Moss and De Bin (2019).
   - `cma` does classical random effects meta-analysis with the same
     priors as `psma` and `cma`.
 
@@ -43,7 +41,7 @@ devtools::install_github("JonasMoss/publipha")
 
 ## Example Usage
 
-Call the `library` function and use it like a barebones `metafor::rma`.
+Call the `library` function and use it like a bare-bones `metafor::rma`.
 The `alpha` tells `psma` or `phma` where they should place the cutoffs
 for significance.
 

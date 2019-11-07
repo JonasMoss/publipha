@@ -34,11 +34,9 @@ model_cma = publipha::cma(yi = yi,
 # publipha <img src="man/figures/logo.png" align="right" width="177" height="65" />
 
 [![Build Status](https://travis-ci.com/JonasMoss/publipha.svg?branch=master)](https://travis-ci.org/JonasMoss/publipha)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/JonasMoss/publipha?branch=master&svg=true)](https://ci.appveyor.com/project/JonasMoss/publipha)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/publipha)](https://cran.r-project.org/package=publipha)
 [![Coverage Status](https://codecov.io/gh/JonasMoss/publipha/branch/master/graph/badge.svg)](https://codecov.io/gh/JonasMoss/publipha?branch=master)
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-
 
 An `R` package for Bayesian meta-analysis that accounts for publication bias or *p*-hacking.
 ```{r setup, include=FALSE}
@@ -55,8 +53,8 @@ publication bias or *p*-hacking. Its main functions are:
    one-sided *p*-value based *selection probability*. The model is roughly the 
    same as that of [(Hedges, 1992)]((https://www.jstor.org/stable/pdf/2246311.pdf))
 *  `phma` does random effects meta-analysis under a certain model of *p*-hacking
-   with a one-sided *p*-value based propensity to p*-hack*. This is based
-   on the forthcoming paper (Moss and De Bin, 2019).
+   with a one-sided *p*-value based propensity to *p*-hack. This is based
+   on the forthcoming paper by Moss and De Bin (2019).
 *  `cma` does classical random effects meta-analysis with the same priors
    as `psma` and `cma`.
 
@@ -68,7 +66,7 @@ devtools::install_github("JonasMoss/publipha")
 ```
 
 ## Example Usage
-Call the `library` function and use it like a barebones `metafor::rma`. The 
+Call the `library` function and use it like a bare-bones `metafor::rma`. The 
 `alpha` tells `psma` or `phma` where they should place the cutoffs for significance.
 
 ```{r simpleuse, echo = TRUE, eval = FALSE}
