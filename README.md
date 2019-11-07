@@ -4,7 +4,7 @@
 # publipha <img src="man/figures/logo.png" align="right" width="177" height="65" />
 
 [![Build
-Status](https://travis-ci.com/JonasMoss/publipha.svg?branch=master)](https://travis-ci.org/JonasMoss/publipha)
+Status](https://travis-ci.com/JonasMoss/publipha.svg?branch=master)](https://travis-ci.com/JonasMoss/publipha)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/publipha)](https://cran.r-project.org/package=publipha)
 [![Coverage
 Status](https://codecov.io/gh/JonasMoss/publipha/branch/master/graph/badge.svg)](https://codecov.io/gh/JonasMoss/publipha?branch=master)
