@@ -32,17 +32,22 @@ Suggests:
     testthat (>= 2.1.0),
     covr,
     knitr,
-    rmarkdown
+    rmarkdown,
+    metafor,
+    qtl
 Collate: 
     'data-anderson2010.R'
     'data-baskerville2012.R'
     'data-cuddy2018.R'
     'data-dang2018.R'
     'data-motyl2017.R'
-    'densities.R'
+    'densities-mpsnorm.R'
+    'densities-normalizing.R'
+    'densities-phnorm.R'
+    'densities-psnorm.R'
+    'densities-snorm.R'
     'ma.R'
     'generics.R'
-    'ml.R'
     'publipha-package.R'
     'stanmodels.R'
     'tools.R'
