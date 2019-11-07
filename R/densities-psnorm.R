@@ -105,6 +105,7 @@ ppsnorm = function(q, theta, sigma, alpha, eta, lower.tail = TRUE, log.p = FALSE
 #' @rdname psnorm
 #' @export
 rpsnorm = function(n, theta, sigma, alpha, eta) {
+
   stopifnot(length(alpha) == (length(eta) + 1))
 
   theta = rep_len(theta, length.out = n)
@@ -130,6 +131,6 @@ rpsnorm = function(n, theta, sigma, alpha, eta) {
                                              b = upper*sigma[indices])
   }
 
-
   sample(samples)
-}}
+
+}

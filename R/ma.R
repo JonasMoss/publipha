@@ -7,8 +7,8 @@
 #' @slot yi Numeric vector of estimated effect sizes.
 #' @slot vi Numeric vector of study-specific variances.
 #' @slot parameters The list of prior parameters used in the fitting.
-#' @name mafit
-#' @rdname mafit
+#' @name mafit-class
+#' @rdname mafit-class
 #' @exportClass mafit
 
 setClass(Class = "mafit",
@@ -73,8 +73,7 @@ ma = function(yi,
               data,
               effects = c("random", "fixed"),
               alpha = c(0, 0.025, 0.05, 1),
-              prior = NULL,
-              classical = FALSE, ...) {
+              prior = NULL, ...) {
 
   dots = list(...)
   alpha = sort(alpha)
@@ -197,8 +196,7 @@ psma = function(yi,
                 data,
                 effects = c("random", "fixed"),
                 alpha = c(0, 0.025, 0.05, 1),
-                prior = NULL,
-                classical = FALSE, ...) {
+                prior = NULL, ...) {
   args = arguments(expand_dots = TRUE)
   do_call(ma, c(args, bias = "publication selection"))
 }
@@ -237,8 +235,7 @@ phma = function(yi,
                data,
                effects = c("random", "fixed"),
                alpha = c(0, 0.025, 0.05, 1),
-               prior = NULL,
-               classical = FALSE, ...) {
+               prior = NULL, ...) {
   args = arguments(expand_dots = TRUE)
   do_call(ma, c(args, bias = "p-hacking"))
 }
@@ -266,9 +263,7 @@ cma = function(yi,
                 likelihood = c("normal", "fnormal"),
                 data,
                 effects = c("random", "fixed"),
-                alpha = c(0, 0.025, 0.05, 1),
-                prior = NULL,
-                classical = FALSE, ...) {
+                prior = NULL, ...) {
   args = arguments(expand_dots = TRUE)
   do_call(ma, c(args, bias = "none"))
 }
@@ -288,16 +283,25 @@ cma = function(yi,
 #'     and "fnormal".
 #' @param data Optional list or data frame containing \code{yi}, \code{vi} and
 #'     \code{likelihood}.
+#' @param alpha Numeric vector; Specifies the cuttoffs for significance.
+#'     Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).
 #' @param effects The type of meta-analysis model to use. Valid choices are
 #'     "random" and "fixed". Currently only random effects are supported.
 #' @param prior Optional list of prior parameters. See the details.
-#' @param classical Logical; If \code{TRUE}, runs a classical meta-analysis. If
-#'     \code{FALSE}, runs a Hedges meta-analysis. Currently not supported.
 #' @param ... Passed to \code{rstan::sampling}.
 
-allma = function(yi, vi,data, alpha = c(0, 0.025, 0.05, 1), ...) {
+allma = function(yi,
+                 vi,
+                 data,
+                 likelihood = c("normal", "fnormal"),
+                 alpha = c(0, 0.025, 0.05, 1),
+                 effects = c("random", "fixed"),
+                 prior = NULL,
+                 ...) {
+
   args = arguments(expand_dots = TRUE)
   list(phma = do_call(ma, c(args, bias = "p-hacking")),
        psma = do_call(ma, c(args, bias = "publication selection")),
        cma  = do_call(ma, c(args, bias = "none")))
+
 }

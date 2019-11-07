@@ -29,7 +29,7 @@ do_call = function(.fn, .args = NULL, ..., .env = parent.frame()) {
 
 add_elements = function(input, ..., .eager = TRUE) {
 
-  dots = if(.eager) alist(...) else list2(...)
+  dots = if(.eager) list(...) else alist2(...)
   names = names(dots)
   N = length(names)
 

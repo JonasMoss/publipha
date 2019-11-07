@@ -2,16 +2,19 @@ setGeneric("loo", package = "loo")
 
 #' Calculate the \code{loo} for an \code{ma} object.
 #'
+#' @param x an object of class `mafit`.
+#' @param ... passed to [`loo`][loo::loo].
 #' @include ma.R
-#' @export
 #' @docType methods
-#' @param object The fitted \code{hma} object.
-#' @return A \code{loo} object.
+#' @export
+#' @return A [`loo`][loo::loo] object.
 
 setMethod("loo", "mafit", function(x, ...) {
 
   dots = list(...)
+
   if(is.null(dots$marginal)) dots$marginal = FALSE
+
   if(dots$marginal) {
     if(x@bias != "p-hacking") {
 
@@ -32,15 +35,22 @@ setMethod("loo", "mafit", function(x, ...) {
         result_i = vector("numeric", N)
 
         for(n in 1:N) {
+
           eta = draws$eta[n, ]
           theta0 = draws$theta0[n]
           tau = draws$tau[n]
 
-          f = function(theta) dph(yi_i/sqrt(vi_i), theta, 1, alpha, eta)*
-            dnorm(theta, theta0/sqrt(vi_i), tau/sqrt(vi_i))
+          f = function(theta) {
+            dphnorm(yi_i/sqrt(vi_i), theta, 1, x@alpha, eta) *
+            stats::dnorm(theta, theta0/sqrt(vi_i), tau/sqrt(vi_i))
+          }
 
-          result_i[n] = log(integrate(f = f, lower = -Inf, upper = Inf)$value) -
-            log(sqrt(vi_i))
+          integral = log(stats::integrate(
+            f = f,
+            lower = -Inf,
+            upper = Inf)$value)
+
+          result_i[n] = integral - log(sqrt(vi_i))
         }
 
         result_i
@@ -50,10 +60,13 @@ setMethod("loo", "mafit", function(x, ...) {
       loo(llfun, draws = rstan::extract(x), data = cbind(x@yi, x@vi), ...)
 
     }
+
   } else {
 
     log_lik = loo::extract_log_lik(x, merge_chains = FALSE)
+
     if(is.null(dots$r_eff)) dots$r_eff = loo::relative_eff(exp(log_lik))
+
     do_call(.fn = loo::loo.array, .args = c(list(x = log_lik), dots))
 
   }

@@ -4,7 +4,8 @@
 \alias{allma}
 \title{Run a meta-analysis with all corrections.}
 \usage{
-allma(yi, vi, data, alpha = c(0, 0.025, 0.05, 1), ...)
+allma(yi, vi, data, likelihood = c("normal", "fnormal"), alpha = c(0,
+  0.025, 0.05, 1), effects = c("random", "fixed"), prior = NULL, ...)
 }
 \arguments{
 \item{yi}{Numeric vector of length code{k} with observed effect size
@@ -15,19 +16,19 @@ estimates.}
 \item{data}{Optional list or data frame containing \code{yi}, \code{vi} and
 \code{likelihood}.}
 
-\item{...}{Passed to \code{rstan::sampling}.}
-
 \item{likelihood}{String; Either a vector of length code{k} or a string
 giving the likelihood for each observation. Valid choices are "normal"
 and "fnormal".}
+
+\item{alpha}{Numeric vector; Specifies the cuttoffs for significance.
+Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).}
 
 \item{effects}{The type of meta-analysis model to use. Valid choices are
 "random" and "fixed". Currently only random effects are supported.}
 
 \item{prior}{Optional list of prior parameters. See the details.}
 
-\item{classical}{Logical; If \code{TRUE}, runs a classical meta-analysis. If
-\code{FALSE}, runs a Hedges meta-analysis. Currently not supported.}
+\item{...}{Passed to \code{rstan::sampling}.}
 }
 \description{
 Do a publication bias-correct, a p-hacking-correct and a classical

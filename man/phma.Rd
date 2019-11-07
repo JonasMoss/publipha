@@ -6,7 +6,7 @@
 \usage{
 phma(yi, vi, likelihood = c("normal", "fnormal"), data,
   effects = c("random", "fixed"), alpha = c(0, 0.025, 0.05, 1),
-  prior = NULL, classical = FALSE, ...)
+  prior = NULL, ...)
 }
 \arguments{
 \item{yi}{Numeric vector of length code{k} with observed effect size
@@ -29,7 +29,7 @@ Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).}
 \item{prior}{Optional list of prior parameters. See the details.}
 
 \item{...}{Passed to \code{rstan::sampling}.
-\dontrun{
+donttest{
 'model = phma(yi, vi, data = metafor::dat.begg1989,
              prior = list(eta0 = c(3, 2, 1),
                           theta0_mean = 0.5,

@@ -5,8 +5,7 @@
 \title{Classical meta-analysis}
 \usage{
 cma(yi, vi, likelihood = c("normal", "fnormal"), data,
-  effects = c("random", "fixed"), alpha = c(0, 0.025, 0.05, 1),
-  prior = NULL, classical = FALSE, ...)
+  effects = c("random", "fixed"), prior = NULL, ...)
 }
 \arguments{
 \item{yi}{Numeric vector of length code{k} with observed effect size
