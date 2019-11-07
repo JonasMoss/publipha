@@ -1,12 +1,12 @@
 Package: publipha
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com")
-Description: What the package does (one paragraph).
+Title: Bayesian Meta-Analysis with Publications Bias and P-hacking
+Version: 0.0.1
+Authors@R: c(
+    person("Jonas", "Moss", , "jonas.gjertsen@gmail.com", role = c("aut", "cre"), 
+      comment = c(ORCID = "0000-0002-6876-6964")
+    ))
+Description: Tools for Bayesian estimation of meta-analysis models that account 
+    for publications bias or p-hacking.
 License: MIT + file LICENSE
 Depends: 
     methods,
@@ -30,7 +30,11 @@ Suggests:
     testthat (>= 2.1.0),
     covr
 Collate: 
-    'data.R'
+    'data-anderson2010.R'
+    'data-baskerville2012.R'
+    'data-cuddy2018.R'
+    'data-dang2018.R'
+    'data-motyl2017.R'
     'densities.R'
     'ma.R'
     'generics.R'
