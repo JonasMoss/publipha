@@ -23,7 +23,7 @@ jobs:
   - os: osx
   - r: release
     after_success:
-    - Rscript -e 'install.packages("covr")
+    - Rscript -e 'install.packages("covr")'
     - Rscript -e 'covr::codecov()'
   - r: oldrel
     warnings_are_errors: false
