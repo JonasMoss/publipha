@@ -28,46 +28,51 @@
 #'     the maximumal element is 1.
 #' @param log Logical; If \code{TRUE}, probabilities are given as
 #'     \code{log(p)}.
-
-dsnorm = Vectorize(function(x, theta0, tau, sigma, alpha, eta, log = FALSE) {
-  if(log) {
-    log(I(sigma, x, alpha, eta)) + stats::dnorm(x, theta0, tau, log = TRUE)-
+dsnorm <- Vectorize(function(x, theta0, tau, sigma,
+                             alpha = c(0, 0.025, 0.05, 1),
+                             eta, log = FALSE) {
+  if (log) {
+    log(I(sigma, x, alpha, eta)) + stats::dnorm(x, theta0, tau, log = TRUE) -
       log(J(sigma, theta0, tau, alpha, eta))
   } else {
-    I(sigma, x, alpha, eta)*stats::dnorm(x, theta0, tau)/
+    I(sigma, x, alpha, eta) * stats::dnorm(x, theta0, tau) /
       J(sigma, theta0, tau, alpha, eta)
   }
-
 }, vectorize.args = c("x", "theta0", "tau"))
 
 #' @rdname snorm
 #' @export
-rsnorm = function(n, theta0, tau, sigma, alpha, eta) {
+rsnorm <- function(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
+  if (length(n) > 1) n <- length(n)
 
-  samples = rep(NA, n)
-  sigma = rep_len(sigma, length.out = n)
-  theta0 = rep_len(theta0 , length.out = n)
-  tau = rep_len(tau, length.out = n)
+  stopifnot(length(alpha) == (length(eta) + 1))
 
-  for(i in 1:n)  {
-    while(TRUE) {
-      proposal = stats::rnorm(1, theta0[i], tau[i])
-      probability = I(sigma[i], proposal, alpha, eta)
-      if(probability > stats::runif(1)) {
-        samples[i] = proposal
+  samples <- rep(NA, n)
+  sigma <- rep_len(sigma, length.out = n)
+  theta0 <- rep_len(theta0, length.out = n)
+  tau <- rep_len(tau, length.out = n)
+
+  for (i in 1:n) {
+    while (TRUE) {
+      proposal <- stats::rnorm(1, theta0[i], tau[i])
+      probability <- I(sigma[i], proposal, alpha, eta)
+
+      if (probability > stats::runif(1)) {
+        samples[i] <- proposal
         break
       }
     }
   }
 
   samples
-
 }
 
 #' @rdname snorm
 #' @export
-esnorm = Vectorize(function(theta0, tau, sigma, alpha, eta) {
-  integrand = function(theta)
-    theta*dsnorm(theta, theta0, tau, sigma, alpha, eta)
+esnorm <- Vectorize(function(theta0, tau, sigma, alpha, eta) {
+  integrand <- function(theta) {
+    theta * dsnorm(theta, theta0, tau, sigma, alpha, eta)
+  }
+
   integrate(integrand, lower = -Inf, upper = Inf)$value
 }, vectorize.args = c("sigma", "theta0", "tau"))

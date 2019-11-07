@@ -30,75 +30,79 @@
 #'     \code{log(p)}.
 #' @param lower.tail Logical; If \code{TRUE}, the lower tail is returned.
 
-rmpsnorm = function(n, theta0, tau, sigma, alpha, eta) {
+rmpsnorm <- function(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
+  if (length(n) > 1) n <- length(n)
 
-  samples = rep(NA, n)
-  sigma = rep_len(sigma, length.out = n)
-  theta0 = rep_len(theta0 , length.out = n)
-  tau = rep_len(tau, length.out = n)
+  stopifnot(length(alpha) == (length(eta) + 1))
 
-  for(i in 1:n)  {
-    while(TRUE) {
-      proposal = stats::rnorm(1, theta0[i], sqrt(tau[i]^2 + sigma[i]^2))
-      position =  .bincode(x = stats::pnorm(-proposal/sigma[i]),
-                           breaks = alpha,
-                           include.lowest = TRUE)
+  samples <- rep(NA, n)
+  sigma <- rep_len(sigma, length.out = n)
+  theta0 <- rep_len(theta0, length.out = n)
+  tau <- rep_len(tau, length.out = n)
 
-      if(stats::runif(1) < eta[position]) {
-        samples[i] = proposal
+  for (i in 1:n) {
+    while (TRUE) {
+      proposal <- stats::rnorm(1, theta0[i], sqrt(tau[i]^2 + sigma[i]^2))
+      position <- .bincode(
+        x = stats::pnorm(-proposal / sigma[i]),
+        breaks = alpha,
+        include.lowest = TRUE
+      )
+
+      if (stats::runif(1) < eta[position]) {
+        samples[i] <- proposal
         break
       }
     }
   }
 
   samples
-
 }
 
 #' @rdname mpsnorm
 #' @export
-dmpsnorm = function(x, theta0, tau, sigma, alpha, eta, log = FALSE) {
+dmpsnorm <- function(x, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
+                     log = FALSE) {
+  if (any(tau <= 0)) stop("'tau' must be positive")
+  cutoffs <- stats::qnorm(1 - alpha)
+  indices <- .bincode(x / sigma, sort(cutoffs))
+  constant <- J(sigma, theta0, tau, alpha, eta)
+  probabilities <- rev(eta)[indices]
 
-  if(any(tau <= 0)) stop("'tau' must be positive")
-  cutoffs = stats::qnorm(1 - alpha)
-  indices = .bincode(x/sigma, sort(cutoffs))
-  constant = J(sigma, theta0, tau, alpha, eta)
-  probabilities = rev(eta)[indices]
-
-  if(!log) {
-    densities = stats::dnorm(x = x, mean = theta0, sd = sqrt(sigma^2 + tau^2))
-    densities*probabilities/constant
+  if (!log) {
+    densities <- stats::dnorm(x = x, mean = theta0, sd = sqrt(sigma^2 + tau^2))
+    densities * probabilities / constant
   } else {
-    densities = stats::dnorm(x = x, mean = theta0, sd = sqrt(sigma^2 + tau^2), log = TRUE)
+    densities <- stats::dnorm(x = x, mean = theta0, sd = sqrt(sigma^2 + tau^2), log = TRUE)
     densities + log(probabilities) - log(constant)
   }
-
 }
 
 #' @rdname mpsnorm
 #' @export
-pmpsnorm = function(q, theta0, tau, sigma, alpha, eta, lower.tail = TRUE, log.p = FALSE) {
+pmpsnorm <- function(q, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1),
+                     eta, lower.tail = TRUE, log.p = FALSE) {
+  if (any(tau <= 0)) stop("'tau' must be positive")
+  cutoffs <- stats::qnorm(1 - alpha)
+  indices <- .bincode(q / sigma, sort(cutoffs))
+  constant <- J(sigma, theta0, tau, alpha, eta)
+  probabilities <- rev(eta)[indices]
 
-  if(any(tau <= 0)) stop("'tau' must be positive")
-  cutoffs = stats::qnorm(1 - alpha)
-  indices = .bincode(q/sigma, sort(cutoffs))
-  constant = J(sigma, theta0, tau, alpha, eta)
-  probabilities = rev(eta)[indices]
+  i <- 1:(length(alpha) - 2)
+  extra <- c(0, rev(eta)[i] * (stats::pnorm(rev(cutoffs)[i + 1] * sigma,
+    mean = theta0,
+    sd = sqrt(sigma^2 + tau^2)
+  ) -
+    stats::pnorm(rev(cutoffs)[i] * sigma,
+      mean = theta0,
+      sd = sqrt(sigma^2 + tau^2)
+    )))
+  extra <- cumsum(extra)
 
-  i = 1:(length(alpha) - 2)
-  extra = c(0, rev(eta)[i]*(stats::pnorm(rev(cutoffs)[i + 1]*sigma,
-                                 mean = theta0,
-                                 sd = sqrt(sigma^2 + tau^2)) -
-                            stats::pnorm(rev(cutoffs)[i]*sigma,
-                                    mean = theta0,
-                                    sd = sqrt(sigma^2 + tau^2))))
-  extra = cumsum(extra)
+  upper <- stats::pnorm(q = q, mean = theta0, sd = sqrt(sigma^2 + tau^2))
+  lower <- stats::pnorm(q = rev(cutoffs)[indices] * sigma, mean = theta0, sd = sqrt(sigma^2 + tau^2))
+  prob <- ((upper - lower) * probabilities + extra[indices]) / constant
 
-  upper = stats::pnorm(q = q, mean = theta0, sd = sqrt(sigma^2 + tau^2))
-  lower = stats::pnorm(q = rev(cutoffs)[indices]*sigma, mean = theta0, sd = sqrt(sigma^2 + tau^2))
-  prob = ((upper - lower)*probabilities + extra[indices])/constant
-
-  prob = if(lower.tail) prob else 1 - prob
-  if(!log.p) prob else log(prob)
-
+  prob <- if (lower.tail) prob else 1 - prob
+  if (!log.p) prob else log(prob)
 }

@@ -7,9 +7,10 @@
 \alias{esnorm}
 \title{Selected Normal Effect Size Distribution}
 \usage{
-dsnorm(x, theta0, tau, sigma, alpha, eta, log = FALSE)
+dsnorm(x, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
+  log = FALSE)
 
-rsnorm(n, theta0, tau, sigma, alpha, eta)
+rsnorm(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta)
 
 esnorm(theta0, tau, sigma, alpha, eta)
 }

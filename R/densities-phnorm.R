@@ -23,84 +23,85 @@
 #'     \code{log(p)}.
 #' @param lower.tail Logical; If \code{TRUE}, the lower tail is returned.
 
-dphnorm = function(x, theta, sigma, alpha, eta, log = FALSE) {
+dphnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta, log = FALSE) {
+  n <- length(x)
+  theta <- rep_len(x = theta, length.out = n)
+  sigma <- rep_len(x = sigma, length.out = n)
+  u <- 1 - stats::pnorm(x / sigma)
+  k <- length(alpha)
+  inclusions <- .bincode(x = u, breaks = alpha, include.lowest = TRUE)
+  probabilities <- eta / sum(eta)
+  y <- rep.int(x = 0, times = n)
 
-  n = length(x)
-  theta = rep_len(x = theta, length.out = n)
-  sigma = rep_len(x = sigma, length.out = n)
-  u = 1 - stats::pnorm(x/sigma)
-  k = length(alpha)
-  inclusions = .bincode(x = u, breaks = alpha, include.lowest = TRUE)
-  probabilities = eta/sum(eta)
-  y = rep.int(x = 0, times = n)
-
-  for(i in (k-1):min(inclusions)) {
-    indices = (inclusions <= i)
-    cutoffs = stats::qnorm(1 - alpha[i + 1])*sigma[indices]
-    y[indices] = y[indices] + truncnorm::dtruncnorm(x = x[indices],
-                                                    mean = theta[indices],
-                                                    sd = sigma[indices],
-                                                    a = cutoffs)*probabilities[i]
+  for (i in (k - 1):min(inclusions)) {
+    indices <- (inclusions <= i)
+    cutoffs <- stats::qnorm(1 - alpha[i + 1]) * sigma[indices]
+    y[indices] <- y[indices] + truncnorm::dtruncnorm(
+      x = x[indices],
+      mean = theta[indices],
+      sd = sigma[indices],
+      a = cutoffs
+    ) * probabilities[i]
   }
 
-  if(!log) y else log(y)
-
+  if (!log) y else log(y)
 }
 
 #' @rdname phnorm
 #' @export
-rphnorm = function(n, theta, sigma, alpha, eta) {
+rphnorm <- function(n, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
+  if (length(n) > 1) n <- length(n)
 
   stopifnot(length(alpha) == (length(eta) + 1))
 
-  shuffle = sample(1:n)
-  theta = rep_len(theta, length.out = n)[shuffle]
-  sigma = rep_len(sigma, length.out = n)[shuffle]
+  shuffle <- sample(1:n)
+  theta <- rep_len(theta, length.out = n)[shuffle]
+  sigma <- rep_len(sigma, length.out = n)[shuffle]
 
-  probabilities = eta/sum(eta)
+  probabilities <- eta / sum(eta)
 
-  numbers = c(c(stats::rmultinom(1, n, probabilities)))
-  cumulatives = cumsum(c(0, numbers))
+  numbers <- c(c(stats::rmultinom(1, n, probabilities)))
+  cumulatives <- cumsum(c(0, numbers))
 
-  samples = vector("numeric", n)
+  samples <- vector("numeric", n)
 
-  for(i in (1:length(eta))[numbers != 0]) {
-    indices = (cumulatives[i] + 1):cumulatives[i + 1]
-    cutoff = stats::qnorm(1 - alpha[i + 1])
-    samples[indices] = truncnorm::rtruncnorm(n = numbers[i],
-                                             mean = theta[indices],
-                                             sd = sigma[indices],
-                                             a = cutoff*sigma[indices])
+  for (i in (1:length(eta))[numbers != 0]) {
+    indices <- (cumulatives[i] + 1):cumulatives[i + 1]
+    cutoff <- stats::qnorm(1 - alpha[i + 1])
+    samples[indices] <- truncnorm::rtruncnorm(
+      n = numbers[i],
+      mean = theta[indices],
+      sd = sigma[indices],
+      a = cutoff * sigma[indices]
+    )
   }
 
   samples[order(shuffle)]
-
 }
 
 #' @rdname phnorm
 #' @export
-pphnorm = function(q, theta, sigma, alpha, eta, lower.tail = TRUE, log.p = FALSE) {
+pphnorm <- function(q, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta, lower.tail = TRUE, log.p = FALSE) {
+  n <- length(q)
+  theta <- rep_len(x = theta, length.out = n)
+  sigma <- rep_len(x = sigma, length.out = n)
+  u <- 1 - stats::pnorm(q / sigma)
+  k <- length(alpha)
+  inclusions <- .bincode(x = u, breaks = alpha, include.lowest = TRUE)
+  probabilities <- eta / sum(eta)
+  y <- rep.int(x = 0, times = n)
 
-  n = length(q)
-  theta = rep_len(x = theta, length.out = n)
-  sigma = rep_len(x = sigma, length.out = n)
-  u = 1 - stats::pnorm(q/sigma)
-  k = length(alpha)
-  inclusions = .bincode(x = u, breaks = alpha, include.lowest = TRUE)
-  probabilities = eta/sum(eta)
-  y = rep.int(x = 0, times = n)
-
-  for(i in (k-1):min(inclusions)) {
-    indices = (inclusions <= i)
-    cutoffs = stats::qnorm(1 - alpha[i + 1])*sigma[indices]
-    y[indices] = y[indices] + truncnorm::ptruncnorm(q = q[indices],
-                                                    mean = theta[indices],
-                                                    sd = sigma[indices],
-                                                    a = cutoffs)*probabilities[i]
+  for (i in (k - 1):min(inclusions)) {
+    indices <- (inclusions <= i)
+    cutoffs <- stats::qnorm(1 - alpha[i + 1]) * sigma[indices]
+    y[indices] <- y[indices] + truncnorm::ptruncnorm(
+      q = q[indices],
+      mean = theta[indices],
+      sd = sigma[indices],
+      a = cutoffs
+    ) * probabilities[i]
   }
 
-  if(!lower.tail) 1 - y
-  if(!log.p) y else log(y)
-
-
+  if (!lower.tail) y <- 1 - y
+  if (!log.p) y else log(y)
 }
