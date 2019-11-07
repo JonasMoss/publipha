@@ -6,3 +6,4 @@ todo.txt
 /README_cache
 *.dll
 *.o
+inst/doc

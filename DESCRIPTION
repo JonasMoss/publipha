@@ -14,7 +14,9 @@ Depends:
     Rcpp (>= 0.12.19)
 Imports: 
     rstan (>= 2.18.1),
-    rstantools (>= 1.5.1)
+    rstantools (>= 1.5.1),
+    loo,
+    truncnorm
 LinkingTo: 
     BH (>= 1.66.0-1),
     Rcpp (>= 0.12.19),
@@ -28,7 +30,9 @@ SystemRequirements: GNU make
 RoxygenNote: 6.1.1
 Suggests: 
     testthat (>= 2.1.0),
-    covr
+    covr,
+    knitr,
+    rmarkdown
 Collate: 
     'data-anderson2010.R'
     'data-baskerville2012.R'
@@ -44,3 +48,4 @@ Collate:
     'tools.R'
     'utility.R'
     'zzz.R'
+VignetteBuilder: knitr
