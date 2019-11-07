@@ -4,7 +4,7 @@
 # publipha <img src="man/figures/logo.png" align="right" width="177" height="65" />
 
 [![Build
-Status](https://travis-ci.org/JonasMoss/publipha.svg?branch=master)](https://travis-ci.org/JonasMoss/publipha)
+Status](https://travis-ci.com/JonasMoss/publipha.svg?branch=master)](https://travis-ci.org/JonasMoss/publipha)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/JonasMoss/publipha?branch=master&svg=true)](https://ci.appveyor.com/project/JonasMoss/publipha)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/publipha)](https://cran.r-project.org/package=publipha)
