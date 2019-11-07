@@ -41,7 +41,7 @@ script:
     travis_wait 59 R CMD check publipha*tar.gz
     
 after_script:
-  - tar -ztvf publipha_*.tar.gz
+  - tar -ztvf publipha*.tar.gz
   - echo ${NOT_CRAN}
 
 after_success:
