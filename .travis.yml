@@ -37,7 +37,9 @@ before_install:
 
 # install: 
 #   - R -e "install.packages('rstan')"
-  
+#
+#
+
 script: 
   - |
     travis_wait 42 R CMD build .
