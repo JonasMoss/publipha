@@ -7,6 +7,12 @@ cache: packages
 dist: trusty
 latex: true
 
+r_github_packages:
+  - jimhester/covr
+
+env:
+
+
 addons:
     apt:
       sources:
@@ -16,14 +22,14 @@ addons:
         
 env:
     - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+    global:
+    - MAKEFLAGS="-j 2"
 
 jobs:
   include:
   - r: devel
   - os: osx
   - r: release
-    after_success:
-    - Rscript -e 'install.packages("covr")'
   - r: oldrel
     warnings_are_errors: false
     
