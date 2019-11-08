@@ -31,9 +31,11 @@
 #' @param lower.tail Logical; If \code{TRUE}, the lower tail is returned.
 
 rmpsnorm <- function(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
+
   if (length(n) > 1) n <- length(n)
 
   stopifnot(length(alpha) == (length(eta) + 1))
+  density_input_checker(theta0 = theta0, tau = tau, sigma = sigma)
 
   samples <- rep(NA, n)
   sigma <- rep_len(sigma, length.out = n)
@@ -63,7 +65,10 @@ rmpsnorm <- function(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
 #' @export
 dmpsnorm <- function(x, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
                      log = FALSE) {
-  if (any(tau <= 0)) stop("'tau' must be positive")
+
+  stopifnot(length(alpha) == (length(eta) + 1))
+  density_input_checker(theta0 = theta0, tau = tau, sigma = sigma)
+
   cutoffs <- stats::qnorm(1 - alpha)
   indices <- .bincode(x / sigma, sort(cutoffs))
   constant <- J(sigma, theta0, tau, alpha, eta)
@@ -82,7 +87,10 @@ dmpsnorm <- function(x, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
 #' @export
 pmpsnorm <- function(q, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1),
                      eta, lower.tail = TRUE, log.p = FALSE) {
-  if (any(tau <= 0)) stop("'tau' must be positive")
+
+  stopifnot(length(alpha) == (length(eta) + 1))
+  density_input_checker(theta0 = theta0, tau = tau, sigma = sigma)
+
   cutoffs <- stats::qnorm(1 - alpha)
   indices <- .bincode(q / sigma, sort(cutoffs))
   constant <- J(sigma, theta0, tau, alpha, eta)

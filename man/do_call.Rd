@@ -22,3 +22,4 @@ specified environment.
 \description{
 Variant of do call with that preserves argument names.
 }
+\keyword{internal}

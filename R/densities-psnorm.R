@@ -31,7 +31,12 @@
 
 dpsnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
                     log = FALSE) {
+
+  stopifnot(length(alpha) == (length(eta) + 1))
+  density_input_checker(theta = theta, sigma = sigma)
+
   n <- length(x)
+
   theta <- rep_len(x = theta, length.out = n)
   sigma <- rep_len(x = sigma, length.out = n)
 
@@ -42,11 +47,6 @@ dpsnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
   cutoffs <- stats::qnorm(1 - alpha)
   cdfs <- sapply(1:n, function(i) stats::pnorm(cutoffs, theta[i] / sigma[i], 1))
   probabilities <- eta * apply(cdfs, 2, diff) / c(eta %*% apply(cdfs, 2, diff))
-
-  numbers <- apply(
-    probabilities, 2,
-    function(prob) sample(x = 1:(k - 1), size = 1, prob = prob)
-  )
 
   y <- rep.int(x = 0, times = n)
 
@@ -70,6 +70,10 @@ dpsnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
 #' @export
 ppsnorm <- function(q, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
                     lower.tail = TRUE, log.p = FALSE) {
+
+  stopifnot(length(alpha) == (length(eta) + 1))
+  density_input_checker(theta = theta, sigma = sigma)
+
   n <- length(q)
   theta <- rep_len(x = theta, length.out = n)
   sigma <- rep_len(x = sigma, length.out = n)
@@ -108,6 +112,7 @@ rpsnorm <- function(n, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
   if (length(n) > 1) n <- length(n)
 
   stopifnot(length(alpha) == (length(eta) + 1))
+  density_input_checker(theta = theta, sigma = sigma)
 
   theta <- rep_len(theta, length.out = n)
   sigma <- rep_len(sigma, length.out = n)

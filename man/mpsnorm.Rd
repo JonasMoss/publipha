@@ -7,12 +7,13 @@
 \alias{pmpsnorm}
 \title{Marginal Publication Selection Meta-analysis Model}
 \usage{
-rmpsnorm(n, theta0, tau, sigma, alpha, eta)
+rmpsnorm(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta)
 
-dmpsnorm(x, theta0, tau, sigma, alpha, eta, log = FALSE)
+dmpsnorm(x, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
+  log = FALSE)
 
-pmpsnorm(q, theta0, tau, sigma, alpha, eta, lower.tail = TRUE,
-  log.p = FALSE)
+pmpsnorm(q, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
+  lower.tail = TRUE, log.p = FALSE)
 }
 \arguments{
 \item{n}{Number of observations. If \code{length(n) > 1}, the length is taken

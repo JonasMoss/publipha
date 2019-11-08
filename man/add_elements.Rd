@@ -20,3 +20,4 @@ A modified list.
 \description{
 Adds named elements to a list when they are not there already.
 }
+\keyword{internal}

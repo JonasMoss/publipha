@@ -7,11 +7,13 @@
 \alias{rpsnorm}
 \title{Publication Selection Meta-analysis Model}
 \usage{
-dpsnorm(x, theta, sigma, alpha, eta, log = FALSE)
+dpsnorm(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
+  log = FALSE)
 
-ppsnorm(q, theta, sigma, alpha, eta, lower.tail = TRUE, log.p = FALSE)
+ppsnorm(q, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
+  lower.tail = TRUE, log.p = FALSE)
 
-rpsnorm(n, theta, sigma, alpha, eta)
+rpsnorm(n, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta)
 }
 \arguments{
 \item{x, q}{Numeric vector of quantiles.}

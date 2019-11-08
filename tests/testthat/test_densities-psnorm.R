@@ -37,3 +37,13 @@ expect_equal(
   1 - ppsnorm(x, theta = theta, sigma = sigma, eta = eta),
   ppsnorm(x, theta = theta, sigma = sigma, eta = eta, lower.tail = FALSE)
 )
+
+
+## Errors
+expect_error(ppsnorm(x, theta = NA, sigma = sigma, eta = eta))
+expect_error(ppsnorm(x, theta = theta, sigma = -1, eta = eta))
+expect_error(rpsnorm(1, theta = NA, sigma = sigma, eta = eta))
+expect_error(rpsnorm(1, theta = theta, sigma = -1, eta = eta))
+expect_error(dpsnorm(x, theta = NA, sigma = sigma, eta = eta))
+expect_error(dpsnorm(x, theta = theta, sigma = -1, eta = eta))
+

@@ -8,6 +8,7 @@
 #'     the observed effect sizes. The function \code{J} calculates the
 #'     normalizing constant for the density of the effect size distribution.
 #'
+#' @keywords internal
 #' @name normalizing_constant
 #' @param sigma Numeric; The standard deviation of the study, due to
 #'     sampling error.
@@ -43,5 +44,22 @@ J = function(sigma, theta0, tau, alpha, eta) {
     cdfs = stats::pnorm(cutoffs, theta0/sigma, sqrt(tau^2 + sigma^2)/sigma)
     sum(sapply(1:(k - 1), function(i) eta[i]*(cdfs[i] - cdfs[i + 1])))
   })
+
+}
+
+density_input_checker <- function(theta0 = NULL, theta = NULL, sigma = NULL,
+                                 tau = NULL) {
+
+  if (any(!is.numeric(c(theta0, theta, tau, sigma))))
+    stop("parameters must be numeric")
+
+  if (any(is.na(c(theta0, sigma, theta, tau))))
+    stop("parameters cannot be na")
+
+  if (any(tau <= 0))
+    stop("'tau' must be positive")
+
+  if (any(sigma <= 0))
+    stop("'sigma' must be positive")
 
 }

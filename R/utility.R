@@ -1,6 +1,7 @@
 #' Make lazy list from arguments.
 #'
 #' Works with passed \code{...} parameters.
+#' @keywords internal
 #' @param ... Parameters to put into the list.
 #' @return A lazy list.
 
@@ -8,6 +9,7 @@ alist2 = function(...) as.list(substitute((...)))[-1]
 
 #' Variant of do call with that preserves argument names.
 #'
+#' @keywords internal
 #' @param .fn Function to call.
 #' @param .args List of arguments to \code{.fn}.
 #' @param ... Further arguments to \code{.fn}.
@@ -21,6 +23,7 @@ do_call = function(.fn, .args = NULL, ..., .env = parent.frame()) {
 
 #' Adds named elements to a list when they are not there already.
 #'
+#' @keywords internal
 #' @param input List. The input list to manipulate.
 #' @param ... Key value pairs to add to the list provided the key is not already
 #' used.
@@ -40,6 +43,7 @@ add_elements = function(input, ..., .eager = TRUE) {
 
 #' Get arguments of the calling function.
 #'
+#' @keywords internal
 #' @param expand_dots Logical; If \code{TRUE}, returns the argument list with
 #'     expanded \code{...}.
 #'

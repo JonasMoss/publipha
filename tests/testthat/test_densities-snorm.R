@@ -36,3 +36,14 @@ integrand = function(theta)
 expectation =  integrate(integrand, lower = -Inf, upper = Inf)$value
 
 expect_equal(esnorm(theta0, tau, sigma, alpha, eta), expectation)
+
+## Errors
+expect_error(psnorm(x, theta0 = NA, sigma = sigma, tau = tau, eta = eta))
+expect_error(psnorm(x, theta0 = theta0, sigma = -1, tau = tau, eta = eta))
+expect_error(psnorm(x, theta0 = theta0, sigma = sigma, tau = 0, eta = eta))
+expect_error(rsnorm(1, theta0 = NA, sigma = sigma, tau = tau, eta = eta))
+expect_error(rsnorm(1, theta0 = theta0, sigma = -1, tau = tau, eta = eta))
+expect_error(rsnorm(1, theta0 = theta0, sigma = sigma, tau = 0, eta = eta))
+expect_error(dsnorm(x, theta0 = NA, sigma = sigma, tau = tau, eta = eta))
+expect_error(dsnorm(x, theta0 = theta0, sigma = -1, tau = tau, eta = eta))
+expect_error(dsnorm(x, theta0 = theta0, sigma = sigma, tau = 0, eta = eta))

@@ -38,3 +38,15 @@ expect_equal(
   1 - pmpsnorm(x, theta0 = theta0, sigma = sigma, tau = tau, eta = eta),
   pmpsnorm(x, theta0 = theta0, sigma = sigma, tau = tau, eta = eta, lower.tail = FALSE)
 )
+
+## Errors
+expect_error(pmpsnorm(x, theta0 = NA, sigma = sigma, tau = tau, eta = eta))
+expect_error(pmpsnorm(x, theta0 = theta0, sigma = -1, tau = tau, eta = eta))
+expect_error(pmpsnorm(x, theta0 = theta0, sigma = sigma, tau = 0, eta = eta))
+expect_error(rmpsnorm(1, theta0 = NA, sigma = sigma, tau = tau, eta = eta))
+expect_error(rmpsnorm(1, theta0 = theta0, sigma = -1, tau = tau, eta = eta))
+expect_error(rmpsnorm(1, theta0 = theta0, sigma = sigma, tau = 0, eta = eta))
+expect_error(dmpsnorm(x, theta0 = NA, sigma = sigma, tau = tau, eta = eta))
+expect_error(dmpsnorm(x, theta0 = theta0, sigma = -1, tau = tau, eta = eta))
+expect_error(dmpsnorm(x, theta0 = theta0, sigma = sigma, tau = 0, eta = eta))
+

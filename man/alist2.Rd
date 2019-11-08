@@ -15,3 +15,4 @@ A lazy list.
 \description{
 Works with passed \code{...} parameters.
 }
+\keyword{internal}
