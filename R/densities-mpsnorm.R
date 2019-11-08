@@ -27,7 +27,7 @@
 #' bias and p-hacking" Forthcoming (2019)
 #'
 #' @examples
-#' rdmpsnorm(100, theta0 = 0, tau = 0.1, sigma = 0.1, eta = c(1, 0.5, 0.1))
+#' rmpsnorm(100, theta0 = 0, tau = 0.1, sigma = 0.1, eta = c(1, 0.5, 0.1))
 #' @rdname mpsnorm
 #' @export
 dmpsnorm <- function(x, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,

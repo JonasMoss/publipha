@@ -46,7 +46,7 @@ These functions assume a normal underyling effect size distribution and
 one-sided selection on the effects.
 }
 \examples{
-rdmpsnorm(100, theta0 = 0, tau = 0.1, sigma = 0.1, eta = c(1, 0.5, 0.1))
+rmpsnorm(100, theta0 = 0, tau = 0.1, sigma = 0.1, eta = c(1, 0.5, 0.1))
 }
 \references{
 Hedges, Larry V. "Modeling publication selection effects

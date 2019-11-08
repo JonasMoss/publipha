@@ -13,7 +13,7 @@
 #'
 #' @name ExtractParameters
 #' @export
-#' @param object an object of class [`mafit`][mafit].
+#' @param object an object of class [`mafit`][mafit-class].
 #' @param fun the function to be applied to the fitted parameters.
 #' @param i an optional index specifying which parameter to apply `fun` to. Only
 #'    for `extract_eta` and `extract_theta`.

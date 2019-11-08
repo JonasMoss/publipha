@@ -20,7 +20,7 @@ extract_eta(object, fun = mean, i)
 extract_isq(object, fun = mean)
 }
 \arguments{
-\item{object}{an object of class \code{\link{mafit}}.}
+\item{object}{an object of class \code{\link[=mafit-class]{mafit}}.}
 
 \item{fun}{the function to be applied to the fitted parameters.}
 
