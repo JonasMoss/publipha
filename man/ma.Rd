@@ -2,11 +2,29 @@
 % Please edit documentation in R/ma.R
 \name{ma}
 \alias{ma}
+\alias{psma}
+\alias{phma}
+\alias{cma}
+\alias{allma}
 \title{Meta-analysis Correcting for Publication Bias or p-hacking}
 \usage{
 ma(yi, vi, bias = c("publication selection", "p-hacking", "none"),
   likelihood = NULL, data, effects = c("random", "fixed"),
   alpha = c(0, 0.025, 0.05, 1), prior = NULL, ...)
+
+psma(yi, vi, likelihood = c("normal", "fnormal"), data,
+  effects = c("random", "fixed"), alpha = c(0, 0.025, 0.05, 1),
+  prior = NULL, ...)
+
+phma(yi, vi, likelihood = c("normal", "fnormal"), data,
+  effects = c("random", "fixed"), alpha = c(0, 0.025, 0.05, 1),
+  prior = NULL, ...)
+
+cma(yi, vi, likelihood = c("normal", "fnormal"), data,
+  effects = c("random", "fixed"), prior = NULL, ...)
+
+allma(yi, vi, data, likelihood = c("normal", "fnormal"), alpha = c(0,
+  0.025, 0.05, 1), effects = c("random", "fixed"), prior = NULL, ...)
 }
 \arguments{
 \item{yi}{Numeric vector of length code{k} with observed effect size
@@ -34,33 +52,72 @@ Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).}
 \item{...}{Passed to \code{rstan::sampling}.}
 }
 \value{
-An S4 object of class \code{mafit}.
-
-donttest{
-'model = phma(yi, vi, data = metafor::dat.begg1989,
-prior = list(eta0 = c(3, 2, 1),
-theta0_mean = 0.5,
-theta0_sd = 10,
-tau_mean = 1,
-tau_sd = 1))
-}
+An S4 object of class \code{mafit} when \code{ma}, \code{psma}, \code{phma} or \code{cma} is
+run. A list of \code{mafit} objects when \code{allma} is run.
 }
 \description{
-Do a Bayesian random effects meta-analysis. Correct for publication bias
-or p-hacking, or run an ordinary meta-analysis without correction.
+Bayesian random effects meta-analysis. Correct for publication bias
+or p-hacking, or run an ordinary meta-analysis without any correction.
 }
 \details{
+\code{ma} does a Bayesian meta-analysis with the type of correction used specified
+by \code{bias}. \code{psma} is a wrapper for \code{ma} with
+\code{bias = "publication selection"}, \code{phma} is a wrapper with
+\code{bias = "p-hacking"}, while \code{cma} has \code{bias = "none"}. The function \code{allma}
+runs all o
+
+The \code{bias} options are:
+\enumerate{
+\item \code{publication select}: The model of publication bias described in
+Hedges (1992).
+\item \code{p-hacking}: The model for \emph{p}-hacking described in Moss & De Bin (2019).
+\item \code{none}: Classical random effects meta-analysis with no correction for
+selection bias.
+}
+
 The random effects distribution is normal with mean \code{theta0} and standard
 deviation \code{tau}. The prior for \code{theta0} is normal with parameters
-\code{theta0_mean} (0), \code{theta0_sd} (1), with default values in
+\code{theta0_mean} (default: 0), \code{theta0_sd} (default: 1), with default values in
 parentheses. The prior for \code{tau} is half normal with parameters
-\code{tau_mean} (1), \code{tau_sd} (1). \code{eta} is the vector of \code{K}
+\code{tau_mean} (default: 1), \code{tau_sd} (default: 1). \code{eta} is the vector of \code{K}
 normalized publication probabilities (publication bias model) or \code{K}
-p-hacking probabilities (p-hacking model). The prior of eta is Dirchlet with
+\emph{p}-hacking probabilities (\emph{p}-hacking model). The prior of eta is Dirchlet with
 parameter eta0, which defaults to \code{rep(1, K)}
 for the publication bias model and \code{rep(1, K)} for the p-hacking model.
 eta0 is the prior for the Dirichlet distribution over the non-normalized etas in the
 publication bias model, and they are forced to be decreasing.
-To change the prior parameters, pass them to \code{ma} in a list. See the
-example.
+To change the prior parameters, pass them to \code{prior} in a list.
+}
+\examples{
+
+\dontrun{
+phma_model <- phma(yi, vi, data = metafor::dat.begg1989)
+}
+
+prior <- list(
+  eta0 = c(3, 2, 1),
+  theta0_mean = 0.5,
+  theta0_sd = 10,
+  tau_mean = 1,
+  tau_sd = 1
+)
+\dontrun{
+psma_model <- psma(yi, vi, data = metafor::dat.begg1989, prior = prior)
+}
+
+\dontrun{
+cma_model <- psma(yi, vi, data = metafor::dat.begg1989, prior = prior)
+}
+
+\dontrun{
+model <- all(yi, vi, data = metafor::dat.begg1989, prior = prior)
+}
+
+}
+\references{
+Hedges, Larry V. "Modeling publication selection effects
+in meta-analysis." Statistical Science (1992): 246-255.
+
+Moss, Jonas and De Bin, Riccardo. "Modelling publication
+bias and p-hacking" Forthcoming (2019)
 }
