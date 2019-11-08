@@ -24,3 +24,6 @@ workspace_old
 ^todo.txt$
 ^.covrignore$
 ^\.covrignore$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
