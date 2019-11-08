@@ -22,3 +22,5 @@ workspace_old
 ^CRAN-RELEASE$
 ^paper$
 ^todo.txt$
+^.covrignore$
+^\.covrignore$
