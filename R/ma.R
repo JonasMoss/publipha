@@ -63,8 +63,7 @@ setClass(
 #' @param vi Numeric vector of length code{k} with sampling variances.
 #' @param bias String; If "publication bias", corrects for publication bias. If
 #'     "p-hacking", corrects for p-hacking.
-#' @param data Optional list or data frame containing \code{yi}, \code{vi} and
-#'     \code{likelihood}.
+#' @param data Optional list or data frame containing \code{yi} and \code{vi}.
 #' @param alpha Numeric vector; Specifies the cuttoffs for significance.
 #'     Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).
 #' @param prior Optional list of prior parameters. See the details.
@@ -106,15 +105,12 @@ ma <- function(yi,
                vi,
                bias = c("publication selection", "p-hacking", "none"),
                data,
-               effects = c("random", "fixed"),
                alpha = c(0, 0.025, 0.05, 1),
                prior = NULL, ...) {
   dots <- list(...)
 
   alpha <- sort(alpha)
   bias <- match.arg(bias, c("publication selection", "p-hacking", "none"))
-  effects <- "random"
-  likelihood <- "normal"
 
   ## Finds `yi` and `vi` in `data` if it is supplied.
   if (!missing(data)) {
@@ -156,14 +152,10 @@ ma <- function(yi,
     k = length(alpha)
   )
 
-
-  index <- ifelse(likelihood == "normal", 0, 1)
-
   input_data <- c(
     list(
       yi = yi,
-      vi = vi,
-      likelihood = rep_len(index, length.out = sizes$N)
+      vi = vi
     ),
     sizes,
     parameters
@@ -221,7 +213,6 @@ ma <- function(yi,
   obj@parameters <- parameters
   obj@alpha <- alpha
   obj@bias <- bias
-  obj@effect <- effects
   obj
 }
 
@@ -229,9 +220,7 @@ ma <- function(yi,
 #' @rdname ma
 psma <- function(yi,
                  vi,
-                 likelihood = c("normal", "fnormal"),
                  data,
-                 effects = c("random", "fixed"),
                  alpha = c(0, 0.025, 0.05, 1),
                  prior = NULL, ...) {
   args <- arguments(expand_dots = TRUE)
@@ -243,9 +232,7 @@ psma <- function(yi,
 #' @rdname ma
 phma <- function(yi,
                  vi,
-                 likelihood = c("normal", "fnormal"),
                  data,
-                 effects = c("random", "fixed"),
                  alpha = c(0, 0.025, 0.05, 1),
                  prior = NULL, ...) {
   args <- arguments(expand_dots = TRUE)
@@ -256,9 +243,7 @@ phma <- function(yi,
 #' @rdname ma
 cma <- function(yi,
                 vi,
-                likelihood = c("normal", "fnormal"),
                 data,
-                effects = c("random", "fixed"),
                 prior = NULL, ...) {
   args <- arguments(expand_dots = TRUE)
   do_call(ma, c(args, bias = "none"))
@@ -269,9 +254,7 @@ cma <- function(yi,
 allma <- function(yi,
                   vi,
                   data,
-                  likelihood = c("normal", "fnormal"),
                   alpha = c(0, 0.025, 0.05, 1),
-                  effects = c("random", "fixed"),
                   prior = NULL,
                   ...) {
   args <- arguments(expand_dots = TRUE)

@@ -8,23 +8,16 @@
 \alias{allma}
 \title{Meta-analysis Correcting for Publication Bias or p-hacking}
 \usage{
-ma(yi, vi, bias = c("publication selection", "p-hacking", "none"),
-  likelihood = NULL, data, effects = c("random", "fixed"),
+ma(yi, vi, bias = c("publication selection", "p-hacking", "none"), data,
   alpha = c(0, 0.025, 0.05, 1), prior = NULL, ...)
 
-psma(yi, vi, likelihood = c("normal", "fnormal"), data,
-  effects = c("random", "fixed"), alpha = c(0, 0.025, 0.05, 1),
-  prior = NULL, ...)
+psma(yi, vi, data, alpha = c(0, 0.025, 0.05, 1), prior = NULL, ...)
 
-phma(yi, vi, likelihood = c("normal", "fnormal"), data,
-  effects = c("random", "fixed"), alpha = c(0, 0.025, 0.05, 1),
-  prior = NULL, ...)
+phma(yi, vi, data, alpha = c(0, 0.025, 0.05, 1), prior = NULL, ...)
 
-cma(yi, vi, likelihood = c("normal", "fnormal"), data,
-  effects = c("random", "fixed"), prior = NULL, ...)
+cma(yi, vi, data, prior = NULL, ...)
 
-allma(yi, vi, data, likelihood = c("normal", "fnormal"), alpha = c(0,
-  0.025, 0.05, 1), effects = c("random", "fixed"), prior = NULL, ...)
+allma(yi, vi, data, alpha = c(0, 0.025, 0.05, 1), prior = NULL, ...)
 }
 \arguments{
 \item{yi}{Numeric vector of length code{k} with observed effect size
@@ -35,14 +28,7 @@ estimates.}
 \item{bias}{String; If "publication bias", corrects for publication bias. If
 "p-hacking", corrects for p-hacking.}
 
-\item{likelihood}{String; Either a vector of length code{k} or a string
-giving the likelihood for each observation. Only "normal" is supported.}
-
-\item{data}{Optional list or data frame containing \code{yi}, \code{vi} and
-\code{likelihood}.}
-
-\item{effects}{The type of meta-analysis model to use. Valid choices are
-"random" and "fixed". Currently only random effects are supported.}
+\item{data}{Optional list or data frame containing \code{yi} and \code{vi}.}
 
 \item{alpha}{Numeric vector; Specifies the cuttoffs for significance.
 Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).}

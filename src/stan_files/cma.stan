@@ -10,7 +10,6 @@ data {
   real alpha[k];      // The vector of cuttoffs.
   real yi[N];         // The estimated effect sizes.
   real vi[N];         // The study-specific variances.
-  int likelihood[N]; // Which likelihood? 0 is normal, 1 is folded normal.
 
   // Prior parameters.
   vector[k - 1] eta0;
@@ -34,13 +33,7 @@ model {
   tau ~  normal(tau_mean, tau_sd) T[0, ];
   theta ~ normal(theta0, tau);
 
-  for(n in 1:N) {
-    if(likelihood[n] == 0) {
-      yi[n] ~ normal_lpdf(theta[n], sqrt(vi[n]));
-    } else if (likelihood[n] == 1) {
-      yi[n] ~ fnormal_lpdf(theta[n], sqrt(vi[n]));
-    }
-  }
+  for(n in 1:N) yi[n] ~ normal_lpdf(theta[n], sqrt(vi[n]));
 
 }
 

@@ -10,7 +10,6 @@ data {
   real alpha[k];      // The vector of cuttoffs.
   real yi[N];         // The estimated effect sizes.
   real vi[N];         // The study-specific variances.
-  int likelihood[N]; // Which likelihood? 0 is normal, 1 is folded normal.
 
   // Prior parameters.
   vector[k - 1] eta0;
@@ -42,13 +41,8 @@ model {
   weights ~ gamma(eta0, 1);
 
   for(n in 1:N) {
-    if(likelihood[n] == 0) {
-      theta[n] ~ psma_normal_prior_mini_lpdf(theta0, tau, sqrt(vi[n]), alpha, eta);
-      yi[n] ~ psma_normal_mini_lpdf(theta[n], sqrt(vi[n]), alpha, eta);
-    } else if (likelihood[n] == 1) {
-      theta[n] ~ psma_fnormal_prior_mini_lpdf(theta0, tau, sqrt(vi[n]), alpha, eta);
-      yi[n] ~ psma_fnormal_mini_lpdf(theta[n], sqrt(vi[n]), alpha, eta);
-    }
+    theta[n] ~ psma_normal_prior_mini_lpdf(theta0, tau, sqrt(vi[n]), alpha, eta);
+    yi[n] ~ psma_normal_mini_lpdf(theta[n], sqrt(vi[n]), alpha, eta);
   }
 
 }
