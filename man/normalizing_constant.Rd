@@ -34,12 +34,12 @@ The normalizing constant.
 }
 \description{
 Normalizing constants for the publication selection meta-Analysis model.
-    These are used in several other functions. The underlying effect size
-    distribution is normal and the selection is one-sided.
+These are used in several other functions. The underlying effect size
+distribution is normal and the selection is one-sided.
 }
 \details{
 The function \code{I} calculates the normalizing constant for the density of
-    the observed effect sizes. The function \code{J} calculates the
-    normalizing constant for the density of the effect size distribution.
+the observed effect sizes. The function \code{J} calculates the
+normalizing constant for the density of the effect size distribution.
 }
 \keyword{internal}

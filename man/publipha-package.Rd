@@ -7,7 +7,7 @@
 \title{The 'publipha' package.}
 \description{
 Meta-analysis that corrects for publication selection bias and
-    p-hacking.
+p-hacking.
 }
 \references{
 Stan Development Team (2018). RStan: the R interface to Stan. R package version 2.18.1. http://mc-stan.org

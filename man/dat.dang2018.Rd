@@ -13,7 +13,7 @@ data(dat.dang2018)
 }
 \description{
 Results from 150 studies of ego depletion, the claim that self-control is a
-    limited resource which is tapped whenever self-control is exerted.
+limited resource which is tapped whenever self-control is exerted.
 }
 \references{
 Moore et al. (2013) Genetics 195:1077-1086

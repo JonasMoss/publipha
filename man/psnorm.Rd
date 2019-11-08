@@ -43,13 +43,13 @@ to be the number required.}
 }
 \description{
 Density, distribution, quantile, random variate generation, and expectation
-    calculation for the distribution for the publication selection
-    meta-analysis model
+calculation for the distribution for the publication selection
+meta-analysis model
 }
 \details{
 The effect size distribution for the publication selection model is not
-    normal, but has itself been selected for. These functions assume
-    one-sided selection on the effects. These functions do not assume the
-    existence of an underlying effect size distribution. For these, see
-    \code{maps}.
+normal, but has itself been selected for. These functions assume
+one-sided selection on the effects. These functions do not assume the
+existence of an underlying effect size distribution. For these, see
+\code{maps}.
 }

@@ -5,14 +5,14 @@
 \alias{dat.cuddy2018}
 \title{Studies on the Effect of Power Posing}
 \format{The data frame contains the following columns:
-    \tabular{lll}{
-        \strong{author}       \tab \code{character} \tab first author \cr
-        \strong{year}         \tab \code{numeric}   \tab publication year \cr
-        \strong{power}        \tab \code{boolean}   \tab if \code{TRUE}, the outcome was feelin of power \cr
-        \strong{ease}         \tab \code{boolean}   \tab if \code{TRUE}, the outcome was an EASE variable \cr
-        \strong{yi}           \tab \code{numeric}   \tab standardized mean difference \cr
-        \strong{vi}           \tab \code{numeric}   \tab corresponding sampling variance
-   }}
+\tabular{lll}{
+\strong{author}       \tab \code{character} \tab first author \cr
+\strong{year}         \tab \code{numeric}   \tab publication year \cr
+\strong{power}        \tab \code{boolean}   \tab if \code{TRUE}, the outcome was feelin of power \cr
+\strong{ease}         \tab \code{boolean}   \tab if \code{TRUE}, the outcome was an EASE variable \cr
+\strong{yi}           \tab \code{numeric}   \tab standardized mean difference \cr
+\strong{vi}           \tab \code{numeric}   \tab corresponding sampling variance
+}}
 \source{
 \url{https://osf.io/jx3av/}
 }
@@ -24,10 +24,11 @@ Results from 27 studies related to power posing.
 }
 \details{
 The data points are taken from the p-curve analysis of Cuddy et al. (2018),
-   restricted to 2 cell designs with mean difference as the outcome
-   variable.
+restricted to 2 cell designs with mean difference as the outcome
+variable.
 }
 \references{
-Cuddy, A. J., Schultz, S. J., & Fosse, N. E. (2018). P-curving a more comprehensive body of research on postural feedback reveals clear evidential value for power-posing effects: Reply to Simmons and Simonsohn (2017). Psychological science, 29(4), 656-666.
+\preformatted{Cuddy, A. J., Schultz, S. J., & Fosse, N. E. (2018). P-curving a more comprehensive body of research on postural feedback reveals clear evidential value for power-posing effects: Reply to Simmons and Simonsohn (2017). Psychological science, 29(4), 656-666.
+}
 }
 \keyword{datasets}

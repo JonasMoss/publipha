@@ -31,14 +31,14 @@ Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).}
 \item{...}{Passed to \code{rstan::sampling}.
 donttest{
 'model = phma(yi, vi, data = metafor::dat.begg1989,
-             prior = list(eta0 = c(3, 2, 1),
-                          theta0_mean = 0.5,
-                          theta0_sd = 10,
-                          tau_mean = 1,
-                          tau_sd = 1))
+prior = list(eta0 = c(3, 2, 1),
+theta0_mean = 0.5,
+theta0_sd = 10,
+tau_mean = 1,
+tau_sd = 1))
 }}
 }
 \description{
 Do a meta-analysis that corrects for p-hacking. This is a wrapper for
-    \code{ma}.
+\code{ma}.
 }

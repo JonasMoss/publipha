@@ -38,29 +38,29 @@ An S4 object of class \code{mafit}.
 
 donttest{
 'model = phma(yi, vi, data = metafor::dat.begg1989,
-             prior = list(eta0 = c(3, 2, 1),
-                          theta0_mean = 0.5,
-                          theta0_sd = 10,
-                          tau_mean = 1,
-                          tau_sd = 1))
+prior = list(eta0 = c(3, 2, 1),
+theta0_mean = 0.5,
+theta0_sd = 10,
+tau_mean = 1,
+tau_sd = 1))
 }
 }
 \description{
 Do a Bayesian random effects meta-analysis. Correct for publication bias
-   or p-hacking, or run an ordinary meta-analysis without correction.
+or p-hacking, or run an ordinary meta-analysis without correction.
 }
 \details{
 The random effects distribution is normal with mean \code{theta0} and standard
-   deviation \code{tau}. The prior for \code{theta0} is normal with parameters
-   \code{theta0_mean} (0), \code{theta0_sd} (1), with default values in
-   parentheses. The prior for \code{tau} is half normal with parameters
-   \code{tau_mean} (1), \code{tau_sd} (1). \code{eta} is the vector of \code{K}
-   normalized publication probabilities (publication bias model) or \code{K}
-   p-hacking probabilities (p-hacking model). The prior of eta is Dirchlet with
-   parameter eta0, which defaults to \code{rep(1, K)}
-   for the publication bias model and \code{rep(1, K)} for the p-hacking model.
-   eta0 is the prior for the Dirichlet distribution over the non-normalized etas in the
-   publication bias model, and they are forced to be decreasing.
-   To change the prior parameters, pass them to \code{ma} in a list. See the
-   example.
+deviation \code{tau}. The prior for \code{theta0} is normal with parameters
+\code{theta0_mean} (0), \code{theta0_sd} (1), with default values in
+parentheses. The prior for \code{tau} is half normal with parameters
+\code{tau_mean} (1), \code{tau_sd} (1). \code{eta} is the vector of \code{K}
+normalized publication probabilities (publication bias model) or \code{K}
+p-hacking probabilities (p-hacking model). The prior of eta is Dirchlet with
+parameter eta0, which defaults to \code{rep(1, K)}
+for the publication bias model and \code{rep(1, K)} for the p-hacking model.
+eta0 is the prior for the Dirichlet distribution over the non-normalized etas in the
+publication bias model, and they are forced to be decreasing.
+To change the prior parameters, pass them to \code{ma} in a list. See the
+example.
 }

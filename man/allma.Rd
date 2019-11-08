@@ -32,5 +32,5 @@ Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).}
 }
 \description{
 Do a publication bias-correct, a p-hacking-correct and a classical
-   meta-analysis.
+meta-analysis.
 }

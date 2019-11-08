@@ -40,10 +40,10 @@ to be the number required.}
 }
 \description{
 Density, distribution, quantile, random variate generation, and expectation
-    calculation for the distribution for the publication selection
-    meta-analysis model
+calculation for the distribution for the publication selection
+meta-analysis model
 }
 \details{
 These functions assume one-sided selection on the effects, and do not take
-    the effect size distribution into account. For that, see \code{mph}.
+the effect size distribution into account. For that, see \code{mph}.
 }

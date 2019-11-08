@@ -46,12 +46,12 @@ the maximumal element is 1.}
 }
 \description{
 Density, distribution, quantile, random variate generation, and expectation
-    calculation for the marginalized distribution for the publication
-    selection meta-analysis model
+calculation for the marginalized distribution for the publication
+selection meta-analysis model
 }
 \details{
 The effect size distribution for the publication selection model is not
-    normal, but has itself been selected for. These functions assume a
-    normal underyling effect size distribution and one-sided selection on the
-    effects.
+normal, but has itself been selected for. These functions assume a
+normal underyling effect size distribution and one-sided selection on the
+effects.
 }

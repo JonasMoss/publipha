@@ -8,12 +8,12 @@
 \S4method{loo}{mafit}(x, ...)
 }
 \arguments{
-\item{x}{an object of class `mafit`.}
+\item{x}{an object of class \code{mafit}.}
 
-\item{...}{passed to [`loo`][loo::loo].}
+\item{...}{passed to \code{\link[loo:loo]{loo}}.}
 }
 \value{
-A [`loo`][loo::loo] object.
+A \code{\link[loo:loo]{loo}} object.
 }
 \description{
 Calculate the \code{loo} for an \code{ma} object.

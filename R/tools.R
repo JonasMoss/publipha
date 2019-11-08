@@ -1,52 +1,73 @@
-#' Extract parameters from an \code{ma} object.
+#' Extract Parameters from an `mafit` Object
 #'
-#' @name extract_parameter
+#' Extract samples from a model of class [`mafit`][mafit] and apply a function
+#' `FUN` to them.
+#'
+#' Support parameters for extraction are: The meta-analytic mean `theta0`, the
+#' individual means `theta`, the heterogeneity parameter `tau`, the selection
+#' bias parameter `eta`, and the I squared `isq`. See Higgins and Thompson
+#' (2002) for details about I squared.
+#'
+#' All `extract_` functions are wrappers
+#' around [`rstan::extract`][rstan::extract].
+#'
+#' @name ExtractParameters
 #' @export
-#' @param object The fitted \code{ma} object.
-#' @param fun The function to apply to the parameters.
-#' @param i Optional index, specifying which parameter among many to apply fun
-#'     to. Only makes sense for \code{eta} and \code{theta}.
-#' @return The same kind of object as \code{fun} returns.
+#' @param object an object of class [`mafit`][mafit].
+#' @param FUN the function to be applied to the fitted parameters.
+#' @param i an optional index specifying which parameter to apply `FUN` to. Only
+#'    for `extract_eta` and `extract_theta`.
+#' @return The result of `FUN` being applied to all estimated paramters of
+#'    `object`.
+#' @examples
+#' \dontrun{
+#' set.seed(313)
+#' model <- publipha::psma(yi = yi, vi = vi, data = dat.baskerville2012)
+#' extract_theta0(model, mean) # [1] extract_theta0(model, mean)
+#' extract_theta0(model, sd) # [1] 0.1095921
+#' extract_tau(model, mean) # [1] 0.1315312
+#' extract_theta(model, hist, i = 5)
+#' }
+#' @references Higgins, J. P., & Thompson, S. G. (2002). Quantifying
+#' heterogeneity in a meta-analysis. Statistics in medicine, 21(11), 1539-1558.
 
-extract_theta0 = function(object, fun = mean) fun(rstan::extract(object)$theta0)
+extract_theta0 <- function(object, fun = mean) {
+  fun(rstan::extract(object)$theta0)
+}
 
-#' @rdname extract_parameter
+#' @rdname ExtractParameters
 #' @export
 
-extract_theta = function(object, fun = mean, i = NULL) {
-  if(is.null(i)) {
+extract_theta <- function(object, fun = mean, i) {
+  if (missing(i)) {
     apply(rstan::extract(object)$theta, 2, fun)
   } else {
     fun(rstan::extract(object)$theta[, i])
   }
 }
 
-#' @rdname extract_parameter
+#' @rdname ExtractParameters
 #' @export
 
-extract_tau = function(object, fun = mean) fun(rstan::extract(object)$tau)
+extract_tau <- function(object, fun = mean) fun(rstan::extract(object)$tau)
 
-#' @rdname extract_parameter
+#' @rdname ExtractParameters
 #' @export
 
-extract_eta = function(object, fun = mean, i = NULL) {
-  if(is.null(i)) {
+extract_eta <- function(object, fun = mean, i) {
+  if (missing(i)) {
     apply(rstan::extract(object)$eta, 2, fun)
   } else {
     fun(rstan::extract(object)$eta[, i])
   }
 }
 
-#' @rdname extract_parameter
+#' @rdname ExtractParameters
 #' @export
 
-extract_Isq= function(object, fun = mean) {
-
-  alpha = object@alpha
-  sigma = sqrt(object@vi)
-  tau = extract_tau(object, fun = identity)
-  Isqs = sapply(tau, function(tau) mean(tau^2/(sigma^2 + tau^2)))
+extract_isq <- function(object, fun = mean) {
+  sigma <- sqrt(object@vi)
+  tau <- extract_tau(object, fun = identity)
+  Isqs <- sapply(tau, function(tau) mean(tau^2 / (sigma^2 + tau^2)))
   fun(Isqs)
-
 }
-

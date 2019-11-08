@@ -41,13 +41,13 @@ to be the number required.}
 }
 \description{
 Density, distribution, quantile, random variate generation, and expectation
-    calculation for the effect size distribution for the selected effect size
-    distribution of the one-sided normal discrete probability vector
-    publication bias model.
+calculation for the effect size distribution for the selected effect size
+distribution of the one-sided normal discrete probability vector
+publication bias model.
 }
 \details{
 The effect size distribution for the publication selection model is not
-    normal, but has itself been selected for. These functions assume a
-    normal underyling effect size distribution and one-sided selection on the
-    effects.
+normal, but has itself been selected for. These functions assume a
+normal underyling effect size distribution and one-sided selection on the
+effects.
 }

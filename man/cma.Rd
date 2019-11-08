@@ -28,5 +28,5 @@ giving the likelihood for each observation. Only "normal" is supported.}
 }
 \description{
 Do a classical Bayesian meta-analysis. This is a wrapper for
-    \code{ma}.
+\code{ma}.
 }
