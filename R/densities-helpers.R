@@ -47,8 +47,11 @@ J = function(sigma, theta0, tau, alpha, eta) {
 
 }
 
-density_input_checker <- function(theta0 = NULL, theta = NULL, sigma = NULL,
+density_input_checker <- function(x, theta0 = NULL, theta = NULL, sigma = NULL,
                                  tau = NULL) {
+
+  if(any(!is.numeric(x)))
+    stop("'x' must be numeric")
 
   if (any(!is.numeric(c(theta0, theta, tau, sigma))))
     stop("parameters must be numeric")

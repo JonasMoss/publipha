@@ -33,7 +33,7 @@ dpsnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
                     log = FALSE) {
 
   stopifnot(length(alpha) == (length(eta) + 1))
-  density_input_checker(theta = theta, sigma = sigma)
+  density_input_checker(x, theta = theta, sigma = sigma)
 
   n <- length(x)
 
@@ -72,7 +72,7 @@ ppsnorm <- function(q, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
                     lower.tail = TRUE, log.p = FALSE) {
 
   stopifnot(length(alpha) == (length(eta) + 1))
-  density_input_checker(theta = theta, sigma = sigma)
+  density_input_checker(q, theta = theta, sigma = sigma)
 
   n <- length(q)
   theta <- rep_len(x = theta, length.out = n)
@@ -112,7 +112,7 @@ rpsnorm <- function(n, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
   if (length(n) > 1) n <- length(n)
 
   stopifnot(length(alpha) == (length(eta) + 1))
-  density_input_checker(theta = theta, sigma = sigma)
+  density_input_checker(1, theta = theta, sigma = sigma)
 
   theta <- rep_len(theta, length.out = n)
   sigma <- rep_len(sigma, length.out = n)

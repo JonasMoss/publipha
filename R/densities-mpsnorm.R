@@ -35,7 +35,7 @@ rmpsnorm <- function(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
   if (length(n) > 1) n <- length(n)
 
   stopifnot(length(alpha) == (length(eta) + 1))
-  density_input_checker(theta0 = theta0, tau = tau, sigma = sigma)
+  density_input_checker(1, theta0 = theta0, tau = tau, sigma = sigma)
 
   samples <- rep(NA, n)
   sigma <- rep_len(sigma, length.out = n)
@@ -67,7 +67,7 @@ dmpsnorm <- function(x, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
                      log = FALSE) {
 
   stopifnot(length(alpha) == (length(eta) + 1))
-  density_input_checker(theta0 = theta0, tau = tau, sigma = sigma)
+  density_input_checker(x, theta0 = theta0, tau = tau, sigma = sigma)
 
   cutoffs <- stats::qnorm(1 - alpha)
   indices <- .bincode(x / sigma, sort(cutoffs))
@@ -89,7 +89,7 @@ pmpsnorm <- function(q, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1),
                      eta, lower.tail = TRUE, log.p = FALSE) {
 
   stopifnot(length(alpha) == (length(eta) + 1))
-  density_input_checker(theta0 = theta0, tau = tau, sigma = sigma)
+  density_input_checker(q, theta0 = theta0, tau = tau, sigma = sigma)
 
   cutoffs <- stats::qnorm(1 - alpha)
   indices <- .bincode(q / sigma, sort(cutoffs))

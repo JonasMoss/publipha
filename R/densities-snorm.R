@@ -32,7 +32,7 @@ dsnorm <- Vectorize(function(x, theta0, tau, sigma,
                              alpha = c(0, 0.025, 0.05, 1),
                              eta, log = FALSE) {
   stopifnot(length(alpha) == (length(eta) + 1))
-  density_input_checker(theta0 = theta0, tau = tau, sigma = sigma)
+  density_input_checker(x, theta0 = theta0, tau = tau, sigma = sigma)
 
   if (log) {
     log(I(sigma, x, alpha, eta)) + stats::dnorm(x, theta0, tau, log = TRUE) -
@@ -47,7 +47,7 @@ dsnorm <- Vectorize(function(x, theta0, tau, sigma,
 #' @export
 rsnorm <- function(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
   stopifnot(length(alpha) == (length(eta) + 1))
-  density_input_checker(theta0 = theta0, tau = tau, sigma = sigma)
+  density_input_checker(1, theta0 = theta0, tau = tau, sigma = sigma)
   if (length(n) > 1) n <- length(n)
 
   stopifnot(length(alpha) == (length(eta) + 1))
@@ -76,7 +76,7 @@ rsnorm <- function(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
 #' @export
 esnorm <- Vectorize(function(theta0, tau, sigma, alpha, eta) {
   stopifnot(length(alpha) == (length(eta) + 1))
-  density_input_checker(theta0 = theta0, tau = tau, sigma = sigma)
+  density_input_checker(1, theta0 = theta0, tau = tau, sigma = sigma)
   integrand <- function(theta) {
     theta * dsnorm(theta, theta0, tau, sigma, alpha, eta)
   }

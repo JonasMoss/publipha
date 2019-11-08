@@ -25,7 +25,7 @@
 
 dphnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta, log = FALSE) {
   stopifnot(length(alpha) == (length(eta) + 1))
-  density_input_checker(theta = theta, sigma = sigma)
+  density_input_checker(x, theta = theta, sigma = sigma)
 
   n <- length(x)
   theta <- rep_len(x = theta, length.out = n)
@@ -54,7 +54,7 @@ dphnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta, log = FA
 #' @export
 rphnorm <- function(n, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
   stopifnot(length(alpha) == (length(eta) + 1))
-  density_input_checker(theta = theta, sigma = sigma)
+  density_input_checker(1, theta = theta, sigma = sigma)
   if (length(n) > 1) n <- length(n)
 
   shuffle <- sample(1:n)
@@ -86,7 +86,7 @@ rphnorm <- function(n, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
 #' @export
 pphnorm <- function(q, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta, lower.tail = TRUE, log.p = FALSE) {
   stopifnot(length(alpha) == (length(eta) + 1))
-  density_input_checker(theta = theta, sigma = sigma)
+  density_input_checker(q, theta = theta, sigma = sigma)
 
   n <- length(q)
   theta <- rep_len(x = theta, length.out = n)
