@@ -116,8 +116,6 @@ ma <- function(yi,
                prior = NULL, ...) {
   dots <- list(...)
 
-  if(is.null(dots$refresh)) dots$refresh = 0
-
   alpha <- sort(alpha)
   bias <- match.arg(bias, c("publication selection", "p-hacking", "none"))
   effects <- match.arg(effects, c("random", "fixed"))
@@ -147,12 +145,17 @@ ma <- function(yi,
   if (is.null(prior$tau_mean)) prior$tau_mean <- 0
   if (is.null(prior$tau_sd)) prior$tau_sd <- 1
 
-  allowed_names = c("eta0", "theta0_mean", "theta0_sd", "tau_mean",
-                    "tau_sd")
+  allowed_names <- c(
+    "eta0", "theta0_mean", "theta0_sd", "tau_mean",
+    "tau_sd"
+  )
 
-  if (!all(names(prior) %in% allowed_names))
-    stop(paste0("prior can only contain elements with names: ",
-         paste0(allowed_names, collapse = ", ")))
+  if (!all(names(prior) %in% allowed_names)) {
+    stop(paste0(
+      "prior can only contain elements with names: ",
+      paste0(allowed_names, collapse = ", ")
+    ))
+  }
 
   ## `parameters` in ultimately passed to stan.
   parameters <- prior

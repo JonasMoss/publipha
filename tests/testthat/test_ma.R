@@ -1,7 +1,5 @@
 context("ma")
 
-wrap <- function(x) suppressWarnings(capture_output(x))
-
 # The wrappers
 set.seed(313)
 wrap(psma_model_psma <- publipha::psma(

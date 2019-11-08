@@ -1,12 +1,12 @@
 context("densities-psnorm")
 
 set.seed(313)
-x = rnorm(10)
+x <- rnorm(10)
 
-theta = 0
-sigma = 1
-alpha = c(0, 0.025, 0.05, 1)
-eta = c(1, 0.4, 0.1)
+theta <- 0
+sigma <- 1
+alpha <- c(0, 0.025, 0.05, 1)
+eta <- c(1, 0.4, 0.1)
 
 ## Density
 expect_equal(
@@ -15,14 +15,18 @@ expect_equal(
 )
 
 ## Random variate generation
-n = 3
-y = rep(1, n)
+n <- 3
+y <- rep(1, n)
 
-expect_equal({set.seed(1)
-  rpsnorm(n, theta = theta, sigma = sigma, eta = eta)
-}, {
-  set.seed(1); rpsnorm(y, theta = theta, sigma = sigma, eta = eta)
-},
+expect_equal(
+  {
+    set.seed(1)
+    rpsnorm(n, theta = theta, sigma = sigma, eta = eta)
+  },
+  {
+    set.seed(1)
+    rpsnorm(y, theta = theta, sigma = sigma, eta = eta)
+  },
 )
 
 expect_error(rpsnorm(n, theta = theta, sigma = sigma, eta = 1))

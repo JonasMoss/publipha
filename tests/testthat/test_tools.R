@@ -1,5 +1,11 @@
 context("tools")
 
+set.seed(313)
+wrap(small_model <- publipha::psma(
+  yi = yi, vi = vi, data = dat.baskerville2012,
+  chains = 1, iter = 10
+))
+
 expect_equal(
   extract_theta0(small_model),
   mean(rstan::extract(small_model)$theta0)

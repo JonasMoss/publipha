@@ -31,7 +31,6 @@
 
 dpsnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
                     log = FALSE) {
-
   stopifnot(length(alpha) == (length(eta) + 1))
   density_input_checker(x, theta = theta, sigma = sigma)
 
@@ -69,7 +68,6 @@ dpsnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
 #' @export
 ppsnorm <- function(q, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
                     lower.tail = TRUE, log.p = FALSE) {
-
   stopifnot(length(alpha) == (length(eta) + 1))
   density_input_checker(q, theta = theta, sigma = sigma)
 
