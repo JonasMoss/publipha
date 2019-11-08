@@ -136,10 +136,8 @@ ma <- function(yi,
   if (!missing(data)) {
     yi_name <- deparse(substitute(yi))
     vi_name <- deparse(substitute(vi))
-    likelihood_name <- deparse(substitute(likelihood))
     if (!is.null(data[[yi_name]])) yi <- data[[yi_name]]
     if (!is.null(data[[vi_name]])) vi <- data[[vi_name]]
-    if (!is.null(data[[likelihood_name]])) yi <- data[[likelihood_name]]
   }
 
   ## Populate unspecified priors with the default values.

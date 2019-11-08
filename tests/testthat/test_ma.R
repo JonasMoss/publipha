@@ -104,3 +104,14 @@ wrap(model2 <- publipha::ma(
 ))
 
 expect_lt(extract_theta0(model1), extract_theta0(model2))
+
+
+## Allma
+wrap(model <- publipha::allma(
+  yi = yi, vi = vi,
+  data = dat.baskerville2012,
+  chains = 1,
+  iter = 10, refresh = 0, prior = prior
+))
+
+expect_equal(length(model), 3)
