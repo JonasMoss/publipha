@@ -56,14 +56,6 @@ expect_equal(extract_theta0(phma_model_phma), extract_theta0(phma_model_ma))
 expect_equal(extract_theta0(cma_model_cma), extract_theta0(cma_model_ma))
 
 ## Errors
-expect_error(publipha::psma(
-  yi = yi, vi = vi, effects = "fixed",
-  data = dat.baskerville2012
-))
-expect_error(publipha::psma(
-  yi = yi, vi = vi, likelihood = "fnormal",
-  data = dat.baskerville2012
-))
 expect_error(publipha::ma(vi, yi,
   data = dat.baskerville2012,
   bias = "haha"

@@ -63,12 +63,8 @@ setClass(
 #' @param vi Numeric vector of length code{k} with sampling variances.
 #' @param bias String; If "publication bias", corrects for publication bias. If
 #'     "p-hacking", corrects for p-hacking.
-#' @param likelihood String; Either a vector of length code{k} or a string
-#'     giving the likelihood for each observation. Only "normal" is supported.
 #' @param data Optional list or data frame containing \code{yi}, \code{vi} and
 #'     \code{likelihood}.
-#' @param effects The type of meta-analysis model to use. Valid choices are
-#'     "random" and "fixed". Currently only random effects are supported.
 #' @param alpha Numeric vector; Specifies the cuttoffs for significance.
 #'     Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).
 #' @param prior Optional list of prior parameters. See the details.
@@ -109,7 +105,6 @@ setClass(
 ma <- function(yi,
                vi,
                bias = c("publication selection", "p-hacking", "none"),
-               likelihood = NULL,
                data,
                effects = c("random", "fixed"),
                alpha = c(0, 0.025, 0.05, 1),
@@ -118,17 +113,8 @@ ma <- function(yi,
 
   alpha <- sort(alpha)
   bias <- match.arg(bias, c("publication selection", "p-hacking", "none"))
-  effects <- match.arg(effects, c("random", "fixed"))
-
-  if (effects == "fixed") {
-    stop("Option mixed effects are implemented.")
-  }
-
-  if (is.null(likelihood)) {
-    likelihood <- "normal"
-  } else {
-    stop("Only 'normal' likelihoods supported.")
-  }
+  effects <- "random"
+  likelihood <- "normal"
 
   ## Finds `yi` and `vi` in `data` if it is supplied.
   if (!missing(data)) {
@@ -169,6 +155,7 @@ ma <- function(yi,
     N = length(yi),
     k = length(alpha)
   )
+
 
   index <- ifelse(likelihood == "normal", 0, 1)
 
