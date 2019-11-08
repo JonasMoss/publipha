@@ -42,8 +42,9 @@ Density, distribution, and random variate generation for the marginalized
 distribution of the publication selection meta-analysis model
 }
 \details{
-These functions assume a normal underyling effect size distribution and
-one-sided selection on the effects.
+These functions assume a normal underlying effect size distribution and
+one-sided selection on the effects. For the fixed effects publication
+bias model see \code{\link{psnorm}}.
 }
 \examples{
 rmpsnorm(100, theta0 = 0, tau = 0.1, sigma = 0.1, eta = c(1, 0.5, 0.1))

@@ -8,26 +8,31 @@
 #'     normal, but has itself been selected for. These functions assume
 #'     one-sided selection on the effects. These functions do not assume the
 #'     existence of an underlying effect size distribution. For these, see
-#'     \code{maps}.
+#'     [`mpsnorm`][mpsnorm].
 #'
 #' @name psnorm
 #' @export
 #' @param x,q Numeric vector of quantiles.
-#' @param p Numeric vector of probabilities.
-#' @param n Number of observations. If \code{length(n) > 1}, the length is taken
+#' @export
+#' @param x,q vector of quantiles.
+#' @param n number of observations. If \code{length(n) > 1}, the length is taken
 #'     to be the number required.
-#' @param theta Numeric vector; The mean of the underlying effect size
-#'     distribution.
-#' @param sigma Numeric vector; The standard deviation of the study, due to
-#'     sampling error.
-#' @param alpha Numeric vector; Specifies the thresholds for publication
-#'     bias.
-#' @param eta Numeric vector; Containing the probabilites of being a study
-#'     with the given p-value from being published. This is normalized so that
-#'     the maximumal element is 1.
-#' @param log,log.p Logical; If \code{TRUE}, probabilities are given as
+#' @param theta vector of means.
+#' @param sigma vector of study standard deviations.
+#' @param alpha vector of thresholds for publication bias.
+#' @param eta vector of publication probabilities, normalized to sum to 1.
+#' @param log,log.p logical; If \code{TRUE}, probabilities are given as
 #'     \code{log(p)}.
-#' @param lower.tail Logical; If \code{TRUE}, the lower tail is returned.
+#' @param lower.tail logical; If \code{TRUE} (default), the probabilities are
+#' \eqn{P[X\leq x]} otherwise, \eqn{P[X\geq x]}.
+#' @references Hedges, Larry V. "Modeling publication selection effects
+#' in meta-analysis." Statistical Science (1992): 246-255.
+#'
+#' Moss, Jonas and De Bin, Riccardo. "Modelling publication
+#' bias and p-hacking" Forthcoming (2019)
+#'
+#' @examples
+#' rpsnorm(100, theta0 = 0, tau = 0.1, sigma = 0.1, eta = c(1, 0.5, 0.1))
 
 dpsnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
                     log = FALSE) {

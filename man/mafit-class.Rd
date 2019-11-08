@@ -13,8 +13,6 @@ Class \code{mafit}: Fitted Meta-analysis Model
 \item{\code{bias}}{The kind of bias modelled. Can be one of
 \code{publication_selection}, \code{p-hacking} or \code{none}.}
 
-\item{\code{effect}}{A string saying if random or fixed effects have been used.}
-
 \item{\code{alpha}}{Ordered numeric vector of cuttoffs including 0 and 1.}
 
 \item{\code{yi}}{Numeric vector of estimated effect sizes.}

@@ -3,8 +3,9 @@
 #' Density, distribution, and random variate generation for the marginalized
 #'     distribution of the publication selection meta-analysis model
 #'
-#' These functions assume a normal underyling effect size distribution and
-#'     one-sided selection on the effects.
+#' These functions assume a normal underlying effect size distribution and
+#'     one-sided selection on the effects. For the fixed effects publication
+#'     bias model see [`psnorm`][psnorm].
 #'
 #' @name mpsnorm
 #' @export

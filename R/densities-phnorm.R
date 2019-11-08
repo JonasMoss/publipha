@@ -1,27 +1,31 @@
 #' p-hacking Meta-analysis Model
 #'
-#' Density, distribution, quantile, random variate generation, and expectation
-#'     calculation for the distribution for the publication selection
-#'     meta-analysis model
+#' Density, distribution, and random variate generation for the p-hacking meta-
+#'    analysis model.
 #'
-#' These functions assume one-sided selection on the effects, and do not take
-#'     the effect size distribution into account. For that, see \code{mph}.
+#' These functions assume one-sided selection on the effects. `alpha` contains
+#'    the selection thresholds and `eta` the vector of *p*-hacking
+#'    probabilities. `theta` is the true effect, while `sigma` is the true
+#'    standard deviation before selection.
 #'
 #' @name phnorm
 #' @export
-#' @param x,q Numeric vector of quantiles.
-#' @param p Numeric vector of probabilities.
-#' @param n Number of observations. If \code{length(n) > 1}, the length is taken
+#' @param x,q vector of quantiles.
+#' @param n number of observations. If \code{length(n) > 1}, the length is taken
 #'     to be the number required.
-#' @param theta Numeric vector; The mean of the underlying normal distribution.
-#' @param sigma Numeric vector; The standard deviation of the study, due to
-#'     sampling error.
-#' @param alpha Numeric vector; Specifies the thresholds for publication
-#'     bias.
-#' @param eta Numeric vector; The mixing probability for each component.
-#' @param log,log.p Logical; If \code{TRUE}, probabilities are given as
+#' @param theta0 vector of means.
+#' @param sigma vector of study standard deviations.
+#' @param alpha vector of thresholds for p-hacking.
+#' @param eta vector of p-hacking probabilities, normalized to sum to 1.
+#' @param log,log.p logical; If \code{TRUE}, probabilities are given as
 #'     \code{log(p)}.
-#' @param lower.tail Logical; If \code{TRUE}, the lower tail is returned.
+#' @param lower.tail logical; If \code{TRUE} (default), the probabilities are
+#' \eqn{P[X\leq x]} otherwise, \eqn{P[X\geq x]}.
+#' @references Moss, Jonas and De Bin, Riccardo. "Modelling publication
+#' bias and p-hacking" Forthcoming (2019)
+#'
+#' @examples
+#' rphnorm(100, theta0 = 0, tau = 0.1, sigma = 0.1, eta = c(1, 0.5, 0.1))
 
 dphnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
                     log = FALSE) {

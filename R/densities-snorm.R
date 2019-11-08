@@ -1,33 +1,36 @@
 #' Selected Normal Effect Size Distribution
 #'
-#' Density, distribution, quantile, random variate generation, and expectation
-#'     calculation for the effect size distribution for the selected effect size
-#'     distribution of the one-sided normal discrete probability vector
-#'     publication bias model.
+#' Density, random variate generation, and expectation calculation for the
+#'     effect size distribution of the one-sided normal publication bias model.
 #'
 #' The effect size distribution for the publication selection model is not
 #'     normal, but has itself been selected for. These functions assume a
-#'     normal underyling effect size distribution and one-sided selection on the
+#'     normal underlying effect size distribution and one-sided selection on the
 #'     effects.
 #'
 #' @name snorm
 #' @export
-#' @param x Numeric vector of quantiles.
-#' @param n Number of observations. If \code{length(n) > 1}, the length is taken
+#' @param x,q vector of quantiles.
+#' @param n number of observations. If \code{length(n) > 1}, the length is taken
 #'     to be the number required.
-#' @param theta0 Numeric vector; The mean of the underlying effect size
-#'     distribution.
-#' @param tau Numeric vector; The standard deviation of the underlying effect
-#'     size distribution.
-#' @param sigma Numeric vector; The standard deviation of the study, due to
-#'     sampling error.
-#' @param alpha Numeric vector; Specifies the thresholds for publication
-#'     bias.
-#' @param eta Numeric vector; Containing the probabilites of being a study
-#'     with the given p-value from being published. This is normalized so that
-#'     the maximumal element is 1.
-#' @param log Logical; If \code{TRUE}, probabilities are given as
+#' @param theta0 vector of means.
+#' @param tau vector of heterogeneity parameters.
+#' @param sigma vector of study standard deviations.
+#' @param alpha vector of thresholds for publication bias.
+#' @param eta vector of publication probabilities, normalized to sum to 1.
+#' @param log,log.p logical; If \code{TRUE}, probabilities are given as
 #'     \code{log(p)}.
+#' @param lower.tail logical; If \code{TRUE} (default), the probabilities are
+#' \eqn{P[X\leq x]} otherwise, \eqn{P[X\geq x]}.
+#' @references Hedges, Larry V. "Modeling publication selection effects
+#' in meta-analysis." Statistical Science (1992): 246-255.
+#'
+#' Moss, Jonas and De Bin, Riccardo. "Modelling publication
+#' bias and p-hacking" Forthcoming (2019)
+#'
+#' @examples
+#' rsnorm(100, theta0 = 0, tau = 0.1, sigma = 0.1, eta = c(1, 0.5, 0.1))
+
 dsnorm <- Vectorize(function(x, theta0, tau, sigma,
                              alpha = c(0, 0.025, 0.05, 1),
                              eta, log = FALSE) {

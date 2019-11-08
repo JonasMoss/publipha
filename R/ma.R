@@ -2,7 +2,6 @@
 #'
 #' @slot bias The kind of bias modelled. Can be one of
 #'     \code{publication_selection}, \code{p-hacking} or \code{none}.
-#' @slot effect A string saying if random or fixed effects have been used.
 #' @slot alpha Ordered numeric vector of cuttoffs including 0 and 1.
 #' @slot yi Numeric vector of estimated effect sizes.
 #' @slot vi Numeric vector of study-specific variances.

@@ -18,28 +18,24 @@ rpsnorm(n, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta)
 \arguments{
 \item{x, q}{Numeric vector of quantiles.}
 
-\item{theta}{Numeric vector; The mean of the underlying effect size
-distribution.}
+\item{theta}{vector of means.}
 
-\item{sigma}{Numeric vector; The standard deviation of the study, due to
-sampling error.}
+\item{sigma}{vector of study standard deviations.}
 
-\item{alpha}{Numeric vector; Specifies the thresholds for publication
-bias.}
+\item{alpha}{vector of thresholds for publication bias.}
 
-\item{eta}{Numeric vector; Containing the probabilites of being a study
-with the given p-value from being published. This is normalized so that
-the maximumal element is 1.}
+\item{eta}{vector of publication probabilities, normalized to sum to 1.}
 
-\item{log, log.p}{Logical; If \code{TRUE}, probabilities are given as
+\item{log, log.p}{logical; If \code{TRUE}, probabilities are given as
 \code{log(p)}.}
 
-\item{lower.tail}{Logical; If \code{TRUE}, the lower tail is returned.}
+\item{lower.tail}{logical; If \code{TRUE} (default), the probabilities are
+\eqn{P[X\leq x]} otherwise, \eqn{P[X\geq x]}.}
 
-\item{n}{Number of observations. If \code{length(n) > 1}, the length is taken
+\item{n}{number of observations. If \code{length(n) > 1}, the length is taken
 to be the number required.}
 
-\item{p}{Numeric vector of probabilities.}
+\item{x, q}{vector of quantiles.}
 }
 \description{
 Density, distribution, quantile, random variate generation, and expectation
@@ -51,5 +47,15 @@ The effect size distribution for the publication selection model is not
 normal, but has itself been selected for. These functions assume
 one-sided selection on the effects. These functions do not assume the
 existence of an underlying effect size distribution. For these, see
-\code{maps}.
+\code{\link{mpsnorm}}.
+}
+\examples{
+rpsnorm(100, theta0 = 0, tau = 0.1, sigma = 0.1, eta = c(1, 0.5, 0.1))
+}
+\references{
+Hedges, Larry V. "Modeling publication selection effects
+in meta-analysis." Statistical Science (1992): 246-255.
+
+Moss, Jonas and De Bin, Riccardo. "Modelling publication
+bias and p-hacking" Forthcoming (2019)
 }

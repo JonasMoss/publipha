@@ -16,34 +16,39 @@ pphnorm(q, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
   lower.tail = TRUE, log.p = FALSE)
 }
 \arguments{
-\item{x, q}{Numeric vector of quantiles.}
+\item{x, q}{vector of quantiles.}
 
-\item{theta}{Numeric vector; The mean of the underlying normal distribution.}
+\item{sigma}{vector of study standard deviations.}
 
-\item{sigma}{Numeric vector; The standard deviation of the study, due to
-sampling error.}
+\item{alpha}{vector of thresholds for p-hacking.}
 
-\item{alpha}{Numeric vector; Specifies the thresholds for publication
-bias.}
+\item{eta}{vector of p-hacking probabilities, normalized to sum to 1.}
 
-\item{eta}{Numeric vector; The mixing probability for each component.}
-
-\item{log, log.p}{Logical; If \code{TRUE}, probabilities are given as
+\item{log, log.p}{logical; If \code{TRUE}, probabilities are given as
 \code{log(p)}.}
 
-\item{n}{Number of observations. If \code{length(n) > 1}, the length is taken
+\item{n}{number of observations. If \code{length(n) > 1}, the length is taken
 to be the number required.}
 
-\item{lower.tail}{Logical; If \code{TRUE}, the lower tail is returned.}
+\item{lower.tail}{logical; If \code{TRUE} (default), the probabilities are
+\eqn{P[X\leq x]} otherwise, \eqn{P[X\geq x]}.}
 
-\item{p}{Numeric vector of probabilities.}
+\item{theta0}{vector of means.}
 }
 \description{
-Density, distribution, quantile, random variate generation, and expectation
-calculation for the distribution for the publication selection
-meta-analysis model
+Density, distribution, and random variate generation for the p-hacking meta-
+analysis model.
 }
 \details{
-These functions assume one-sided selection on the effects, and do not take
-the effect size distribution into account. For that, see \code{mph}.
+These functions assume one-sided selection on the effects. \code{alpha} contains
+the selection thresholds and \code{eta} the vector of \emph{p}-hacking
+probabilities. \code{theta} is the true effect, while \code{sigma} is the true
+standard deviation before selection.
+}
+\examples{
+rphnorm(100, theta0 = 0, tau = 0.1, sigma = 0.1, eta = c(1, 0.5, 0.1))
+}
+\references{
+Moss, Jonas and De Bin, Riccardo. "Modelling publication
+bias and p-hacking" Forthcoming (2019)
 }
