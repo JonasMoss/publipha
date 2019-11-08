@@ -19,3 +19,6 @@ expect_equal(
 ## arguments
 f <- function(...) arguments(expand_dots = TRUE)
 expect_equal(f(1, 2, 3), as.list(1:3))
+f <- function(a = 1, b = 2) arguments()
+expect_equal(f(), list(NULL, NULL))
+expect_equal(f(3, 6), list(a = 3, b = 6))
