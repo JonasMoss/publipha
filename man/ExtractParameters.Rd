@@ -22,18 +22,18 @@ extract_isq(object, fun = mean)
 \arguments{
 \item{object}{an object of class \code{\link{mafit}}.}
 
-\item{i}{an optional index specifying which parameter to apply \code{FUN} to. Only
-for \code{extract_eta} and \code{extract_theta}.}
+\item{fun}{the function to be applied to the fitted parameters.}
 
-\item{FUN}{the function to be applied to the fitted parameters.}
+\item{i}{an optional index specifying which parameter to apply \code{fun} to. Only
+for \code{extract_eta} and \code{extract_theta}.}
 }
 \value{
 The result of \code{FUN} being applied to all estimated paramters of
 \code{object}.
 }
 \description{
-Extract samples from a model of class \code{\link{mafit}} and apply a function
-\code{FUN} to them.
+Extract samples from a model of class \code{\link[=mafit-class]{mafit}} and apply a
+function \code{fun} to them.
 }
 \details{
 Support parameters for extraction are: The meta-analytic mean \code{theta0}, the

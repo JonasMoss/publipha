@@ -3,9 +3,9 @@
 \docType{class}
 \name{mafit-class}
 \alias{mafit-class}
-\title{Class \code{mafit}: Fitted Meta-analysis model.}
+\title{Class \code{mafit}: Fitted Meta-analysis Model}
 \description{
-Class \code{mafit}: Fitted Meta-analysis model.
+Class \code{mafit}: Fitted Meta-analysis Model
 }
 \section{Slots}{
 

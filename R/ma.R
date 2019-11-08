@@ -1,4 +1,4 @@
-#' Class \code{mafit}: Fitted Meta-analysis model.
+#' Class \code{mafit}: Fitted Meta-analysis Model
 #'
 #' @slot bias The kind of bias modelled. Can be one of
 #'     \code{publication_selection}, \code{p-hacking} or \code{none}.

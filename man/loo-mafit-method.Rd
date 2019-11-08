@@ -14,12 +14,6 @@
 }
 \value{
 A \code{\link[loo:loo]{loo}} object.
-\dontrun{
-phma_model <- phma(yi, vi, data = metafor::dat.begg1989)
-psma_model <- psma(yi, vi, data = metafor::dat.begg1989)
-loo(phma_model)
-loo(psma_model)
-}
 }
 \description{
 Computes PSIS-LOO CV, approximate leave-one-out cross-validation
@@ -30,4 +24,12 @@ using Pareto smoothed importance sampling, see \code{\link[loo:loo]{loo}}.
 is \code{TRUE}, the PSIS-LOO CV is based on the marginal likelihood, i.e. with
 the dependence on \code{theta} integrated out. \code{marginal} defaults to true, as
 recommended by?
+}
+\examples{
+\dontrun{
+phma_model <- phma(yi, vi, data = metafor::dat.begg1989)
+psma_model <- psma(yi, vi, data = metafor::dat.begg1989)
+loo(phma_model)
+loo(psma_model)
+}
 }

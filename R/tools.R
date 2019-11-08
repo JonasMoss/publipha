@@ -1,7 +1,7 @@
 #' Extract Parameters from an `mafit` Object
 #'
-#' Extract samples from a model of class [`mafit`][mafit] and apply a function
-#' `FUN` to them.
+#' Extract samples from a model of class [`mafit`][mafit-class] and apply a
+#' function `fun` to them.
 #'
 #' Support parameters for extraction are: The meta-analytic mean `theta0`, the
 #' individual means `theta`, the heterogeneity parameter `tau`, the selection
@@ -14,8 +14,8 @@
 #' @name ExtractParameters
 #' @export
 #' @param object an object of class [`mafit`][mafit].
-#' @param FUN the function to be applied to the fitted parameters.
-#' @param i an optional index specifying which parameter to apply `FUN` to. Only
+#' @param fun the function to be applied to the fitted parameters.
+#' @param i an optional index specifying which parameter to apply `fun` to. Only
 #'    for `extract_eta` and `extract_theta`.
 #' @return The result of `FUN` being applied to all estimated paramters of
 #'    `object`.

@@ -16,6 +16,7 @@ setGeneric("loo", package = "loo")
 #' @docType methods
 #' @export
 #' @return A [`loo`][loo::loo] object.
+#' @examples
 #' \dontrun{
 #' phma_model <- phma(yi, vi, data = metafor::dat.begg1989)
 #' psma_model <- psma(yi, vi, data = metafor::dat.begg1989)

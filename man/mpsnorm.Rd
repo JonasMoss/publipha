@@ -2,56 +2,56 @@
 % Please edit documentation in R/densities-mpsnorm.R
 \name{mpsnorm}
 \alias{mpsnorm}
-\alias{rmpsnorm}
 \alias{dmpsnorm}
 \alias{pmpsnorm}
+\alias{rmpsnorm}
 \title{Marginal Publication Selection Meta-analysis Model}
 \usage{
-rmpsnorm(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta)
-
 dmpsnorm(x, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
   log = FALSE)
 
 pmpsnorm(q, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
   lower.tail = TRUE, log.p = FALSE)
+
+rmpsnorm(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta)
 }
 \arguments{
-\item{n}{Number of observations. If \code{length(n) > 1}, the length is taken
-to be the number required.}
+\item{x, q}{vector of quantiles.}
 
-\item{theta0}{Numeric vector; The mean of the underlying effect size
-distribution.}
+\item{theta0}{vector of means.}
 
-\item{tau}{Numeric vector; The standard deviation of the underlying effect
-size distribution.}
+\item{tau}{vector of heterogeneity parameters.}
 
-\item{sigma}{Numeric vector; The standard deviation of the study, due to
-sampling error.}
+\item{sigma}{vector of study standard deviations.}
 
-\item{alpha}{Numeric vector; Specifies the thresholds for publication
-bias.}
+\item{alpha}{vector of thresholds for publication bias.}
 
-\item{eta}{Numeric vector; Containing the probabilites of being a study
-with the given p-value from being published. This is normalized so that
-the maximumal element is 1.}
+\item{eta}{vector of publication probabilities, normalized to sum to 1.}
 
-\item{x, q}{Numeric vector of quantiles.}
-
-\item{log, log.p}{Logical; If \code{TRUE}, probabilities are given as
+\item{log, log.p}{logical; If \code{TRUE}, probabilities are given as
 \code{log(p)}.}
 
-\item{lower.tail}{Logical; If \code{TRUE}, the lower tail is returned.}
+\item{lower.tail}{logical; If \code{TRUE} (default), the probabilities are
+\eqn{P[X\leq x]} otherwise, \eqn{P[X\geq x]}.}
 
-\item{p}{Numeric vector of probabilities.}
+\item{n}{number of observations. If \code{length(n) > 1}, the length is taken
+to be the number required.}
 }
 \description{
-Density, distribution, quantile, random variate generation, and expectation
-calculation for the marginalized distribution for the publication
-selection meta-analysis model
+Density, distribution, and random variate generation for the marginalized
+distribution of the publication selection meta-analysis model
 }
 \details{
-The effect size distribution for the publication selection model is not
-normal, but has itself been selected for. These functions assume a
-normal underyling effect size distribution and one-sided selection on the
-effects.
+These functions assume a normal underyling effect size distribution and
+one-sided selection on the effects.
+}
+\examples{
+rdmpsnorm(100, theta0 = 0, tau = 0.1, sigma = 0.1, eta = c(1, 0.5, 0.1))
+}
+\references{
+Hedges, Larry V. "Modeling publication selection effects
+in meta-analysis." Statistical Science (1992): 246-255.
+
+Moss, Jonas and De Bin, Riccardo. "Modelling publication
+bias and p-hacking" Forthcoming (2019)
 }
