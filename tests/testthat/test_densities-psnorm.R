@@ -46,4 +46,5 @@ expect_error(rpsnorm(1, theta = NA, sigma = sigma, eta = eta))
 expect_error(rpsnorm(1, theta = theta, sigma = -1, eta = eta))
 expect_error(dpsnorm(x, theta = NA, sigma = sigma, eta = eta))
 expect_error(dpsnorm(x, theta = theta, sigma = -1, eta = eta))
-
+expect_error(ppsnorm("x", theta = theta, sigma = sigma, eta = eta))
+expect_error(ppsnorm(x, theta = "", sigma = sigma, eta = eta))

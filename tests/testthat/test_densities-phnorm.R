@@ -45,4 +45,4 @@ expect_error(rphnorm(1, theta = NA, sigma = sigma, eta = eta))
 expect_error(rphnorm(1, theta = theta, sigma = -1, eta = eta))
 expect_error(dphnorm(x, theta = NA, sigma = sigma, eta = eta))
 expect_error(dphnorm(x, theta = theta, sigma = -1, eta = eta))
-
+expect_error(pphnorm("x", theta = theta, sigma = sigma, eta = eta))

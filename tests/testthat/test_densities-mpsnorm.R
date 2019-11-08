@@ -49,4 +49,4 @@ expect_error(rmpsnorm(1, theta0 = theta0, sigma = sigma, tau = 0, eta = eta))
 expect_error(dmpsnorm(x, theta0 = NA, sigma = sigma, tau = tau, eta = eta))
 expect_error(dmpsnorm(x, theta0 = theta0, sigma = -1, tau = tau, eta = eta))
 expect_error(dmpsnorm(x, theta0 = theta0, sigma = sigma, tau = 0, eta = eta))
-
+expect_error(pmpsnorm("", theta0 = theta0, sigma = sigma, tau = tau, eta = eta))
