@@ -41,7 +41,7 @@ knitr::opts_chunk$set(out.width='750px', dpi=200)
 
 ## Overview
 publipha is an package for doing Bayesian meta-analysis that accounts for publication bias
-or *p*-hacking. Its main functions are `psma` for publication bias meta-analyisis and
+or *p*-hacking. Its main functions are `psma` for publication bias meta-analysis and
 `phma` for *p*-hacking meta-analysis. These functions have approximately the same syntax
 as `rma` from the package [`metafor`](https://cran.r-project.org/package=metafor). Its functionality is:
 

@@ -15,7 +15,6 @@ setClass(
   contains = "stanfit",
   representation = representation(
     bias = "character",
-    effect = "character",
     alpha = "numeric",
     yi = "numeric",
     vi = "numeric",
@@ -25,14 +24,15 @@ setClass(
 
 #' Meta-analysis Correcting for Publication Bias or p-hacking
 #'
-#' Bayesian random effects meta-analysis. Correct for publication bias
-#'    or p-hacking, or run an ordinary meta-analysis without any correction.
+#' Bayesian random effects meta-analysis. Correct for publication bias,
+#'    correct for p-hacking, or run an ordinary meta-analysis without any
+#'    correction.
 #'
 #' `ma` does a Bayesian meta-analysis with the type of correction used specified
 #'    by `bias`. `psma` is a wrapper for `ma` with
 #'    `bias = "publication selection"`, `phma` is a wrapper with
 #'    `bias = "p-hacking"`, while `cma` has `bias = "none"`. The function `allma`
-#'    runs all o
+#'    runs all `bias` options and returns a list.
 #'
 #' The `bias` options are:
 #'

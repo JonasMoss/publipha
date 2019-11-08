@@ -17,7 +17,7 @@
 #' @param fun the function to be applied to the fitted parameters.
 #' @param i an optional index specifying which parameter to apply `fun` to. Only
 #'    for `extract_eta` and `extract_theta`.
-#' @return The result of `FUN` being applied to all estimated paramters of
+#' @return The result of `FUN` being applied to all estimated paramaters of
 #'    `object`.
 #' @examples
 #' \dontrun{

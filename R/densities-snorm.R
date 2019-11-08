@@ -10,7 +10,7 @@
 #'
 #' @name snorm
 #' @export
-#' @param x,q vector of quantiles.
+#' @param x vector of quantiles.
 #' @param n number of observations. If \code{length(n) > 1}, the length is taken
 #'     to be the number required.
 #' @param theta0 vector of means.
@@ -18,10 +18,8 @@
 #' @param sigma vector of study standard deviations.
 #' @param alpha vector of thresholds for publication bias.
 #' @param eta vector of publication probabilities, normalized to sum to 1.
-#' @param log,log.p logical; If \code{TRUE}, probabilities are given as
+#' @param log logical; If \code{TRUE}, probabilities are given as
 #'     \code{log(p)}.
-#' @param lower.tail logical; If \code{TRUE} (default), the probabilities are
-#' \eqn{P[X\leq x]} otherwise, \eqn{P[X\geq x]}.
 #' @references Hedges, Larry V. "Modeling publication selection effects
 #' in meta-analysis." Statistical Science (1992): 246-255.
 #'

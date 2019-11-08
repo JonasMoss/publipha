@@ -15,7 +15,7 @@ rsnorm(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta)
 esnorm(theta0, tau, sigma, alpha, eta)
 }
 \arguments{
-\item{x, q}{vector of quantiles.}
+\item{x}{vector of quantiles.}
 
 \item{theta0}{vector of means.}
 
@@ -27,14 +27,11 @@ esnorm(theta0, tau, sigma, alpha, eta)
 
 \item{eta}{vector of publication probabilities, normalized to sum to 1.}
 
-\item{log, log.p}{logical; If \code{TRUE}, probabilities are given as
+\item{log}{logical; If \code{TRUE}, probabilities are given as
 \code{log(p)}.}
 
 \item{n}{number of observations. If \code{length(n) > 1}, the length is taken
 to be the number required.}
-
-\item{lower.tail}{logical; If \code{TRUE} (default), the probabilities are
-\eqn{P[X\leq x]} otherwise, \eqn{P[X\geq x]}.}
 }
 \description{
 Density, random variate generation, and expectation calculation for the

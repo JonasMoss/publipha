@@ -12,8 +12,6 @@
 #'
 #' @name psnorm
 #' @export
-#' @param x,q Numeric vector of quantiles.
-#' @export
 #' @param x,q vector of quantiles.
 #' @param n number of observations. If \code{length(n) > 1}, the length is taken
 #'     to be the number required.

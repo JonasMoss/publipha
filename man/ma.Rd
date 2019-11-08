@@ -42,15 +42,16 @@ An S4 object of class \code{mafit} when \code{ma}, \code{psma}, \code{phma} or \
 run. A list of \code{mafit} objects when \code{allma} is run.
 }
 \description{
-Bayesian random effects meta-analysis. Correct for publication bias
-or p-hacking, or run an ordinary meta-analysis without any correction.
+Bayesian random effects meta-analysis. Correct for publication bias,
+correct for p-hacking, or run an ordinary meta-analysis without any
+correction.
 }
 \details{
 \code{ma} does a Bayesian meta-analysis with the type of correction used specified
 by \code{bias}. \code{psma} is a wrapper for \code{ma} with
 \code{bias = "publication selection"}, \code{phma} is a wrapper with
 \code{bias = "p-hacking"}, while \code{cma} has \code{bias = "none"}. The function \code{allma}
-runs all o
+runs all \code{bias} options and returns a list.
 
 The \code{bias} options are:
 \enumerate{

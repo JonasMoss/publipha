@@ -18,6 +18,8 @@ pphnorm(q, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
 \arguments{
 \item{x, q}{vector of quantiles.}
 
+\item{theta}{vector of means.}
+
 \item{sigma}{vector of study standard deviations.}
 
 \item{alpha}{vector of thresholds for p-hacking.}
@@ -32,8 +34,6 @@ to be the number required.}
 
 \item{lower.tail}{logical; If \code{TRUE} (default), the probabilities are
 \eqn{P[X\leq x]} otherwise, \eqn{P[X\geq x]}.}
-
-\item{theta0}{vector of means.}
 }
 \description{
 Density, distribution, and random variate generation for the p-hacking meta-
@@ -46,7 +46,7 @@ probabilities. \code{theta} is the true effect, while \code{sigma} is the true
 standard deviation before selection.
 }
 \examples{
-rphnorm(100, theta0 = 0, tau = 0.1, sigma = 0.1, eta = c(1, 0.5, 0.1))
+rphnorm(100, theta = 0, sigma = 0.1, eta = c(1, 0.5, 0.1))
 }
 \references{
 Moss, Jonas and De Bin, Riccardo. "Modelling publication

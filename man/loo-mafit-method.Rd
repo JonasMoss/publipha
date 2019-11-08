@@ -22,8 +22,7 @@ using Pareto smoothed importance sampling, see \code{\link[loo:loo]{loo}}.
 \details{
 \code{...} affect the function through one parameter, \code{marginal}. When \code{marginal}
 is \code{TRUE}, the PSIS-LOO CV is based on the marginal likelihood, i.e. with
-the dependence on \code{theta} integrated out. \code{marginal} defaults to true, as
-recommended by?
+the dependence on \code{theta} integrated out. \code{marginal} defaults to \code{TRUE}.
 }
 \examples{
 \dontrun{

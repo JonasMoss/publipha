@@ -13,7 +13,7 @@
 #' @param x,q vector of quantiles.
 #' @param n number of observations. If \code{length(n) > 1}, the length is taken
 #'     to be the number required.
-#' @param theta0 vector of means.
+#' @param theta vector of means.
 #' @param sigma vector of study standard deviations.
 #' @param alpha vector of thresholds for p-hacking.
 #' @param eta vector of p-hacking probabilities, normalized to sum to 1.
@@ -25,7 +25,7 @@
 #' bias and p-hacking" Forthcoming (2019)
 #'
 #' @examples
-#' rphnorm(100, theta0 = 0, tau = 0.1, sigma = 0.1, eta = c(1, 0.5, 0.1))
+#' rphnorm(100, theta = 0, sigma = 0.1, eta = c(1, 0.5, 0.1))
 
 dphnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
                     log = FALSE) {

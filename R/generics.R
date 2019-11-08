@@ -7,8 +7,7 @@ setGeneric("loo", package = "loo")
 #'
 #' `...` affect the function through one parameter, `marginal`. When `marginal`
 #' is `TRUE`, the PSIS-LOO CV is based on the marginal likelihood, i.e. with
-#' the dependence on `theta` integrated out. `marginal` defaults to true, as
-#' recommended by?
+#' the dependence on `theta` integrated out. `marginal` defaults to `TRUE`.
 #'
 #' @param x an object of class `mafit`.
 #' @param ... passed to [`loo`][loo::loo]. Only

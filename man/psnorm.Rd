@@ -16,7 +16,7 @@ ppsnorm(q, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
 rpsnorm(n, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta)
 }
 \arguments{
-\item{x, q}{Numeric vector of quantiles.}
+\item{x, q}{vector of quantiles.}
 
 \item{theta}{vector of means.}
 
@@ -34,8 +34,6 @@ rpsnorm(n, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta)
 
 \item{n}{number of observations. If \code{length(n) > 1}, the length is taken
 to be the number required.}
-
-\item{x, q}{vector of quantiles.}
 }
 \description{
 Density, distribution, quantile, random variate generation, and expectation

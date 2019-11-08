@@ -10,5 +10,6 @@ Meta-analysis that corrects for publication selection bias and
 p-hacking.
 }
 \references{
-Stan Development Team (2018). RStan: the R interface to Stan. R package version 2.18.1. http://mc-stan.org
+Stan Development Team (2018). RStan: the R interface to Stan. R package
+version 2.18.1. https://mc-stan.org
 }
