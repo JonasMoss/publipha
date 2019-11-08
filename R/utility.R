@@ -4,8 +4,7 @@
 #' @keywords internal
 #' @param ... Parameters to put into the list.
 #' @return A lazy list.
-
-alist2 = function(...) as.list(substitute((...)))[-1]
+alist2 <- function(...) as.list(substitute((...)))[-1]
 
 #' Variant of do call with that preserves argument names.
 #'
@@ -16,8 +15,7 @@ alist2 = function(...) as.list(substitute((...)))[-1]
 #' @param .env The environment where the call is to be evaluated.
 #' @return The effect of calling \code{.fn} with the supplied arguments in the
 #' specified environment.
-
-do_call = function(.fn, .args = NULL, ..., .env = parent.frame()) {
+do_call <- function(.fn, .args = NULL, ..., .env = parent.frame()) {
   eval(as.call(c(.fn, .args, alist2(...))), envir = .env)
 }
 
@@ -29,14 +27,12 @@ do_call = function(.fn, .args = NULL, ..., .env = parent.frame()) {
 #' used.
 #' @param .eager Logical; Should the \code{value}s be evaluated?
 #' @return A modified list.
+add_elements <- function(input, ..., .eager = TRUE) {
+  dots <- if (.eager) list(...) else alist2(...)
+  names <- names(dots)
+  n <- length(names)
 
-add_elements = function(input, ..., .eager = TRUE) {
-
-  dots = if(.eager) list(...) else alist2(...)
-  names = names(dots)
-  N = length(names)
-
-  for(i in 1:N) if(is.null(input[[names[i]]])) input[[names[i]]] = dots[[i]]
+  for (i in 1:n) if (is.null(input[[names[i]]])) input[[names[i]]] <- dots[[i]]
 
   input
 }
@@ -48,12 +44,9 @@ add_elements = function(input, ..., .eager = TRUE) {
 #'     expanded \code{...}.
 #'
 #' @return The unevaluated argument list given to the calling function.
-
-arguments = function(expand_dots = FALSE) {
-  formals = names(formals(sys.function(-1)))
-  reduced_formals = setdiff(formals, "...")
-  arguments = as.list(match.call(sys.function(-1), sys.call(-1))[-1])
-  if(!expand_dots) arguments[reduced_formals] else arguments
+arguments <- function(expand_dots = FALSE) {
+  formals <- names(formals(sys.function(-1)))
+  reduced_formals <- setdiff(formals, "...")
+  arguments <- as.list(match.call(sys.function(-1), sys.call(-1))[-1])
+  if (!expand_dots) arguments[reduced_formals] else arguments
 }
-
-
