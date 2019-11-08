@@ -31,7 +31,6 @@
 #' @param lower.tail Logical; If \code{TRUE}, the lower tail is returned.
 
 rmpsnorm <- function(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
-
   if (length(n) > 1) n <- length(n)
 
   stopifnot(length(alpha) == (length(eta) + 1))
@@ -65,7 +64,6 @@ rmpsnorm <- function(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
 #' @export
 dmpsnorm <- function(x, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
                      log = FALSE) {
-
   stopifnot(length(alpha) == (length(eta) + 1))
   density_input_checker(x, theta0 = theta0, tau = tau, sigma = sigma)
 
@@ -78,7 +76,10 @@ dmpsnorm <- function(x, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
     densities <- stats::dnorm(x = x, mean = theta0, sd = sqrt(sigma^2 + tau^2))
     densities * probabilities / constant
   } else {
-    densities <- stats::dnorm(x = x, mean = theta0, sd = sqrt(sigma^2 + tau^2), log = TRUE)
+    densities <- stats::dnorm(
+      x = x, mean = theta0, sd = sqrt(sigma^2 + tau^2),
+      log = TRUE
+    )
     densities + log(probabilities) - log(constant)
   }
 }
@@ -87,7 +88,6 @@ dmpsnorm <- function(x, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
 #' @export
 pmpsnorm <- function(q, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1),
                      eta, lower.tail = TRUE, log.p = FALSE) {
-
   stopifnot(length(alpha) == (length(eta) + 1))
   density_input_checker(q, theta0 = theta0, tau = tau, sigma = sigma)
 
@@ -108,7 +108,10 @@ pmpsnorm <- function(q, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1),
   extra <- cumsum(extra)
 
   upper <- stats::pnorm(q = q, mean = theta0, sd = sqrt(sigma^2 + tau^2))
-  lower <- stats::pnorm(q = rev(cutoffs)[indices] * sigma, mean = theta0, sd = sqrt(sigma^2 + tau^2))
+  lower <- stats::pnorm(
+    q = rev(cutoffs)[indices] * sigma, mean = theta0,
+    sd = sqrt(sigma^2 + tau^2)
+  )
   prob <- ((upper - lower) * probabilities + extra[indices]) / constant
 
   prob <- if (lower.tail) prob else 1 - prob

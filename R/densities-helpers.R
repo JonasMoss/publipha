@@ -24,45 +24,46 @@
 #'     the maximumal element is 1.
 #' @return The normalizing constant.
 
-I = function(sigma, theta, alpha, eta) {
-  k = length(alpha)
-  cutoffs = stats::qnorm(1 - alpha)
+I <- function(sigma, theta, alpha, eta) {
+  k <- length(alpha)
+  cutoffs <- stats::qnorm(1 - alpha)
 
   sapply(sigma, function(sigma) {
-    cdfs = stats::pnorm(cutoffs, theta/sigma, 1)
-    sum(sapply(1:(k - 1), function(i) eta[i]*(cdfs[i] - cdfs[i + 1])))
+    cdfs <- stats::pnorm(cutoffs, theta / sigma, 1)
+    sum(sapply(1:(k - 1), function(i) eta[i] * (cdfs[i] - cdfs[i + 1])))
   })
 }
 
 #' @rdname normalizing_constant
-J = function(sigma, theta0, tau, alpha, eta) {
-
-  k = length(alpha)
-  cutoffs = stats::qnorm(1 - alpha)
+J <- function(sigma, theta0, tau, alpha, eta) {
+  k <- length(alpha)
+  cutoffs <- stats::qnorm(1 - alpha)
 
   sapply(sigma, function(sigma) {
-    cdfs = stats::pnorm(cutoffs, theta0/sigma, sqrt(tau^2 + sigma^2)/sigma)
-    sum(sapply(1:(k - 1), function(i) eta[i]*(cdfs[i] - cdfs[i + 1])))
+    cdfs <- stats::pnorm(cutoffs, theta0 / sigma, sqrt(tau^2 + sigma^2) / sigma)
+    sum(sapply(1:(k - 1), function(i) eta[i] * (cdfs[i] - cdfs[i + 1])))
   })
-
 }
 
 density_input_checker <- function(x, theta0 = NULL, theta = NULL, sigma = NULL,
-                                 tau = NULL) {
-
-  if(any(!is.numeric(x)))
+                                  tau = NULL) {
+  if (any(!is.numeric(x))) {
     stop("'x' must be numeric")
+  }
 
-  if (any(!is.numeric(c(theta0, theta, tau, sigma))))
+  if (any(!is.numeric(c(theta0, theta, tau, sigma)))) {
     stop("parameters must be numeric")
+  }
 
-  if (any(is.na(c(theta0, sigma, theta, tau))))
+  if (any(is.na(c(theta0, sigma, theta, tau)))) {
     stop("parameters cannot be na")
+  }
 
-  if (any(tau <= 0))
+  if (any(tau <= 0)) {
     stop("'tau' must be positive")
+  }
 
-  if (any(sigma <= 0))
+  if (any(sigma <= 0)) {
     stop("'sigma' must be positive")
-
+  }
 }

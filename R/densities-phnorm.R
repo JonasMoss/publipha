@@ -23,7 +23,8 @@
 #'     \code{log(p)}.
 #' @param lower.tail Logical; If \code{TRUE}, the lower tail is returned.
 
-dphnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta, log = FALSE) {
+dphnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
+                    log = FALSE) {
   stopifnot(length(alpha) == (length(eta) + 1))
   density_input_checker(x, theta = theta, sigma = sigma)
 
@@ -68,7 +69,7 @@ rphnorm <- function(n, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
 
   samples <- vector("numeric", n)
 
-  for (i in (1:length(eta))[numbers != 0]) {
+  for (i in seq(eta)[numbers != 0]) {
     indices <- (cumulatives[i] + 1):cumulatives[i + 1]
     cutoff <- stats::qnorm(1 - alpha[i + 1])
     samples[indices] <- truncnorm::rtruncnorm(
@@ -84,7 +85,8 @@ rphnorm <- function(n, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
 
 #' @rdname phnorm
 #' @export
-pphnorm <- function(q, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta, lower.tail = TRUE, log.p = FALSE) {
+pphnorm <- function(q, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
+                    lower.tail = TRUE, log.p = FALSE) {
   stopifnot(length(alpha) == (length(eta) + 1))
   density_input_checker(q, theta = theta, sigma = sigma)
 

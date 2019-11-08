@@ -41,7 +41,6 @@ dpsnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
   sigma <- rep_len(x = sigma, length.out = n)
 
   u <- 1 - stats::pnorm(x / sigma)
-  k <- length(alpha)
 
   inclusions <- .bincode(x = u, breaks = alpha, include.lowest = TRUE)
   cutoffs <- stats::qnorm(1 - alpha)
@@ -102,7 +101,7 @@ ppsnorm <- function(q, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
     ) * probabilities[i] + extra
   }
 
-  if (!lower.tail) y = 1 - y
+  if (!lower.tail) y <- 1 - y
   if (!log.p) y else log(y)
 }
 
