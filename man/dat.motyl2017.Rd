@@ -3,22 +3,33 @@
 \docType{data}
 \name{dat.motyl2017}
 \alias{dat.motyl2017}
-\title{Motyl 2017}
-\format{An object of class \code{"cross"}; see \code{\link[qtl]{read.cross}}.}
+\title{Effect Sizes from 875 Studies in Psychology.}
+\format{The tibble contains the following columns:
+\tabular{lll}{
+\strong{author}       \tab \code{character} \tab first author of study \cr
+\strong{year}         \tab \code{numeric}   \tab publication year \cr
+\strong{study}        \tab \code{numeric}   \tab the number given to the study in the original paper (0 = only one study was reported in the original paper; \cr
+\strong{journal}      \tab \code{character} \tab journal where the study was published \cr
+\strong{concealed}    \tab \code{character} \tab design of the study; "Between", "Within", or "Mixed"   \cr
+\strong{experimental} \tab \code{numeric}   \tab \code{TRUE} for an experimental study \cr
+\strong{ni}           \tab \code{numeric}   \tab sample size \cr
+\strong{yi}           \tab \code{numeric}   \tab observed mean difference in outcome \cr
+\strong{vi}           \tab \code{numeric}   \tab corresponding sampling variance
+}}
 \source{
-\href{https://phenome.jax.org/projects/Moore1b}{QTL Archive}
+\href{https://osf.io/he8mu/}
 }
 \usage{
 data(dat.motyl2017)
 }
 \description{
-Data from a QTL experiment on gravitropism in
-Arabidopsis, with data on 162 recombinant inbred lines (Ler x
-Cvi). The outcome is the root tip angle (in degrees) at two-minute
-increments over eight hours.
+Effect sizes from 875 studies in psychology. Adopted from Motyl et al.
+(2017).
 }
 \references{
-Moore et al. (2013) Genetics 195:1077-1086
-(\href{https://www.ncbi.nlm.nih.gov/pubmed/23979570}{PubMed})
+Motyl, M., Demos, A. P., Carsel, T. S., Hanson, B. E.,
+Melton, Z. J., Mueller, A. B., ... & Yantis, C. (2017). The state of social
+and personality science: Rotten to the core, not so bad, getting better,
+or getting worse?. Journal of personality and social psychology, 113(1), 34.
 }
 \keyword{datasets}

@@ -3,11 +3,20 @@
 \docType{data}
 \name{dat.dang2018}
 \alias{dat.dang2018}
-\title{Dang 2018}
-\format{The data frame contains the following columns:}
-\source{
-\href{https://phenome.jax.org/projects/Moore1b}{QTL Archive}
-}
+\title{Meta-analysis on Ego Depletion}
+\format{The tibble contains the following columns:
+\tabular{lll}{
+\strong{author}       \tab \code{character} \tab the last name of the first author and the first letter of the last name of the second author;  \cr
+\strong{year}         \tab \code{numeric}   \tab publication year \cr
+\strong{in_carter}    \tab \code{character} \tab was the study in the meta-analysis of Carter et al. (2015) \cr
+\strong{study}        \tab \code{character} \tab the number given to the study in the original paper (0 = only one study was reported in the original paper; the addition of a letter indicates subsamples);  \cr
+\strong{dv}           \tab \code{boolean}   \tab the dependendent variable \cr
+\strong{iv}           \tab \code{boolean}   \tab the independendent variable \cr
+\strong{n1i}          \tab \code{numeric}   \tab the number of participants in the depletion condition \cr
+\strong{n2i}          \tab \code{numeric}   \tab the number of participants in the control condition \cr
+\strong{yi}           \tab \code{numeric}   \tab the adjusted standardized mean difference \cr
+\strong{vi}           \tab \code{numeric}   \tab the variance of g
+}}
 \usage{
 data(dat.dang2018)
 }
@@ -16,7 +25,12 @@ Results from 150 studies of ego depletion, the claim that self-control is a
 limited resource which is tapped whenever self-control is exerted.
 }
 \references{
-Moore et al. (2013) Genetics 195:1077-1086
-(\href{https://www.ncbi.nlm.nih.gov/pubmed/23979570}{PubMed})
+Dang, J. (2018). An updated meta-analysis of the ego
+depletion effect. Psychological Research, 82(4), 645-651.
+
+Carter, E. C., Kofler, L. M., Forster, D. E., & McCullough, M. E. (2015).
+A series of meta-analytic tests of the depletion effect: self-control does
+not seem to rely on a limited resource. Journal of
+Experimental Psychology: General, 144(4), 796.
 }
 \keyword{datasets}
