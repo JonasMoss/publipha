@@ -5,44 +5,63 @@
 # https://github.com/stan-dev/rstanarm/blob/master/.travis.yml
 # https://github.com/zappingseb/RTest/blob/master/.travis.yml#L50
 
-
 language: r
-sudo: false
+sudo: true
 cache: packages
-dist: trusty
-latex: true
 
-r_github_packages:
-  - jimhester/covr
-
-addons:
-    apt:
-      sources:
-        - ubuntu-toolchain-r-test
-      packages:
-        - g++-7
-        
-env:
-    - PKG_TARBALL=publipha_0.0.1.tar.gz
-    - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-
-jobs:
+matrix:
   include:
-  - r: release
-    after_success:
-    - Rscript -e 'covr::codecov()' 
-  - r: oldrel
-  - r: devel
-  - os: osx
-    env:
-    - CC=clang
-    - CXX=clang++
-    - MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0"
-    
+    - os: linux
+      dist: trusty
+      r: release
+      r_binary_packages:
+        - devtools
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+      after_success:
+        - Rscript -e 'covr::codecov()'
+    - os: linux
+      dist: trusty
+      r: devel
+      r_binary_packages:
+        - devtools
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+    - os: linux
+      dist: trusty
+      r: devel
+      r_binary_packages:
+        - devtools
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+    - os: osx
+      fortran: false
+      osx_image: xcode10
+      r: release
+
 before_install:
   - mkdir -p ~/.R/
-  - echo "CXX14 = g++-7 -fPIC -flto=2" >> ~/.R/Makevars
-  - echo "CXX14FLAGS = -mtune=native -march=native -Wno-unused-variable -Wno-unused-function -Wno-unused-local-typedefs -Wno-ignored-attributes -Wno-deprecated-declarations -Wno-attributes -O3" >> ~/.R/Makevars
-
-install: 
-  - R -e "install.packages('rstan')"
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then echo "CXX14 = g++-7 -fPIC" >> ~/.R/Makevars; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then echo "CXX14FLAGS = -mtune=native -march=native -Wno-unused-variable -Wno-unused-function -Wno-unused-local-typedefs -Wno-ignored-attributes -Wno-deprecated-declarations -Wno-attributes -O3" >> ~/.R/Makevars; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo "CXX14 = clang++ -arch x86_64 -ftemplate-depth-256" >> ~/.R/Makevars; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo "CXX14FLAGS = -O3 -mtune=native -march=native -Wno-unused-variable -Wno-unused-function  -Wno-unknown-pragmas" >> ~/.R/Makevars; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo "CC = clang" >> ~/.R/Makevars; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo tlmgr install inconsolata; fi
