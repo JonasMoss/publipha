@@ -28,6 +28,8 @@ matrix:
       r_packages:
         - covr
         - pkgdown
+      after_success:
+        - Rscript -e 'covr::codecov()'
     - os: linux
       dist: trusty
       r: devel
