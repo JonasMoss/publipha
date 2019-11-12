@@ -17,6 +17,7 @@
 #'         \strong{yi}           \tab \code{numeric}   \tab observed mean difference in outcome \cr
 #'         \strong{vi}           \tab \code{numeric}   \tab corresponding sampling variance
 #'    }
+#'
 #' @keywords datasets
 #'
 #' @references Motyl, M., Demos, A. P., Carsel, T. S., Hanson, B. E.,
@@ -24,5 +25,5 @@
 #' and personality science: Rotten to the core, not so bad, getting better,
 #' or getting worse?. Journal of personality and social psychology, 113(1), 34.
 #'
-#' @source \href{https://osf.io/he8mu/}
+#' @source \url{https://osf.io/he8mu/}
 "dat.motyl2017"

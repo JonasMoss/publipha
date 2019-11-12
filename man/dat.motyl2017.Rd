@@ -17,7 +17,7 @@
 \strong{vi}           \tab \code{numeric}   \tab corresponding sampling variance
 }}
 \source{
-\href{https://osf.io/he8mu/}
+\url{https://osf.io/he8mu/}
 }
 \usage{
 data(dat.motyl2017)
