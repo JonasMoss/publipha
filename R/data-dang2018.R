@@ -1,11 +1,11 @@
-#' Dang 2018
+#' Meta-analysis on Ego Depletion
 #'
 #' Results from 150 studies of ego depletion, the claim that self-control is a
 #'     limited resource which is tapped whenever self-control is exerted.
 #'
 #' @usage data(dat.dang2018)
 #'
-#' @format The data frame contains the following columns:
+#' @format The tibble contains the following columns:
 #'     \tabular{lll}{
 #'         \strong{author}       \tab \code{character} \tab the last name of the first author and the first letter of the last name of the second author;  \cr
 #'         \strong{year}         \tab \code{numeric}   \tab publication year \cr

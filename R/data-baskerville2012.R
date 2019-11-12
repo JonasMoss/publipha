@@ -5,7 +5,7 @@
 #'
 #' @usage dat.baskerville2012
 #'
-#' @format The data frame contains the following columns:
+#' @format The tibble contains the following columns:
 #'     \tabular{lll}{
 #'         \strong{author}    \tab \code{character} \tab first author of study \cr
 #'         \strong{year}      \tab \code{numeric}   \tab publication year \cr
