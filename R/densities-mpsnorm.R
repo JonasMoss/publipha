@@ -68,12 +68,12 @@ pmpsnorm <- function(q, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1),
 
   i <- 1:(length(alpha) - 2)
   extra <- c(0, rev(eta)[i] * (stats::pnorm(rev(cutoffs)[i + 1] * sigma,
-                                            mean = theta0,
-                                            sd = sqrt(sigma^2 + tau^2)
+    mean = theta0,
+    sd = sqrt(sigma^2 + tau^2)
   ) -
     stats::pnorm(rev(cutoffs)[i] * sigma,
-                 mean = theta0,
-                 sd = sqrt(sigma^2 + tau^2)
+      mean = theta0,
+      sd = sqrt(sigma^2 + tau^2)
     )))
   extra <- cumsum(extra)
 
@@ -119,4 +119,3 @@ rmpsnorm <- function(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta) {
 
   samples
 }
-

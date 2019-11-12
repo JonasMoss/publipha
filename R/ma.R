@@ -31,8 +31,8 @@ setClass(
 #' `ma` does a Bayesian meta-analysis with the type of correction used specified
 #'    by `bias`. `psma` is a wrapper for `ma` with
 #'    `bias = "publication selection"`, `phma` is a wrapper with
-#'    `bias = "p-hacking"`, while `cma` has `bias = "none"`. The function `allma`
-#'    runs all `bias` options and returns a list.
+#'    `bias = "p-hacking"`, while `cma` has `bias = "none"`. The function
+#'    `allma` runs all `bias` options and returns a list.
 #'
 #' The `bias` options are:
 #'
@@ -43,15 +43,15 @@ setClass(
 #'    selection bias.
 #'
 #' The effect size distribution is normal with mean \code{theta0} and standard
-#'    deviation \code{tau}. The prior for \code{theta0} is normal with parameters
-#'    \code{theta0_mean} (default: 0), \code{theta0_sd} (default: 1). The prior
-#'    for \code{tau} is half normal with parameters \code{tau_mean} (default: 1),
-#'    \code{tau_sd} (default: 1). \code{eta} is the vector of \code{K}
-#'    normalized publication probabilities (publication bias model) or \code{K}
-#'    *p*-hacking probabilities (*p*-hacking model). The prior of eta is Dirchlet with
-#'    parameter eta0, which defaults to \code{rep(1, K)}
-#'    for the publication bias model and the p-hacking model.
-#'    eta0 is the prior for the Dirichlet distribution over the non-normalized etas in the
+#'    deviation \code{tau}. The prior for \code{theta0} is normal with
+#'    parameters \code{theta0_mean} (default: 0), \code{theta0_sd} (default: 1).
+#'    The prior for \code{tau} is half normal with parameters \code{tau_mean}
+#'    (default: 1), \code{tau_sd} (default: 1). \code{eta} is the vector of
+#'    \code{K} normalized publication probabilities (publication bias model) or
+#'    \code{K} *p*-hacking probabilities (*p*-hacking model). The prior of eta
+#'    is Dirchlet with parameter eta0, which defaults to \code{rep(1, K)}
+#'    for the publication bias model and the p-hacking model. `eta0` is the
+#'    prior for the Dirichlet distribution over the non-normalized etas in the
 #'    publication bias model, and they are forced to be decreasing.
 #'    To change the prior parameters, pass them to `prior` in a list.
 #'

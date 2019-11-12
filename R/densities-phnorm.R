@@ -26,7 +26,6 @@
 #'
 #' @examples
 #' rphnorm(100, theta = 0, sigma = 0.1, eta = c(1, 0.5, 0.1))
-
 dphnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
                     log = FALSE) {
   stopifnot(length(alpha) == (length(eta) + 1))

@@ -19,12 +19,10 @@ expect_equal(
 n <- 3
 y <- rep(1, n)
 
-expect_equal(
-  {
+expect_equal({
     set.seed(1)
     rmpsnorm(n, theta0 = theta0, sigma = sigma, tau = tau, eta = eta)
-  },
-  {
+  }, {
     set.seed(1)
     rmpsnorm(y, theta0 = theta0, sigma = sigma, tau = tau, eta = eta)
   },
@@ -40,7 +38,8 @@ expect_equal(
 
 expect_equal(
   1 - pmpsnorm(x, theta0 = theta0, sigma = sigma, tau = tau, eta = eta),
-  pmpsnorm(x, theta0 = theta0, sigma = sigma, tau = tau, eta = eta, lower.tail = FALSE)
+  pmpsnorm(x, theta0 = theta0, sigma = sigma, tau = tau, eta = eta,
+           lower.tail = FALSE)
 )
 
 ## Errors

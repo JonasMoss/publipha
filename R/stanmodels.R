@@ -13,7 +13,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+# USA.
 
 # This file is only intended to be used during the installation process
 # nocov start
@@ -33,7 +34,7 @@ stanmodels <- lapply(stan_files, function(f) {
     model_cppname = stanfit$model_name,
     model_cppcode = stanfit$cppcode
   )
-  return(do.call(methods::new, args = c(stanfit[-(1:3)],
+  return(do.call(methods::new, args = c(stanfit[- (1:3)],
     Class = "stanmodel",
     mk_cppmodule = function(x) get(paste0("model_", model_cppname))
   )))

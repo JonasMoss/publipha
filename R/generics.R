@@ -22,7 +22,7 @@ setGeneric("loo", package = "loo")
 #' loo(phma_model)
 #' loo(psma_model)
 #' }
-
+#'
 setMethod("loo", "mafit", function(x, ...) {
   dots <- list(...)
 

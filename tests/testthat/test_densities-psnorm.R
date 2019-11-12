@@ -18,12 +18,10 @@ expect_equal(
 n <- 3
 y <- rep(1, n)
 
-expect_equal(
-  {
+expect_equal({
     set.seed(1)
     rpsnorm(n, theta = theta, sigma = sigma, eta = eta)
-  },
-  {
+  }, {
     set.seed(1)
     rpsnorm(y, theta = theta, sigma = sigma, eta = eta)
   },
