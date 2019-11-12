@@ -19,9 +19,9 @@
 #'     size distribution.
 #' @param alpha Numeric vector; Specifies the thresholds for publication
 #'     bias.
-#' @param eta Numeric vector; Containing the probabilites of being a study
+#' @param eta Numeric vector; Containing the probabilities of being a study
 #'     with the given p-value from being published. This is normalized so that
-#'     the maximumal element is 1.
+#'     the maximal element is 1.
 #' @return The normalizing constant.
 
 I <- function(sigma, theta, alpha, eta) {

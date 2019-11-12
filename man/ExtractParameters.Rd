@@ -28,7 +28,7 @@ extract_isq(object, fun = mean)
 for \code{extract_eta} and \code{extract_theta}.}
 }
 \value{
-The result of \code{FUN} being applied to all estimated paramaters of
+The result of \code{FUN} being applied to all estimated parameters of
 \code{object}.
 }
 \description{

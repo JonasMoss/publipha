@@ -1,12 +1,14 @@
 Package: publipha
 Title: Bayesian Meta-Analysis with Publications Bias and P-hacking
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: c(
     person("Jonas", "Moss", , "jonas.gjertsen@gmail.com", role = c("aut", "cre"), 
       comment = c(ORCID = "0000-0002-6876-6964")
     ))
 Description: Tools for Bayesian estimation of meta-analysis models that account 
-    for publications bias or p-hacking.
+    for publications bias or p-hacking. This package implements the method of 
+    Hedges (1992) <doi:10.1214/ss/1177011364> and Moss and De Bin (2019) <ARXIV
+    id.>
 License: MIT + file LICENSE
 Depends: 
     methods,
@@ -35,7 +37,8 @@ Suggests:
     knitr,
     rmarkdown,
     metafor,
-    qtl
+    qtl,
+    spelling
 Collate: 
     'data-anderson2010.R'
     'data-baskerville2012.R'
@@ -55,3 +58,4 @@ Collate:
     'utility.R'
     'zzz.R'
 VignetteBuilder: knitr
+Language: en-US

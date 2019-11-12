@@ -19,9 +19,9 @@ sampling error.}
 \item{alpha}{Numeric vector; Specifies the thresholds for publication
 bias.}
 
-\item{eta}{Numeric vector; Containing the probabilites of being a study
+\item{eta}{Numeric vector; Containing the probabilities of being a study
 with the given p-value from being published. This is normalized so that
-the maximumal element is 1.}
+the maximal element is 1.}
 
 \item{theta0}{Numeric; The mean of the underlying effect size
 distribution.}

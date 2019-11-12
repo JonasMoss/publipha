@@ -12,7 +12,7 @@
 #'     \tabular{lll}{
 #'         \strong{author}       \tab \code{character} \tab first author \cr
 #'         \strong{year}         \tab \code{numeric}   \tab publication year \cr
-#'         \strong{power}        \tab \code{boolean}   \tab if \code{TRUE}, the outcome was feelin of power \cr
+#'         \strong{power}        \tab \code{boolean}   \tab if \code{TRUE}, the outcome was feeling of power \cr
 #'         \strong{ease}         \tab \code{boolean}   \tab if \code{TRUE}, the outcome was an EASE variable \cr
 #'         \strong{yi}           \tab \code{numeric}   \tab standardized mean difference \cr
 #'         \strong{vi}           \tab \code{numeric}   \tab corresponding sampling variance

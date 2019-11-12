@@ -10,8 +10,8 @@
 \strong{year}         \tab \code{numeric}   \tab publication year \cr
 \strong{in_carter}    \tab \code{character} \tab was the study in the meta-analysis of Carter et al. (2015) \cr
 \strong{study}        \tab \code{character} \tab the number given to the study in the original paper (0 = only one study was reported in the original paper; the addition of a letter indicates subsamples);  \cr
-\strong{dv}           \tab \code{boolean}   \tab the dependendent variable \cr
-\strong{iv}           \tab \code{boolean}   \tab the independendent variable \cr
+\strong{dv}           \tab \code{boolean}   \tab the dependent variable \cr
+\strong{iv}           \tab \code{boolean}   \tab the independent variable \cr
 \strong{n1i}          \tab \code{numeric}   \tab the number of participants in the depletion condition \cr
 \strong{n2i}          \tab \code{numeric}   \tab the number of participants in the control condition \cr
 \strong{yi}           \tab \code{numeric}   \tab the adjusted standardized mean difference \cr

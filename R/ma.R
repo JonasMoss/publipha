@@ -2,7 +2,7 @@
 #'
 #' @slot bias The kind of bias modelled. Can be one of
 #'     \code{publication_selection}, \code{p-hacking} or \code{none}.
-#' @slot alpha Ordered numeric vector of cuttoffs including 0 and 1.
+#' @slot alpha Ordered numeric vector of cutoffs including 0 and 1.
 #' @slot yi Numeric vector of estimated effect sizes.
 #' @slot vi Numeric vector of study-specific variances.
 #' @slot parameters The list of prior parameters used in the fitting.
@@ -36,21 +36,21 @@ setClass(
 #'
 #' The `bias` options are:
 #'
-#' 1. `publication select`: The model of publication bias described in
+#' 1. `publication selection`: The model of publication bias described in
 #'    Hedges (1992).
 #' 2. `p-hacking`: The model for *p*-hacking described in Moss & De Bin (2019).
 #' 3. `none`: Classical random effects meta-analysis with no correction for
 #'    selection bias.
 #'
-#' The random effects distribution is normal with mean \code{theta0} and standard
+#' The effect size distribution is normal with mean \code{theta0} and standard
 #'    deviation \code{tau}. The prior for \code{theta0} is normal with parameters
-#'    \code{theta0_mean} (default: 0), \code{theta0_sd} (default: 1), with default values in
-#'    parentheses. The prior for \code{tau} is half normal with parameters
-#'    \code{tau_mean} (default: 1), \code{tau_sd} (default: 1). \code{eta} is the vector of \code{K}
+#'    \code{theta0_mean} (default: 0), \code{theta0_sd} (default: 1). The prior
+#'    for \code{tau} is half normal with parameters \code{tau_mean} (default: 1),
+#'    \code{tau_sd} (default: 1). \code{eta} is the vector of \code{K}
 #'    normalized publication probabilities (publication bias model) or \code{K}
 #'    *p*-hacking probabilities (*p*-hacking model). The prior of eta is Dirchlet with
 #'    parameter eta0, which defaults to \code{rep(1, K)}
-#'    for the publication bias model and \code{rep(1, K)} for the p-hacking model.
+#'    for the publication bias model and the p-hacking model.
 #'    eta0 is the prior for the Dirichlet distribution over the non-normalized etas in the
 #'    publication bias model, and they are forced to be decreasing.
 #'    To change the prior parameters, pass them to `prior` in a list.
@@ -63,7 +63,7 @@ setClass(
 #' @param bias String; If "publication bias", corrects for publication bias. If
 #'     "p-hacking", corrects for p-hacking.
 #' @param data Optional list or data frame containing \code{yi} and \code{vi}.
-#' @param alpha Numeric vector; Specifies the cuttoffs for significance.
+#' @param alpha Numeric vector; Specifies the cutoffs for significance.
 #'     Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).
 #' @param prior Optional list of prior parameters. See the details.
 #' @param ... Passed to \code{rstan::sampling}.
