@@ -7,8 +7,8 @@ Authors@R: c(
     ))
 Description: Tools for Bayesian estimation of meta-analysis models that account 
     for publications bias or p-hacking. This package implements the method of 
-    Hedges (1992) <doi:10.1214/ss/1177011364> and Moss and De Bin (2019) <ARXIV
-    id.>
+    Hedges (1992) <doi:10.1214/ss/1177011364> and Moss and De Bin (2019) <arXiv
+    id>
 License: MIT + file LICENSE
 Depends: 
     methods,
