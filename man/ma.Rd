@@ -50,8 +50,8 @@ correction.
 \code{ma} does a Bayesian meta-analysis with the type of correction used specified
 by \code{bias}. \code{psma} is a wrapper for \code{ma} with
 \code{bias = "publication selection"}, \code{phma} is a wrapper with
-\code{bias = "p-hacking"}, while \code{cma} has \code{bias = "none"}. The function \code{allma}
-runs all \code{bias} options and returns a list.
+\code{bias = "p-hacking"}, while \code{cma} has \code{bias = "none"}. The function
+\code{allma} runs all \code{bias} options and returns a list.
 
 The \code{bias} options are:
 \enumerate{
@@ -63,15 +63,15 @@ selection bias.
 }
 
 The effect size distribution is normal with mean \code{theta0} and standard
-deviation \code{tau}. The prior for \code{theta0} is normal with parameters
-\code{theta0_mean} (default: 0), \code{theta0_sd} (default: 1). The prior
-for \code{tau} is half normal with parameters \code{tau_mean} (default: 1),
-\code{tau_sd} (default: 1). \code{eta} is the vector of \code{K}
-normalized publication probabilities (publication bias model) or \code{K}
-\emph{p}-hacking probabilities (\emph{p}-hacking model). The prior of eta is Dirchlet with
-parameter eta0, which defaults to \code{rep(1, K)}
-for the publication bias model and the p-hacking model.
-eta0 is the prior for the Dirichlet distribution over the non-normalized etas in the
+deviation \code{tau}. The prior for \code{theta0} is normal with
+parameters \code{theta0_mean} (default: 0), \code{theta0_sd} (default: 1).
+The prior for \code{tau} is half normal with parameters \code{tau_mean}
+(default: 1), \code{tau_sd} (default: 1). \code{eta} is the vector of
+\code{K} normalized publication probabilities (publication bias model) or
+\code{K} \emph{p}-hacking probabilities (\emph{p}-hacking model). The prior of eta
+is Dirchlet with parameter eta0, which defaults to \code{rep(1, K)}
+for the publication bias model and the p-hacking model. \code{eta0} is the
+prior for the Dirichlet distribution over the non-normalized etas in the
 publication bias model, and they are forced to be decreasing.
 To change the prior parameters, pass them to \code{prior} in a list.
 }

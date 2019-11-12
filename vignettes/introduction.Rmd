@@ -1,10 +1,10 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "Introduction to publipha"
+author: "Jonas Moss"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Introduction to publipha}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -23,6 +23,12 @@ model_psma = publipha::psma(yi = yi,
                             vi = vi,
                             alpha = c(0, 0.025, 0.05, 1),
                             data = metafor::dat.bangertdrowns2004)
+
+set.seed(313)
+model_phma = publipha::phma(yi = yi,
+                          vi = vi,
+                          alpha = c(0, 0.025, 0.05, 1),
+                          data = metafor::dat.bangertdrowns2004)
 
 set.seed(313)
 model_cma = publipha::cma(yi = yi,
@@ -77,6 +83,13 @@ model_psma = publipha::psma(yi = yi,
                             alpha = c(0, 0.025, 0.05, 1),
                             data = metafor::dat.bangertdrowns2004)
 
+# p-hacking model
+set.seed(313)
+model_phma = publipha::phma(yi = yi,
+                          vi = vi,
+                          alpha = c(0, 0.025, 0.05, 1),
+                          data = metafor::dat.bangertdrowns2004)
+
 # Classical model
 set.seed(313)
 model_cma = publipha::cma(yi = yi,
@@ -104,3 +117,5 @@ extract_tau(model_psma, hist)
 
 ## References
 * [Hedges, Larry V. "Modeling publication selection effects in meta-analysis." Statistical Science (1992): 246-255.](https://www.jstor.org/stable/pdf/2246311.pdf)
+* Moss, Jonas and De Bin, Riccardo. "Modelling publication bias and p-hacking" Forthcoming (2019)
+* Citkowicz, M., & Vevea, J. L. (2017). A parsimonious weight function for modeling publication bias. Psychological Methods, 22(1), 28.

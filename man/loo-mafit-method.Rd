@@ -31,4 +31,5 @@ psma_model <- psma(yi, vi, data = metafor::dat.begg1989)
 loo(phma_model)
 loo(psma_model)
 }
+
 }

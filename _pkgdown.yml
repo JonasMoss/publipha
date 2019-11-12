@@ -1,1 +1,31 @@
 destination: docs
+
+authors:
+  Jonas Moss:
+    href: https://burnishedmossite.netlify.com
+
+reference:
+  - title: Estimation
+    contents:
+    - ma
+    - mafit-class
+  - title: Data analysis aids
+    contents:
+    - ExtractParameters
+    - loo,mafit-method
+  - title: Distributions
+    contents:
+    - mpsnorm
+    - phnorm
+    - psnorm
+    - snorm
+  - title: Data sets
+  - contents:
+    - dat.anderson2010
+    - dat.baskerville2012
+    - dat.cuddy2018
+    - dat.dang2018
+    - dat.motyl2017
+  - title: Package docs
+    contents:
+    - publipha-package
