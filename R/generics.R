@@ -31,8 +31,8 @@ setMethod("loo", "mafit", function(x, ...) {
   if (dots$marginal) {
     if (x@bias != "p-hacking") {
       log_lik <- loo::extract_log_lik(x,
-        parameter_name = "log_lik_marginal",
-        merge_chains = FALSE
+                                      parameter_name = "log_lik_marginal",
+                                      merge_chains = FALSE
       )
 
       if (is.null(dots$r_eff)) dots$r_eff <- loo::relative_eff(exp(log_lik))
@@ -50,15 +50,15 @@ setMethod("loo", "mafit", function(x, ...) {
           tau <- draws$tau[n]
 
           f <- function(theta) {
-            dphnorm(yi_i / sqrt(vi_i), theta, 1, x@alpha, eta) *
+            publipha::dphnorm(yi_i / sqrt(vi_i), theta, 1, x@alpha, eta) *
               stats::dnorm(theta, theta0 / sqrt(vi_i), tau / sqrt(vi_i))
           }
 
-          integral <- log(stats::integrate(
+          integral <- tryCatch({ log(stats::integrate(
             f = f,
             lower = -Inf,
             upper = Inf
-          )$value)
+          )$value)},  error = function(e) NA)
 
           result_i[n] <- integral - log(sqrt(vi_i))
         }
@@ -66,7 +66,15 @@ setMethod("loo", "mafit", function(x, ...) {
         result_i
       }
 
-      loo(llfun, draws = rstan::extract(x), data = cbind(x@yi, x@vi), ...)
+      data = cbind(x@yi, x@vi)
+      draws = rstan::extract(x)
+
+      values = sapply(seq_along(x@yi), function(i) llfun(data[i, ], draws))
+      values[is.infinite(values)] = NA
+      values[values < -5] = NA
+      values = values[!is.na(rowSums(values)), ]
+
+      loo(values)
     }
   } else {
     log_lik <- loo::extract_log_lik(x, merge_chains = FALSE)
@@ -76,3 +84,4 @@ setMethod("loo", "mafit", function(x, ...) {
     do_call(.fn = loo::loo.array, .args = c(list(x = log_lik), dots))
   }
 })
+
