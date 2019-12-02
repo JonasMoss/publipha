@@ -1,3 +1,7 @@
+## Resubmission
+
+* Fixed link in README.md.
+
 ## Test environments
 * local Windows 10, R version 3.6.1
 * Ubuntu 16.04 (on Travis-CI), R version 3.6.1, R-devel.

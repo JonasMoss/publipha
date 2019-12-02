@@ -51,7 +51,7 @@ publication bias or *p*-hacking. Its main functions are:
 
 * `psma` does random effects meta-analysis under publication bias with a 
    one-sided *p*-value based *selection probability*. The model is roughly the 
-   same as that of [(Hedges, 1992)]((https://www.jstor.org/stable/pdf/2246311.pdf))
+   same as that of [(Hedges, 1992)](https://www.jstor.org/stable/pdf/2246311.pdf)
 *  `phma` does random effects meta-analysis under a certain model of *p*-hacking
    with a one-sided *p*-value based propensity to *p*-hack. This is based
    on the forthcoming paper of [by Moss and De Bin (2019)](https://arxiv.org/abs/1911.12445).
