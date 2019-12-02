@@ -24,7 +24,7 @@
 #' in meta-analysis." Statistical Science (1992): 246-255.
 #'
 #' Moss, Jonas and De Bin, Riccardo. "Modelling publication
-#' bias and p-hacking" Forthcoming (2019)
+#' bias and p-hacking" (2019) arXiv:1911.12445
 #'
 #' @examples
 #' rsnorm(100, theta0 = 0, tau = 0.1, sigma = 0.1, eta = c(1, 0.5, 0.1))

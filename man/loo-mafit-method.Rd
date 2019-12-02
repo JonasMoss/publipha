@@ -20,9 +20,12 @@ Computes PSIS-LOO CV, approximate leave-one-out cross-validation
 using Pareto smoothed importance sampling, see \code{\link[loo:loo]{loo}}.
 }
 \details{
-\code{...} affect the function through one parameter, \code{marginal}. When \code{marginal}
-is \code{TRUE}, the PSIS-LOO CV is based on the marginal likelihood, i.e. with
-the dependence on \code{theta} integrated out. \code{marginal} defaults to \code{TRUE}.
+\code{...} affect the function through two parameters, \code{marginal} and
+\code{lower_bound}. When \code{marginal}is \code{TRUE}, the PSIS-LOO CV is based on the
+marginal likelihood, i.e. with the dependence on \code{theta} integrated out.
+\code{marginal} defaults to \code{TRUE}. \code{lower_bound} species the lower bound where
+log-likelihoods are dropped; this is only used in the \emph{p}-hacking model
+and defaults to -6.
 }
 \examples{
 \dontrun{
@@ -31,5 +34,4 @@ psma_model <- psma(yi, vi, data = metafor::dat.begg1989)
 loo(phma_model)
 loo(psma_model)
 }
-
 }

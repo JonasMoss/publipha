@@ -27,3 +27,4 @@ workspace_old
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^README_cache$

@@ -15,7 +15,7 @@
 \strong{n1i}          \tab \code{numeric}   \tab the number of participants in the depletion condition \cr
 \strong{n2i}          \tab \code{numeric}   \tab the number of participants in the control condition \cr
 \strong{yi}           \tab \code{numeric}   \tab the adjusted standardized mean difference \cr
-\strong{vi}           \tab \code{numeric}   \tab the variance of g
+\strong{vi}           \tab \code{numeric}   \tab the variance
 }}
 \usage{
 data(dat.dang2018)

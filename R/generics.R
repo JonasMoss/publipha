@@ -5,9 +5,12 @@ setGeneric("loo", package = "loo")
 #' Computes PSIS-LOO CV, approximate leave-one-out cross-validation
 #' using Pareto smoothed importance sampling, see [`loo`][loo::loo].
 #'
-#' `...` affect the function through one parameter, `marginal`. When `marginal`
-#' is `TRUE`, the PSIS-LOO CV is based on the marginal likelihood, i.e. with
-#' the dependence on `theta` integrated out. `marginal` defaults to `TRUE`.
+#' `...` affect the function through two parameters, `marginal` and
+#' `lower_bound`. When `marginal`is `TRUE`, the PSIS-LOO CV is based on the
+#' marginal likelihood, i.e. with the dependence on `theta` integrated out.
+#' `marginal` defaults to `TRUE`. `lower_bound` species the lower bound where
+#' log-likelihoods are dropped; this is only used in the *p*-hacking model
+#' and defaults to -6.
 #'
 #' @param x an object of class `mafit`.
 #' @param ... passed to [`loo`][loo::loo]. Only
@@ -22,9 +25,12 @@ setGeneric("loo", package = "loo")
 #' loo(phma_model)
 #' loo(psma_model)
 #' }
-#'
+
 setMethod("loo", "mafit", function(x, ...) {
   dots <- list(...)
+
+  if(is.null(dots$to_na)) dots$lower_bound = -6
+  lower_bound = dots$lower_bound
 
   if (is.null(dots$marginal)) dots$marginal <- TRUE
 
@@ -38,6 +44,7 @@ setMethod("loo", "mafit", function(x, ...) {
       if (is.null(dots$r_eff)) dots$r_eff <- loo::relative_eff(exp(log_lik))
       do_call(.fn = loo::loo.array, .args = c(list(x = log_lik), dots))
     } else {
+
       llfun <- function(data_i, draws) {
         N <- length(draws$theta0)
         yi_i <- data_i[1]
@@ -71,7 +78,7 @@ setMethod("loo", "mafit", function(x, ...) {
 
       values = sapply(seq_along(x@yi), function(i) llfun(data[i, ], draws))
       values[is.infinite(values)] = NA
-      values[values < -5] = NA
+      values[values < lower_bound] = NA
       values = values[!is.na(rowSums(values)), ]
 
       loo(values)

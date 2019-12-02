@@ -6,9 +6,9 @@ Authors@R: c(
       comment = c(ORCID = "0000-0002-6876-6964")
     ))
 Description: Tools for Bayesian estimation of meta-analysis models that account 
-    for publications bias or p-hacking. This package implements the method of 
-    Hedges (1992) <doi:10.1214/ss/1177011364> and Moss and De Bin (2019) <arXiv
-    id>
+    for publications bias or p-hacking. This package implements the methods of 
+    Hedges (1992) <doi:10.1214/ss/1177011364> and Moss and De Bin (2019) 
+    <arXiv:1911.12445>.
 License: MIT + file LICENSE
 Depends: 
     methods,
@@ -57,5 +57,4 @@ Collate:
     'tools.R'
     'utility.R'
     'zzz.R'
-VignetteBuilder: knitr
 Language: en-US

@@ -51,5 +51,5 @@ Hedges, Larry V. "Modeling publication selection effects
 in meta-analysis." Statistical Science (1992): 246-255.
 
 Moss, Jonas and De Bin, Riccardo. "Modelling publication
-bias and p-hacking" Forthcoming (2019)
+bias and p-hacking" (2019) arXiv:1911.12445
 }

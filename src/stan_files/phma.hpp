@@ -44,7 +44,7 @@ stan::io::program_reader prog_reader__() {
     reader.add_event(19, 1, "restart", "/chunks/phma_likelihoods.stan");
     reader.add_event(38, 20, "end", "/chunks/phma_likelihoods.stan");
     reader.add_event(38, 2, "restart", "model_phma");
-    reader.add_event(89, 51, "end", "model_phma");
+    reader.add_event(96, 58, "end", "model_phma");
     return reader;
 }
 
@@ -487,13 +487,13 @@ public:
             current_statement_begin__ = 61;
             num_params_r__ += 1;
             current_statement_begin__ = 62;
-            num_params_r__ += 1;
+            validate_non_negative_index("theta_tilde", "N", N);
+            num_params_r__ += (1 * N);
             current_statement_begin__ = 63;
+            num_params_r__ += 1;
+            current_statement_begin__ = 64;
             validate_non_negative_index("eta", "(k - 1)", (k - 1));
             num_params_r__ += ((k - 1) - 1);
-            current_statement_begin__ = 64;
-            validate_non_negative_index("theta", "N", N);
-            num_params_r__ += (1 * N);
         } catch (const std::exception& e) {
             stan::lang::rethrow_located(e, current_statement_begin__, prog_reader__());
             // Next line prevents compiler griping about no return
@@ -530,6 +530,27 @@ public:
         }
 
         current_statement_begin__ = 62;
+        if (!(context__.contains_r("theta_tilde")))
+            stan::lang::rethrow_located(std::runtime_error(std::string("Variable theta_tilde missing")), current_statement_begin__, prog_reader__());
+        vals_r__ = context__.vals_r("theta_tilde");
+        pos__ = 0U;
+        validate_non_negative_index("theta_tilde", "N", N);
+        context__.validate_dims("parameter initialization", "theta_tilde", "double", context__.to_vec(N));
+        std::vector<double> theta_tilde(N, double(0));
+        size_t theta_tilde_k_0_max__ = N;
+        for (size_t k_0__ = 0; k_0__ < theta_tilde_k_0_max__; ++k_0__) {
+            theta_tilde[k_0__] = vals_r__[pos__++];
+        }
+        size_t theta_tilde_i_0_max__ = N;
+        for (size_t i_0__ = 0; i_0__ < theta_tilde_i_0_max__; ++i_0__) {
+            try {
+                writer__.scalar_unconstrain(theta_tilde[i_0__]);
+            } catch (const std::exception& e) {
+                stan::lang::rethrow_located(std::runtime_error(std::string("Error transforming variable theta_tilde: ") + e.what()), current_statement_begin__, prog_reader__());
+            }
+        }
+
+        current_statement_begin__ = 63;
         if (!(context__.contains_r("tau")))
             stan::lang::rethrow_located(std::runtime_error(std::string("Variable tau missing")), current_statement_begin__, prog_reader__());
         vals_r__ = context__.vals_r("tau");
@@ -543,7 +564,7 @@ public:
             stan::lang::rethrow_located(std::runtime_error(std::string("Error transforming variable tau: ") + e.what()), current_statement_begin__, prog_reader__());
         }
 
-        current_statement_begin__ = 63;
+        current_statement_begin__ = 64;
         if (!(context__.contains_r("eta")))
             stan::lang::rethrow_located(std::runtime_error(std::string("Variable eta missing")), current_statement_begin__, prog_reader__());
         vals_r__ = context__.vals_r("eta");
@@ -559,27 +580,6 @@ public:
             writer__.simplex_unconstrain(eta);
         } catch (const std::exception& e) {
             stan::lang::rethrow_located(std::runtime_error(std::string("Error transforming variable eta: ") + e.what()), current_statement_begin__, prog_reader__());
-        }
-
-        current_statement_begin__ = 64;
-        if (!(context__.contains_r("theta")))
-            stan::lang::rethrow_located(std::runtime_error(std::string("Variable theta missing")), current_statement_begin__, prog_reader__());
-        vals_r__ = context__.vals_r("theta");
-        pos__ = 0U;
-        validate_non_negative_index("theta", "N", N);
-        context__.validate_dims("parameter initialization", "theta", "double", context__.to_vec(N));
-        std::vector<double> theta(N, double(0));
-        size_t theta_k_0_max__ = N;
-        for (size_t k_0__ = 0; k_0__ < theta_k_0_max__; ++k_0__) {
-            theta[k_0__] = vals_r__[pos__++];
-        }
-        size_t theta_i_0_max__ = N;
-        for (size_t i_0__ = 0; i_0__ < theta_i_0_max__; ++i_0__) {
-            try {
-                writer__.scalar_unconstrain(theta[i_0__]);
-            } catch (const std::exception& e) {
-                stan::lang::rethrow_located(std::runtime_error(std::string("Error transforming variable theta: ") + e.what()), current_statement_begin__, prog_reader__());
-            }
         }
 
         params_r__ = writer__.data_r();
@@ -623,6 +623,17 @@ public:
                 theta0 = in__.scalar_constrain();
 
             current_statement_begin__ = 62;
+            std::vector<local_scalar_t__> theta_tilde;
+            size_t theta_tilde_d_0_max__ = N;
+            theta_tilde.reserve(theta_tilde_d_0_max__);
+            for (size_t d_0__ = 0; d_0__ < theta_tilde_d_0_max__; ++d_0__) {
+                if (jacobian__)
+                    theta_tilde.push_back(in__.scalar_constrain(lp__));
+                else
+                    theta_tilde.push_back(in__.scalar_constrain());
+            }
+
+            current_statement_begin__ = 63;
             local_scalar_t__ tau;
             (void) tau;  // dummy to suppress unused var warning
             if (jacobian__)
@@ -630,7 +641,7 @@ public:
             else
                 tau = in__.scalar_lb_constrain(0);
 
-            current_statement_begin__ = 63;
+            current_statement_begin__ = 64;
             Eigen::Matrix<local_scalar_t__, Eigen::Dynamic, 1> eta;
             (void) eta;  // dummy to suppress unused var warning
             if (jacobian__)
@@ -638,33 +649,52 @@ public:
             else
                 eta = in__.simplex_constrain((k - 1));
 
-            current_statement_begin__ = 64;
-            std::vector<local_scalar_t__> theta;
-            size_t theta_d_0_max__ = N;
-            theta.reserve(theta_d_0_max__);
-            for (size_t d_0__ = 0; d_0__ < theta_d_0_max__; ++d_0__) {
-                if (jacobian__)
-                    theta.push_back(in__.scalar_constrain(lp__));
-                else
-                    theta.push_back(in__.scalar_constrain());
+            // transformed parameters
+            current_statement_begin__ = 70;
+            validate_non_negative_index("theta", "N", N);
+            std::vector<local_scalar_t__> theta(N, local_scalar_t__(0));
+            stan::math::initialize(theta, DUMMY_VAR__);
+            stan::math::fill(theta, DUMMY_VAR__);
+
+            // transformed parameters block statements
+            current_statement_begin__ = 71;
+            for (int n = 1; n <= N; ++n) {
+                current_statement_begin__ = 71;
+                stan::model::assign(theta, 
+                            stan::model::cons_list(stan::model::index_uni(n), stan::model::nil_index_list()), 
+                            (theta0 + (tau * get_base1(theta_tilde, n, "theta_tilde", 1))), 
+                            "assigning variable theta");
+            }
+
+            // validate transformed parameters
+            const char* function__ = "validate transformed params";
+            (void) function__;  // dummy to suppress unused var warning
+
+            current_statement_begin__ = 70;
+            size_t theta_k_0_max__ = N;
+            for (size_t k_0__ = 0; k_0__ < theta_k_0_max__; ++k_0__) {
+                if (stan::math::is_uninitialized(theta[k_0__])) {
+                    std::stringstream msg__;
+                    msg__ << "Undefined transformed parameter: theta" << "[" << k_0__ << "]";
+                    stan::lang::rethrow_located(std::runtime_error(std::string("Error initializing variable theta: ") + msg__.str()), current_statement_begin__, prog_reader__());
+                }
             }
 
             // model body
 
-            current_statement_begin__ = 69;
+            current_statement_begin__ = 78;
             lp_accum__.add(normal_log<propto__>(theta0, theta0_mean, theta0_sd));
-            current_statement_begin__ = 70;
+            current_statement_begin__ = 79;
             lp_accum__.add(normal_log<propto__>(tau, tau_mean, tau_sd));
             if (tau < 0) lp_accum__.add(-std::numeric_limits<double>::infinity());
             else lp_accum__.add(-normal_ccdf_log(0, tau_mean, tau_sd));
-            current_statement_begin__ = 71;
+            current_statement_begin__ = 80;
             lp_accum__.add(dirichlet_log<propto__>(eta, eta0));
-            current_statement_begin__ = 72;
-            lp_accum__.add(normal_log<propto__>(theta, theta0, tau));
-            current_statement_begin__ = 74;
+            current_statement_begin__ = 81;
+            lp_accum__.add(normal_log<propto__>(theta_tilde, 0, 1));
+            current_statement_begin__ = 83;
             for (int n = 1; n <= N; ++n) {
-
-                current_statement_begin__ = 75;
+                current_statement_begin__ = 83;
                 lp_accum__.add(phma_normal_lpdf<propto__>(get_base1(yi, n, "yi", 1), get_base1(theta, n, "theta", 1), stan::math::sqrt(get_base1(vi, n, "vi", 1)), alpha, eta, pstream__));
             }
 
@@ -694,6 +724,7 @@ public:
     void get_param_names(std::vector<std::string>& names__) const {
         names__.resize(0);
         names__.push_back("theta0");
+        names__.push_back("theta_tilde");
         names__.push_back("tau");
         names__.push_back("eta");
         names__.push_back("theta");
@@ -705,6 +736,9 @@ public:
         dimss__.resize(0);
         std::vector<size_t> dims__;
         dims__.resize(0);
+        dimss__.push_back(dims__);
+        dims__.resize(0);
+        dims__.push_back(N);
         dimss__.push_back(dims__);
         dims__.resize(0);
         dimss__.push_back(dims__);
@@ -738,6 +772,17 @@ public:
         double theta0 = in__.scalar_constrain();
         vars__.push_back(theta0);
 
+        std::vector<double> theta_tilde;
+        size_t theta_tilde_d_0_max__ = N;
+        theta_tilde.reserve(theta_tilde_d_0_max__);
+        for (size_t d_0__ = 0; d_0__ < theta_tilde_d_0_max__; ++d_0__) {
+            theta_tilde.push_back(in__.scalar_constrain());
+        }
+        size_t theta_tilde_k_0_max__ = N;
+        for (size_t k_0__ = 0; k_0__ < theta_tilde_k_0_max__; ++k_0__) {
+            vars__.push_back(theta_tilde[k_0__]);
+        }
+
         double tau = in__.scalar_lb_constrain(0);
         vars__.push_back(tau);
 
@@ -745,17 +790,6 @@ public:
         size_t eta_j_1_max__ = (k - 1);
         for (size_t j_1__ = 0; j_1__ < eta_j_1_max__; ++j_1__) {
             vars__.push_back(eta(j_1__));
-        }
-
-        std::vector<double> theta;
-        size_t theta_d_0_max__ = N;
-        theta.reserve(theta_d_0_max__);
-        for (size_t d_0__ = 0; d_0__ < theta_d_0_max__; ++d_0__) {
-            theta.push_back(in__.scalar_constrain());
-        }
-        size_t theta_k_0_max__ = N;
-        for (size_t k_0__ = 0; k_0__ < theta_k_0_max__; ++k_0__) {
-            vars__.push_back(theta[k_0__]);
         }
 
         double lp__ = 0.0;
@@ -768,19 +802,47 @@ public:
         if (!include_tparams__ && !include_gqs__) return;
 
         try {
+            // declare and define transformed parameters
+            current_statement_begin__ = 70;
+            validate_non_negative_index("theta", "N", N);
+            std::vector<double> theta(N, double(0));
+            stan::math::initialize(theta, DUMMY_VAR__);
+            stan::math::fill(theta, DUMMY_VAR__);
+
+            // do transformed parameters statements
+            current_statement_begin__ = 71;
+            for (int n = 1; n <= N; ++n) {
+                current_statement_begin__ = 71;
+                stan::model::assign(theta, 
+                            stan::model::cons_list(stan::model::index_uni(n), stan::model::nil_index_list()), 
+                            (theta0 + (tau * get_base1(theta_tilde, n, "theta_tilde", 1))), 
+                            "assigning variable theta");
+            }
+
             if (!include_gqs__ && !include_tparams__) return;
+            // validate transformed parameters
+            const char* function__ = "validate transformed params";
+            (void) function__;  // dummy to suppress unused var warning
+
+            // write transformed parameters
+            if (include_tparams__) {
+                size_t theta_k_0_max__ = N;
+                for (size_t k_0__ = 0; k_0__ < theta_k_0_max__; ++k_0__) {
+                    vars__.push_back(theta[k_0__]);
+                }
+            }
             if (!include_gqs__) return;
             // declare and define generated quantities
-            current_statement_begin__ = 82;
+            current_statement_begin__ = 89;
             validate_non_negative_index("log_lik", "N", N);
             Eigen::Matrix<double, Eigen::Dynamic, 1> log_lik(N);
             stan::math::initialize(log_lik, DUMMY_VAR__);
             stan::math::fill(log_lik, DUMMY_VAR__);
 
             // generated quantities statements
-            current_statement_begin__ = 84;
+            current_statement_begin__ = 91;
             for (int n = 1; n <= N; ++n) {
-                current_statement_begin__ = 85;
+                current_statement_begin__ = 92;
                 stan::model::assign(log_lik, 
                             stan::model::cons_list(stan::model::index_uni(n), stan::model::nil_index_list()), 
                             phma_normal_lpdf(get_base1(yi, n, "yi", 1), get_base1(theta, n, "theta", 1), stan::math::sqrt(get_base1(vi, n, "vi", 1)), alpha, eta, pstream__), 
@@ -788,7 +850,7 @@ public:
             }
 
             // validate, write generated quantities
-            current_statement_begin__ = 82;
+            current_statement_begin__ = 89;
             size_t log_lik_j_1_max__ = N;
             for (size_t j_1__ = 0; j_1__ < log_lik_j_1_max__; ++j_1__) {
                 vars__.push_back(log_lik(j_1__));
@@ -831,6 +893,12 @@ public:
         param_name_stream__.str(std::string());
         param_name_stream__ << "theta0";
         param_names__.push_back(param_name_stream__.str());
+        size_t theta_tilde_k_0_max__ = N;
+        for (size_t k_0__ = 0; k_0__ < theta_tilde_k_0_max__; ++k_0__) {
+            param_name_stream__.str(std::string());
+            param_name_stream__ << "theta_tilde" << '.' << k_0__ + 1;
+            param_names__.push_back(param_name_stream__.str());
+        }
         param_name_stream__.str(std::string());
         param_name_stream__ << "tau";
         param_names__.push_back(param_name_stream__.str());
@@ -840,16 +908,16 @@ public:
             param_name_stream__ << "eta" << '.' << j_1__ + 1;
             param_names__.push_back(param_name_stream__.str());
         }
-        size_t theta_k_0_max__ = N;
-        for (size_t k_0__ = 0; k_0__ < theta_k_0_max__; ++k_0__) {
-            param_name_stream__.str(std::string());
-            param_name_stream__ << "theta" << '.' << k_0__ + 1;
-            param_names__.push_back(param_name_stream__.str());
-        }
 
         if (!include_gqs__ && !include_tparams__) return;
 
         if (include_tparams__) {
+            size_t theta_k_0_max__ = N;
+            for (size_t k_0__ = 0; k_0__ < theta_k_0_max__; ++k_0__) {
+                param_name_stream__.str(std::string());
+                param_name_stream__ << "theta" << '.' << k_0__ + 1;
+                param_names__.push_back(param_name_stream__.str());
+            }
         }
 
         if (!include_gqs__) return;
@@ -869,6 +937,12 @@ public:
         param_name_stream__.str(std::string());
         param_name_stream__ << "theta0";
         param_names__.push_back(param_name_stream__.str());
+        size_t theta_tilde_k_0_max__ = N;
+        for (size_t k_0__ = 0; k_0__ < theta_tilde_k_0_max__; ++k_0__) {
+            param_name_stream__.str(std::string());
+            param_name_stream__ << "theta_tilde" << '.' << k_0__ + 1;
+            param_names__.push_back(param_name_stream__.str());
+        }
         param_name_stream__.str(std::string());
         param_name_stream__ << "tau";
         param_names__.push_back(param_name_stream__.str());
@@ -878,16 +952,16 @@ public:
             param_name_stream__ << "eta" << '.' << j_1__ + 1;
             param_names__.push_back(param_name_stream__.str());
         }
-        size_t theta_k_0_max__ = N;
-        for (size_t k_0__ = 0; k_0__ < theta_k_0_max__; ++k_0__) {
-            param_name_stream__.str(std::string());
-            param_name_stream__ << "theta" << '.' << k_0__ + 1;
-            param_names__.push_back(param_name_stream__.str());
-        }
 
         if (!include_gqs__ && !include_tparams__) return;
 
         if (include_tparams__) {
+            size_t theta_k_0_max__ = N;
+            for (size_t k_0__ = 0; k_0__ < theta_k_0_max__; ++k_0__) {
+                param_name_stream__.str(std::string());
+                param_name_stream__ << "theta" << '.' << k_0__ + 1;
+                param_names__.push_back(param_name_stream__.str());
+            }
         }
 
         if (!include_gqs__) return;
