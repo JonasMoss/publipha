@@ -33,6 +33,10 @@ esnorm(theta0, tau, sigma, alpha, eta)
 \item{n}{number of observations. If \code{length(n) > 1}, the length is taken
 to be the number required.}
 }
+\value{
+\code{dsnorm} gives the density, \code{psnorm} gives the distribution
+function, and \code{rsnorm} generates random deviates.
+}
 \description{
 Density, random variate generation, and expectation calculation for the
 effect size distribution of the one-sided normal publication bias model.

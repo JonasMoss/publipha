@@ -37,6 +37,10 @@ rmpsnorm(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta)
 \item{n}{number of observations. If \code{length(n) > 1}, the length is taken
 to be the number required.}
 }
+\value{
+\code{dmpsnorm} gives the density, \code{pmpsnorm} gives the distribution
+function, and \code{rmpsnorm} generates random deviates.
+}
 \description{
 Density, distribution, and random variate generation for the marginalized
 distribution of the publication selection meta-analysis model

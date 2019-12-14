@@ -35,6 +35,10 @@ to be the number required.}
 \item{lower.tail}{logical; If \code{TRUE} (default), the probabilities are
 \eqn{P[X\leq x]} otherwise, \eqn{P[X\geq x]}.}
 }
+\value{
+\code{dphnorm} gives the density, \code{pphnorm} gives the distribution
+function, and \code{rphnorm} generates random deviates.
+}
 \description{
 Density, distribution, and random variate generation for the p-hacking meta-
 analysis model.

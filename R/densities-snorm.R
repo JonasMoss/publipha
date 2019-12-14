@@ -1,3 +1,21 @@
+# Selected normal effect size distribution.
+# Copyright (C) 2019 Jonas Moss
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 3
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+# USA.
+
 #' Selected Normal Effect Size Distribution
 #'
 #' Density, random variate generation, and expectation calculation for the
@@ -20,6 +38,8 @@
 #' @param eta vector of publication probabilities, normalized to sum to 1.
 #' @param log logical; If \code{TRUE}, probabilities are given as
 #'     \code{log(p)}.
+#' @return `dsnorm` gives the density, `psnorm` gives the distribution
+#'    function, and `rsnorm` generates random deviates.
 #' @references Hedges, Larry V. "Modeling publication selection effects
 #' in meta-analysis." Statistical Science (1992): 246-255.
 #'

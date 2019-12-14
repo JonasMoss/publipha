@@ -35,6 +35,10 @@ rpsnorm(n, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta)
 \item{n}{number of observations. If \code{length(n) > 1}, the length is taken
 to be the number required.}
 }
+\value{
+\code{dpsnorm} gives the density, \code{ppsnorm} gives the distribution
+function, and \code{rpsnorm} generates random deviates.
+}
 \description{
 Density, distribution, quantile, random variate generation, and expectation
 calculation for the distribution for the publication selection
