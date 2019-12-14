@@ -2,6 +2,7 @@
 
 * Changed DESCRIPTION title to title case.
 * Added missing \value tags to densities.
+* Replaced \dontrun with \donttest.
 * Changed license to GPL-3.
 * Added Trustees of Columbia University as copyright holders in DESCRIPTION.
 
