@@ -1,6 +1,9 @@
 ## Resubmission
 
-* Fixed link in README.md.
+* Changed DESCRIPTION title to title case.
+* Added missing \value tags to densities.
+* Changed license to GPL-3.
+* Added Trustees of Columbia University as copyright holders in DESCRIPTION.
 
 ## Test environments
 * local Windows 10, R version 3.6.1
