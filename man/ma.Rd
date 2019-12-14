@@ -76,11 +76,9 @@ publication bias model, and they are forced to be decreasing.
 To change the prior parameters, pass them to \code{prior} in a list.
 }
 \examples{
-
 \donttest{
 phma_model <- phma(yi, vi, data = metafor::dat.begg1989)
 }
-
 prior <- list(
   eta0 = c(3, 2, 1),
   theta0_mean = 0.5,
@@ -91,15 +89,12 @@ prior <- list(
 \donttest{
 psma_model <- psma(yi, vi, data = metafor::dat.begg1989, prior = prior)
 }
-
 \donttest{
 cma_model <- psma(yi, vi, data = metafor::dat.begg1989, prior = prior)
 }
-
 \donttest{
 model <- all(yi, vi, data = metafor::dat.begg1989, prior = prior)
 }
-
 }
 \references{
 Hedges, Larry V. "Modeling publication selection effects
