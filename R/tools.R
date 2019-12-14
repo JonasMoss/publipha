@@ -1,3 +1,21 @@
+# Tools for the publipha package.
+# Copyright (C) 2019 Jonas Moss
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 3
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+# USA.
+
 #' Extract Parameters from an `mafit` Object
 #'
 #' Extract samples from a model of class [`mafit`][mafit-class] and apply a
@@ -20,7 +38,7 @@
 #' @return The result of `FUN` being applied to all estimated parameters of
 #'    `object`.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' set.seed(313)
 #' model <- publipha::psma(yi = yi, vi = vi, data = dat.baskerville2012)
 #' extract_theta0(model, mean) # [1] extract_theta0(model, mean)

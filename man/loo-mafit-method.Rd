@@ -28,7 +28,7 @@ log-likelihoods are dropped; this is only used in the \emph{p}-hacking model
 and defaults to -6.
 }
 \examples{
-\dontrun{
+\donttest{
 phma_model <- phma(yi, vi, data = metafor::dat.begg1989)
 psma_model <- psma(yi, vi, data = metafor::dat.begg1989)
 loo(phma_model)

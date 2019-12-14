@@ -45,7 +45,7 @@ All \code{extract_} functions are wrappers
 around \code{\link[rstan:extract]{rstan::extract}}.
 }
 \examples{
-\dontrun{
+\donttest{
 set.seed(313)
 model <- publipha::psma(yi = yi, vi = vi, data = dat.baskerville2012)
 extract_theta0(model, mean) # [1] extract_theta0(model, mean)

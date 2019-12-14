@@ -1,3 +1,21 @@
+# Estimate Bayesian Meta-analysis models with STAN
+# Copyright (C) 2019 Jonas Moss
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 3
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+# USA.
+
 #' Class \code{mafit}: Fitted Meta-analysis Model
 #'
 #' @slot bias The kind of bias modelled. Can be one of
@@ -71,7 +89,7 @@ setClass(
 #'    run. A list of `mafit` objects when `allma` is run.
 #' @examples
 #'
-#' \dontrun{
+#' \donttest{
 #' phma_model <- phma(yi, vi, data = metafor::dat.begg1989)
 #' }
 #'
@@ -82,15 +100,15 @@ setClass(
 #'   tau_mean = 1,
 #'   tau_sd = 1
 #' )
-#' \dontrun{
+#' \donttest{
 #' psma_model <- psma(yi, vi, data = metafor::dat.begg1989, prior = prior)
 #' }
 #'
-#' \dontrun{
+#' \donttest{
 #' cma_model <- psma(yi, vi, data = metafor::dat.begg1989, prior = prior)
 #' }
 #'
-#' \dontrun{
+#' \donttest{
 #' model <- all(yi, vi, data = metafor::dat.begg1989, prior = prior)
 #' }
 #'

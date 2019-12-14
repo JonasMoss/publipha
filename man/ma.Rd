@@ -77,7 +77,7 @@ To change the prior parameters, pass them to \code{prior} in a list.
 }
 \examples{
 
-\dontrun{
+\donttest{
 phma_model <- phma(yi, vi, data = metafor::dat.begg1989)
 }
 
@@ -88,15 +88,15 @@ prior <- list(
   tau_mean = 1,
   tau_sd = 1
 )
-\dontrun{
+\donttest{
 psma_model <- psma(yi, vi, data = metafor::dat.begg1989, prior = prior)
 }
 
-\dontrun{
+\donttest{
 cma_model <- psma(yi, vi, data = metafor::dat.begg1989, prior = prior)
 }
 
-\dontrun{
+\donttest{
 model <- all(yi, vi, data = metafor::dat.begg1989, prior = prior)
 }
 
