@@ -4,12 +4,13 @@ Version: 0.1.0
 Authors@R: c(
     person("Jonas", "Moss", , "jonas.gjertsen@gmail.com", role = c("aut", "cre"), 
       comment = c(ORCID = "0000-0002-6876-6964")
-    ))
+    ),
+    person("Trustees of Columbia University", role = "cph"))
 Description: Tools for Bayesian estimation of meta-analysis models that account 
     for publications bias or p-hacking. This package implements the methods of 
     Hedges (1992) <doi:10.1214/ss/1177011364> and Moss and De Bin (2019) 
     <arXiv:1911.12445>.
-License: MIT + file LICENSE
+License: GPL-3
 Depends: 
     methods,
     R (>= 3.5.0),
