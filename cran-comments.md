@@ -1,10 +1,7 @@
 ## Resubmission
 
 * Changed DESCRIPTION title to title case.
-* Added missing \value tags to densities.
-* Replaced \dontrun with \donttest.
-* Changed license to GPL-3.
-* Added Trustees of Columbia University as copyright holders in DESCRIPTION.
+* Added more information ot DESCRIPTION.
 
 ## Test environments
 * local Windows 10, R version 3.6.1
