@@ -1,5 +1,5 @@
 Package: publipha
-Title: Bayesian Meta-Analysis with Publications Bias and P-hacking
+Title: Bayesian Meta-Analysis with Publications Bias and P-Hacking
 Version: 0.1.0
 Authors@R: c(
     person("Jonas", "Moss", , "jonas.gjertsen@gmail.com", role = c("aut", "cre"), 
@@ -7,9 +7,11 @@ Authors@R: c(
     ),
     person("Trustees of Columbia University", role = "cph"))
 Description: Tools for Bayesian estimation of meta-analysis models that account 
-    for publications bias or p-hacking. This package implements the methods of 
-    Hedges (1992) <doi:10.1214/ss/1177011364> and Moss and De Bin (2019) 
-    <arXiv:1911.12445>.
+    for publications bias or p-hacking. For publication bias, this package 
+    implements a variant of the p-value based selection model of Hedges (1992)
+    <doi:10.1214/ss/1177011364> with discrete selection probabilities. It also 
+    implements the mixture of truncated normals model for p-hacking described 
+    in Moss and De Bin (2019) <arXiv:1911.12445>.
 License: GPL-3
 Depends: 
     methods,
@@ -21,7 +23,7 @@ Imports:
     loo,
     truncnorm
 LinkingTo: 
-    BH (>= 1.66.0-1),
+    BH (>= 1.72.0-2),
     Rcpp (>= 0.12.19),
     RcppEigen (>= 0.3.3.4.0),
     rstan (>= 2.18.1),
