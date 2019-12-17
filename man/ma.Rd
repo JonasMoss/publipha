@@ -8,8 +8,15 @@
 \alias{allma}
 \title{Meta-analysis Correcting for Publication Bias or p-hacking}
 \usage{
-ma(yi, vi, bias = c("publication selection", "p-hacking", "none"), data,
-  alpha = c(0, 0.025, 0.05, 1), prior = NULL, ...)
+ma(
+  yi,
+  vi,
+  bias = c("publication selection", "p-hacking", "none"),
+  data,
+  alpha = c(0, 0.025, 0.05, 1),
+  prior = NULL,
+  ...
+)
 
 psma(yi, vi, data, alpha = c(0, 0.025, 0.05, 1), prior = NULL, ...)
 
@@ -55,7 +62,7 @@ by \code{bias}. \code{psma} is a wrapper for \code{ma} with
 
 The \code{bias} options are:
 \enumerate{
-\item \code{publication selection}: The model of publication bias described in
+\item \verb{publication selection}: The model of publication bias described in
 Hedges (1992).
 \item \code{p-hacking}: The model for \emph{p}-hacking described in Moss & De Bin (2019).
 \item \code{none}: Classical random effects meta-analysis with no correction for

@@ -7,13 +7,19 @@
 \alias{pphnorm}
 \title{p-hacking Meta-analysis Model}
 \usage{
-dphnorm(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
-  log = FALSE)
+dphnorm(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta, log = FALSE)
 
 rphnorm(n, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta)
 
-pphnorm(q, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
-  lower.tail = TRUE, log.p = FALSE)
+pphnorm(
+  q,
+  theta,
+  sigma,
+  alpha = c(0, 0.025, 0.05, 1),
+  eta,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
 }
 \arguments{
 \item{x, q}{vector of quantiles.}

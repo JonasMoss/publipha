@@ -7,11 +7,18 @@
 \alias{rmpsnorm}
 \title{Marginal Publication Selection Meta-analysis Model}
 \usage{
-dmpsnorm(x, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
-  log = FALSE)
+dmpsnorm(x, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta, log = FALSE)
 
-pmpsnorm(q, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
-  lower.tail = TRUE, log.p = FALSE)
+pmpsnorm(
+  q,
+  theta0,
+  tau,
+  sigma,
+  alpha = c(0, 0.025, 0.05, 1),
+  eta,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
 
 rmpsnorm(n, theta0, tau, sigma, alpha = c(0, 0.025, 0.05, 1), eta)
 }

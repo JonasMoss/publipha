@@ -17,6 +17,9 @@
 \strong{yi}           \tab \code{numeric}   \tab the adjusted standardized mean difference \cr
 \strong{vi}           \tab \code{numeric}   \tab the variance
 }}
+\source{
+\url{https://link.springer.com/article/10.1007\%2Fs00426-017-0862-x#SupplementaryMaterial}
+}
 \usage{
 data(dat.dang2018)
 }
