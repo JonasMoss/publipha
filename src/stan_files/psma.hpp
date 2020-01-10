@@ -287,7 +287,7 @@ normal_lnorm(const T0__& theta,
             current_statement_begin__ = 34;
             stan::math::assign(cutoff, (inv_Phi((1 - get_base1(alpha, i, "alpha", 1))) * sigma));
             current_statement_begin__ = 35;
-            stan::math::assign(cdf, normal_cdf(cutoff, theta, stan::math::sqrt((pow(tau, 2) + pow(sigma, 2)))));
+            stan::math::assign(cdf, normal_cdf(cutoff, theta, stan::math::sqrt(((tau * tau) + (sigma * sigma)))));
             current_statement_begin__ = 36;
             stan::model::assign(summands, 
                         stan::model::cons_list(stan::model::index_uni(i), stan::model::nil_index_list()), 
@@ -559,7 +559,7 @@ psma_normal_marginal_lpdf(const T0__& x,
         (void) y;  // dummy to suppress unused var warning
         stan::math::initialize(y, DUMMY_VAR__);
         stan::math::fill(y, DUMMY_VAR__);
-        stan::math::assign(y,normal_log(x, theta0, stan::math::sqrt((pow(sigma, 2) + pow(tau, 2)))));
+        stan::math::assign(y,normal_log(x, theta0, stan::math::sqrt(((tau * tau) + (sigma * sigma)))));
 
         current_statement_begin__ = 84;
         local_scalar_t__ u(DUMMY_VAR__);

@@ -46,6 +46,6 @@ generated quantities {
     log_lik[n] = normal_lpdf(yi[n] | theta[n], sqrt(vi[n]));
 
   for(n in 1:N)
-    log_lik_marginal[n] = normal_lpdf(yi[n] | theta0, sqrt(vi[n] + tau^2));
+    log_lik_marginal[n] = normal_lpdf(yi[n] | theta0, sqrt(vi[n] + tau * tau));
 
 }

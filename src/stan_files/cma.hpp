@@ -653,7 +653,7 @@ public:
                 current_statement_begin__ = 66;
                 stan::model::assign(log_lik_marginal, 
                             stan::model::cons_list(stan::model::index_uni(n), stan::model::nil_index_list()), 
-                            normal_log(get_base1(yi, n, "yi", 1), theta0, stan::math::sqrt((get_base1(vi, n, "vi", 1) + pow(tau, 2)))), 
+                            normal_log(get_base1(yi, n, "yi", 1), theta0, stan::math::sqrt((get_base1(vi, n, "vi", 1) + (tau * tau)))), 
                             "assigning variable log_lik_marginal");
             }
 

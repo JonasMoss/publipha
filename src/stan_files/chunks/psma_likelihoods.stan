@@ -14,7 +14,7 @@ real normal_lnorm(real theta, real tau, real sigma,
 
   for(i in 2:(k - 1)) {
     cutoff = inv_Phi(1 - alpha[i])*sigma;
-    cdf = normal_cdf(cutoff, theta, sqrt(tau^2 + sigma^2));
+    cdf = normal_cdf(cutoff, theta, sqrt(tau * tau + sigma * sigma));
     summands[i] = cdf*(eta[i] - eta[i - 1]);
   }
 
@@ -62,7 +62,7 @@ real psma_normal_marginal_lpdf(real x, real theta0, real tau, real sigma,
                                real [] alpha, vector eta) {
 
   int k = size(alpha);
-  real y = normal_lpdf(x | theta0, sqrt(sigma^2 + tau^2));
+  real y = normal_lpdf(x | theta0, sqrt(tau * tau + sigma * sigma));
   real u = (1 - normal_cdf(x, 0, sigma));
   real normalizer = normal_lnorm(theta0, tau, sigma, alpha, eta);
 
