@@ -17,6 +17,7 @@ matrix:
       r: release
       r_binary_packages:
         - devtools
+        - stringi
       addons:
         apt:
           sources:
@@ -35,6 +36,7 @@ matrix:
       r: devel
       r_binary_packages:
         - devtools
+        - stringi
       addons:
         apt:
           sources:
