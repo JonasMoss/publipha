@@ -1,4 +1,4 @@
-## Resubmission
+## Update
 
 * Response to request for fixing ERROR on Solaris,
   https://cran.r-project.org/web/checks/check_results_publipha.html
@@ -6,7 +6,7 @@
 
 ## Test environments
 * local Windows 10, R version 3.6.1
-* Ubuntu 16.04 (on Travis-CI), R version 3.6.1, R-devel.
+* Ubuntu 16.04 (on R-hub), R version 3.6.1, R-devel.
 * macOS 10.13 (on Travis-CI), R version 3.6.1
 * Oracle Solaris 10, x86, 32 bit, (on R-hub) R-patched
 
