@@ -23,26 +23,18 @@ data {
 
 parameters {
   real theta0;
-  real theta_tilde[N];
+  real theta[N];
   real <lower = 0> tau;
   simplex[k - 1] eta;
 
 }
-
-transformed parameters {
-
-  real theta[N];
-  for (n in 1:N) theta[n] = theta0 + tau * theta_tilde[n];
-
-}
-
 
 model {
 
   theta0 ~ normal(theta0_mean, theta0_sd);
   tau ~  normal(tau_mean, tau_sd) T[0, ];
   eta ~ dirichlet(eta0);
-  theta_tilde ~ normal(0, 1);
+  theta ~ normal(theta0, tau);
 
   for(n in 1:N) yi[n] ~ phma_normal_lpdf(theta[n], sqrt(vi[n]), alpha, eta);
 
