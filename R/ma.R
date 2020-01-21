@@ -196,7 +196,7 @@ ma <- function(yi,
         list(
           theta0 = 0,
           tau = 1,
-          theta_tilde = theta_start,
+          theta = theta_start,
           eta = eta_start
         )
       }
