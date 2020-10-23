@@ -17,6 +17,11 @@ data {
   real <lower = 0> theta0_sd;
   real tau_mean;
   real <lower = 0> tau_sd;
+  real <lower = 0> u_min;
+  real <lower = 0> u_max;
+  real <lower = 0> shape;
+  real <lower = 0> scale;
+  int tau_prior;
 
 }
 
@@ -37,7 +42,15 @@ transformed parameters {
 model {
 
   theta0 ~ normal(theta0_mean, theta0_sd);
-  tau ~  normal(tau_mean, tau_sd) T[0, ];
+
+  if(tau_prior == 1) {
+    tau ~  normal(tau_mean, tau_sd) T[0, ];
+  } else if (tau_prior == 2) {
+    tau ~ uniform(u_min, u_max);
+  } else if (tau_prior == 3) {
+    tau ~ inv_gamma(shape, scale);
+  }
+
   weights ~ gamma(eta0, 1);
 
   for(n in 1:N) {
