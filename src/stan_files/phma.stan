@@ -49,7 +49,7 @@ model {
   eta ~ dirichlet(eta0);
   theta ~ normal(theta0, tau);
 
-  for(n in 1:N) yi[n] ~ phma_normal_lpdf(theta[n], sqrt(vi[n]), alpha, eta);
+  for(n in 1:N) yi[n] ~ phma_normal(theta[n], sqrt(vi[n]), alpha, eta);
 
 }
 

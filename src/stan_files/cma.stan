@@ -46,7 +46,7 @@ model {
 
   theta ~ normal(theta0, tau);
 
-  for(n in 1:N) yi[n] ~ normal_lpdf(theta[n], sqrt(vi[n]));
+  for(n in 1:N) yi[n] ~ normal(theta[n], sqrt(vi[n]));
 
 }
 
