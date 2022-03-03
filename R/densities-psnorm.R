@@ -73,7 +73,7 @@ dpsnorm <- function(x, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
   for (i in unique(inclusions)) {
     indices <- (inclusions == i)
     lower <- stats::qnorm(1 - alpha[i + 1])
-    upper <- stats::qnorm(1 - alpha[i]) * sigma[indices]
+    upper <- stats::qnorm(1 - alpha[i])
     y[indices] <- truncnorm::dtruncnorm(
       x = x[indices],
       mean = theta[indices],
@@ -111,7 +111,7 @@ ppsnorm <- function(q, theta, sigma, alpha = c(0, 0.025, 0.05, 1), eta,
     indices <- (inclusions == i)
     extra <- if (i < (k - 1)) sum(probabilities[(k - 1):(i + 1)]) else 0
     lower <- stats::qnorm(1 - alpha[i + 1])
-    upper <- stats::qnorm(1 - alpha[i]) * sigma[indices]
+    upper <- stats::qnorm(1 - alpha[i])
     y[indices] <- truncnorm::ptruncnorm(
       q = q[indices],
       mean = theta[indices],
