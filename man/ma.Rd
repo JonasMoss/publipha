@@ -15,16 +15,48 @@ ma(
   data,
   alpha = c(0, 0.025, 0.05, 1),
   prior = NULL,
+  tau_prior = c("half-normal", "uniform", "inv_gamma"),
   ...
 )
 
-psma(yi, vi, data, alpha = c(0, 0.025, 0.05, 1), prior = NULL, ...)
+psma(
+  yi,
+  vi,
+  data,
+  alpha = c(0, 0.025, 0.05, 1),
+  prior = NULL,
+  tau_prior = c("half-normal", "uniform", "inv_gamma"),
+  ...
+)
 
-phma(yi, vi, data, alpha = c(0, 0.025, 0.05, 1), prior = NULL, ...)
+phma(
+  yi,
+  vi,
+  data,
+  alpha = c(0, 0.025, 0.05, 1),
+  prior = NULL,
+  tau_prior = c("half-normal", "uniform", "inv_gamma"),
+  ...
+)
 
-cma(yi, vi, data, prior = NULL, ...)
+cma(
+  yi,
+  vi,
+  data,
+  prior = NULL,
+  tau_prior = c("half-normal", "uniform", "inv_gamma"),
+  ...
+)
 
-allma(yi, vi, data, alpha = c(0, 0.025, 0.05, 1), prior = NULL, ...)
+allma(
+  yi,
+  vi,
+  data,
+  alpha = c(0, 0.025, 0.05, 1),
+  prior = NULL,
+  tau_prior = c("half-normal", "uniform", "inv_gamma"),
+  ...
+)
 }
 \arguments{
 \item{yi}{Numeric vector of length code{k} with observed effect size
@@ -41,6 +73,10 @@ estimates.}
 Should include 0 and 1. Defaults to (0, 0.025, 0.05, 1).}
 
 \item{prior}{Optional list of prior parameters. See the details.}
+
+\item{tau_prior}{Which prior to use for \code{tau}, the heterogeneity parameter.
+Defaults to "\code{half-normal}"; "\code{uniform}" and "\code{inv_gamma} are also
+supported.}
 
 \item{...}{Passed to \code{rstan::sampling}.}
 }
@@ -72,19 +108,25 @@ selection bias.
 The effect size distribution is normal with mean \code{theta0} and standard
 deviation \code{tau}. The prior for \code{theta0} is normal with
 parameters \code{theta0_mean} (default: 0), \code{theta0_sd} (default: 1).
-The prior for \code{tau} is half normal with parameters \code{tau_mean}
-(default: 1), \code{tau_sd} (default: 1). \code{eta} is the vector of
-\code{K} normalized publication probabilities (publication bias model) or
-\code{K} \emph{p}-hacking probabilities (\emph{p}-hacking model). The prior of eta
-is Dirchlet with parameter eta0, which defaults to \code{rep(1, K)}
-for the publication bias model and the p-hacking model. \code{eta0} is the
-prior for the Dirichlet distribution over the non-normalized etas in the
-publication bias model, and they are forced to be decreasing.
+\code{eta} is the vector of \code{K} normalized publication probabilities
+(publication bias model) or \code{K} \emph{p}-hacking probabilities
+(\emph{p}-hacking model). The prior of eta is Dirchlet with parameter eta0,
+which defaults to \code{rep(1, K)} for the publication bias model and
+the p-hacking model. \code{eta0} is the prior for the Dirichlet distribution
+over the non-normalized etas in the publication bias model, and they are
+forced to be decreasing.
+
+The standard prior for \code{tau} is half-normal with parameters
+\code{tau_mean} (default: 0), \code{tau_sd} (default: 1). If the uniform
+prior is used, the parameter are \code{u_min} (default: 0), and \code{u_max}
+with a default of 3. The inverse Gamma has parameters \code{shape}
+(default: 1) and scale \code{default: 1}.
+
 To change the prior parameters, pass them to \code{prior} in a list.
 }
 \examples{
 \donttest{
-phma_model <- phma(yi, vi, data = metafor::dat.begg1989)
+phma_model <- phma(yi, vi, data = metadat::dat.begg1989)
 }
 prior <- list(
   eta0 = c(3, 2, 1),
@@ -94,13 +136,13 @@ prior <- list(
   tau_sd = 1
 )
 \donttest{
-psma_model <- psma(yi, vi, data = metafor::dat.begg1989, prior = prior)
+psma_model <- psma(yi, vi, data = metadat::dat.begg1989, prior = prior)
 }
 \donttest{
-cma_model <- psma(yi, vi, data = metafor::dat.begg1989, prior = prior)
+cma_model <- psma(yi, vi, data = metadat::dat.begg1989, prior = prior)
 }
 \donttest{
-model <- all(yi, vi, data = metafor::dat.begg1989, prior = prior)
+model <- all(yi, vi, data = metadat::dat.begg1989, prior = prior)
 }
 }
 \references{

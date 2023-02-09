@@ -33,7 +33,7 @@ Encoding: UTF-8
 LazyData: true
 NeedsCompilation: yes
 SystemRequirements: GNU make
-RoxygenNote: 7.0.2
+RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE, roclets = c("rd", "namespace", "collate"))
 Suggests:
     testthat (>= 2.1.0),
@@ -42,7 +42,8 @@ Suggests:
     rmarkdown,
     metafor,
     qtl,
-    spelling
+    spelling,
+    metadat
 Collate:
     'data-anderson2010.R'
     'data-baskerville2012.R'
@@ -57,7 +58,6 @@ Collate:
     'ma.R'
     'generics.R'
     'publipha-package.R'
-    'stanmodels.R'
     'tools.R'
     'utility.R'
 Language: en-US

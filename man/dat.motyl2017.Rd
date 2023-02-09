@@ -4,7 +4,8 @@
 \name{dat.motyl2017}
 \alias{dat.motyl2017}
 \title{Effect Sizes from 875 Studies in Psychology.}
-\format{The tibble contains the following columns:
+\format{
+The tibble contains the following columns:
 \tabular{lll}{
 \strong{author}       \tab \code{character} \tab first author of study \cr
 \strong{year}         \tab \code{numeric}   \tab publication year \cr
@@ -15,7 +16,8 @@
 \strong{ni}           \tab \code{numeric}   \tab sample size \cr
 \strong{yi}           \tab \code{numeric}   \tab observed mean difference in outcome \cr
 \strong{vi}           \tab \code{numeric}   \tab corresponding sampling variance
-}}
+}
+}
 \source{
 \url{https://osf.io/he8mu/}
 }

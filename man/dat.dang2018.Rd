@@ -4,7 +4,8 @@
 \name{dat.dang2018}
 \alias{dat.dang2018}
 \title{Meta-analysis on Ego Depletion}
-\format{The tibble contains the following columns:
+\format{
+The tibble contains the following columns:
 \tabular{lll}{
 \strong{author}       \tab \code{character} \tab the last name of the first author and the first letter of the last name of the second author;  \cr
 \strong{year}         \tab \code{numeric}   \tab publication year \cr
@@ -16,7 +17,8 @@
 \strong{n2i}          \tab \code{numeric}   \tab the number of participants in the control condition \cr
 \strong{yi}           \tab \code{numeric}   \tab the adjusted standardized mean difference \cr
 \strong{vi}           \tab \code{numeric}   \tab the variance
-}}
+}
+}
 \source{
 \url{https://link.springer.com/article/10.1007\%2Fs00426-017-0862-x#SupplementaryMaterial}
 }

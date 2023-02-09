@@ -4,7 +4,8 @@
 \name{dat.baskerville2012}
 \alias{dat.baskerville2012}
 \title{Studies on Practice Facilitation}
-\format{The tibble contains the following columns:
+\format{
+The tibble contains the following columns:
 \tabular{lll}{
 \strong{author}    \tab \code{character} \tab first author of study \cr
 \strong{year}      \tab \code{numeric}   \tab publication year \cr
@@ -13,7 +14,8 @@
 \strong{concealed} \tab \code{boolean}   \tab if \code{TRUE}, the study was concealed \cr
 \strong{yi}        \tab \code{numeric}   \tab observed mean difference in outcome (facilitated vs non-facilitated) \cr
 \strong{vi}        \tab \code{numeric}   \tab corresponding sampling variance
-}}
+}
+}
 \source{
 Baskerville, N. B., Liddy, C., & Hogg, W. (2012). Systematic review and meta-analysis of practice facilitation within primary care settings. The Annals of Family Medicine, 10(1), 63-74.
 }

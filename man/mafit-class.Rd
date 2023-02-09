@@ -20,5 +20,7 @@ Class \code{mafit}: Fitted Meta-analysis Model
 \item{\code{vi}}{Numeric vector of study-specific variances.}
 
 \item{\code{parameters}}{The list of prior parameters used in the fitting.}
+
+\item{\code{tau-prior}}{The prior used for tau.}
 }}
 

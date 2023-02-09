@@ -29,8 +29,8 @@ and defaults to -6.
 }
 \examples{
 \donttest{
-phma_model <- phma(yi, vi, data = metafor::dat.begg1989)
-psma_model <- psma(yi, vi, data = metafor::dat.begg1989)
+phma_model <- phma(yi, vi, data = metadat::dat.begg1989)
+psma_model <- psma(yi, vi, data = metadat::dat.begg1989)
 loo(phma_model)
 loo(psma_model)
 }
