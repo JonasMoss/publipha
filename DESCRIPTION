@@ -58,6 +58,7 @@ Collate:
     'ma.R'
     'generics.R'
     'publipha-package.R'
+    'stanmodels.R'
     'tools.R'
     'utility.R'
 Language: en-US
