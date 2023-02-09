@@ -28,3 +28,4 @@ workspace_old
 ^docs$
 ^pkgdown$
 ^README_cache$
+^\.github$
