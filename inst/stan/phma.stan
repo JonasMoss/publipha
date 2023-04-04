@@ -1,5 +1,5 @@
 functions {
-#include /chunks/psma_likelihoods.stan
+#include /chunks/phma_likelihoods.stan
 }
 
 data {
@@ -23,20 +23,15 @@ data {
   real <lower = 0> scale;
   int tau_prior;
 
+
 }
 
 parameters {
-
   real theta0;
-  real <lower = 0> tau;
-  positive_ordered[k - 1] weights;
   real theta[N];
+  real <lower = 0> tau;
+  simplex[k - 1] eta;
 
-}
-
-transformed parameters {
-  vector[k - 1] eta;
-  for(i in 1:(k - 1)) eta[i] = weights[k - i]/weights[k - 1];
 }
 
 model {
@@ -51,24 +46,18 @@ model {
     tau ~ inv_gamma(shape, scale);
   }
 
-  weights ~ gamma(eta0, 1);
+  eta ~ dirichlet(eta0);
+  theta ~ normal(theta0, tau);
 
-  for(n in 1:N) {
-    theta[n] ~ psma_normal_prior_mini_lpdf(theta0, tau, sqrt(vi[n]), alpha, eta);
-    yi[n] ~ psma_normal_mini_lpdf(theta[n], sqrt(vi[n]), alpha, eta);
-  }
+  for(n in 1:N) yi[n] ~ phma_normal(theta[n], sqrt(vi[n]), alpha, eta);
 
 }
 
 generated quantities {
 
-  vector[N] log_lik_marginal;
   vector[N] log_lik;
 
   for(n in 1:N)
-    log_lik[n] = psma_normal_maxi_lpdf(yi[n] | theta[n], sqrt(vi[n]), alpha, eta);
-
-  for(n in 1:N)
-    log_lik_marginal[n] = psma_normal_marginal_lpdf(yi[n] | theta0, tau, sqrt(vi[n]), alpha, eta);
+    log_lik[n] = phma_normal_lpdf(yi[n] | theta[n], sqrt(vi[n]), alpha, eta);
 
 }

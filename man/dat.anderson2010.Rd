@@ -4,7 +4,8 @@
 \name{dat.anderson2010}
 \alias{dat.anderson2010}
 \title{Studies on Effect of Violent Video Games on Negative Outcomes}
-\format{The data frame contains the following columns:
+\format{
+The data frame contains the following columns:
 \tabular{lll}{
 \strong{author}       \tab \code{character} \tab first author \cr
 \strong{year}         \tab \code{numeric}   \tab publication year \cr
@@ -16,7 +17,8 @@
 \strong{ni}           \tab \code{numeric}   \tab sample size \cr
 \strong{yi}           \tab \code{numeric}   \tab observed mean difference in outcome (violent vs. non-violent) \cr
 \strong{vi}           \tab \code{numeric}   \tab corresponding sampling variance
-}}
+}
+}
 \source{
 \url{https://github.com/Joe-Hilgard/Anderson-meta}
 }
@@ -28,8 +30,8 @@ Results from 477 studies on the effect of violent video games on negative
 outcomes.
 }
 \references{
-\preformatted{Baskerville, N. B., Liddy, C., & Hogg, W. (2012). Systematic review and meta-analysis of practice facilitation within primary care settings. The Annals of Family Medicine, 10(1), 63-74.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{Baskerville, N. B., Liddy, C., & Hogg, W. (2012). Systematic review and meta-analysis of practice facilitation within primary care settings. The Annals of Family Medicine, 10(1), 63-74.
 Hilgard, J., Engelhardt, C. R., & Rouder, J. N. (2017). Overstated evidence for short-term effects of violent games on affect and behavior: A reanalysis of Anderson et al.(2010).
-}
+}\if{html}{\out{</div>}}
 }
 \keyword{datasets}

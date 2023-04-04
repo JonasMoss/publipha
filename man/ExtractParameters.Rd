@@ -42,7 +42,7 @@ bias parameter \code{eta}, and the I squared \code{isq}. See Higgins and Thompso
 (2002) for details about I squared.
 
 All \code{extract_} functions are wrappers
-around \code{\link[rstan:extract]{rstan::extract}}.
+around \code{\link[rstan:stanfit-method-extract]{rstan::extract}}.
 }
 \examples{
 \donttest{

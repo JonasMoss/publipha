@@ -4,7 +4,8 @@
 \name{dat.cuddy2018}
 \alias{dat.cuddy2018}
 \title{Studies on the Effect of Power Posing}
-\format{The data frame contains the following columns:
+\format{
+The data frame contains the following columns:
 \tabular{lll}{
 \strong{author}       \tab \code{character} \tab first author \cr
 \strong{year}         \tab \code{numeric}   \tab publication year \cr
@@ -12,7 +13,8 @@
 \strong{ease}         \tab \code{boolean}   \tab if \code{TRUE}, the outcome was an EASE variable \cr
 \strong{yi}           \tab \code{numeric}   \tab standardized mean difference \cr
 \strong{vi}           \tab \code{numeric}   \tab corresponding sampling variance
-}}
+}
+}
 \source{
 \url{https://osf.io/jx3av/}
 }
@@ -28,7 +30,7 @@ restricted to 2 cell designs with mean difference as the outcome
 variable.
 }
 \references{
-\preformatted{Cuddy, A. J., Schultz, S. J., & Fosse, N. E. (2018). P-curving a more comprehensive body of research on postural feedback reveals clear evidential value for power-posing effects: Reply to Simmons and Simonsohn (2017). Psychological science, 29(4), 656-666.
-}
+\if{html}{\out{<div class="sourceCode">}}\preformatted{Cuddy, A. J., Schultz, S. J., & Fosse, N. E. (2018). P-curving a more comprehensive body of research on postural feedback reveals clear evidential value for power-posing effects: Reply to Simmons and Simonsohn (2017). Psychological science, 29(4), 656-666.
+}\if{html}{\out{</div>}}
 }
 \keyword{datasets}

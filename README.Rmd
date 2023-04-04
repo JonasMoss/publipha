@@ -20,13 +20,13 @@ set.seed(313)
 model_psma = publipha::psma(yi = yi,
                             vi = vi,
                             alpha = c(0, 0.025, 0.05, 1),
-                            data = metafor::dat.bangertdrowns2004)
+                            data = metadat::dat.bangertdrowns2004)
 
 set.seed(313)
 model_cma = publipha::cma(yi = yi,
                           vi = vi,
                           alpha = c(0, 0.025, 0.05, 1),
-                          data = metafor::dat.bangertdrowns2004)
+                          data = metadat::dat.bangertdrowns2004)
 
 ```
 
@@ -46,11 +46,11 @@ knitr::opts_chunk$set(out.width='750px', dpi=200)
 ```
 
 ## Overview
-publipha is an package for doing Bayesian meta-analysis that accounts for 
+publipha is an package for doing Bayesian meta-analysis that accounts for
 publication bias or *p*-hacking. Its main functions are:
 
-* `psma` does random effects meta-analysis under publication bias with a 
-   one-sided *p*-value based *selection probability*. The model is roughly the 
+* `psma` does random effects meta-analysis under publication bias with a
+   one-sided *p*-value based *selection probability*. The model is roughly the
    same as that of [(Hedges, 1992)](https://www.jstor.org/stable/pdf/2246311.pdf)
 *  `phma` does random effects meta-analysis under a certain model of *p*-hacking
    with a one-sided *p*-value based propensity to *p*-hack. This is based
@@ -66,7 +66,7 @@ devtools::install_github("JonasMoss/publipha")
 ```
 
 ## Usage
-Call the `library` function and use it like a barebones `metafor::rma`. The 
+Call the `library` function and use it like a barebones `metafor::rma`. The
 `alpha` tells `psma` or `phma` where they should place the cutoffs for significance.
 
 ```{r simpleuse, echo = TRUE, eval = FALSE}
@@ -76,23 +76,23 @@ set.seed(313) # For reproducibility
 model_psma = publipha::psma(yi = yi,
                             vi = vi,
                             alpha = c(0, 0.025, 0.05, 1),
-                            data = metafor::dat.bangertdrowns2004)
+                            data = metadat::dat.bangertdrowns2004)
 
 # p-hacking model
 set.seed(313)
 model_phma = publipha::phma(yi = yi,
                           vi = vi,
                           alpha = c(0, 0.025, 0.05, 1),
-                          data = metafor::dat.bangertdrowns2004)
+                          data = metadat::dat.bangertdrowns2004)
 
 # Classical model
 set.seed(313)
 model_cma = publipha::cma(yi = yi,
                           vi = vi,
                           alpha = c(0, 0.025, 0.05, 1),
-                          data = metafor::dat.bangertdrowns2004)
+                          data = metadat::dat.bangertdrowns2004)
 ```
-You can calculate the posterior means of the meta-analytic mean with 
+You can calculate the posterior means of the meta-analytic mean with
 `extract_theta0`:
 
 ```{R, echo = TRUE, eval = TRUE}
@@ -103,7 +103,7 @@ extract_theta0(model_psma)
 extract_theta0(model_cma)
 ```
 
-If you wish to plot a histogram of the posterior distribution of `tau`, the 
+If you wish to plot a histogram of the posterior distribution of `tau`, the
 standard deviation of the effect size distribution, you can do it like this:
 
 ```{R, echo = TRUE, eval = TRUE}

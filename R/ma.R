@@ -99,7 +99,7 @@ setClass(
 #' @return An S4 object of class `mafit` when `ma`, `psma`, `phma` or `cma` is
 #'    run. A list of `mafit` objects when `allma` is run.
 #' @examples \donttest{
-#' phma_model <- phma(yi, vi, data = metafor::dat.begg1989)
+#' phma_model <- phma(yi, vi, data = metadat::dat.begg1989)
 #' }
 #' prior <- list(
 #'   eta0 = c(3, 2, 1),
@@ -109,13 +109,13 @@ setClass(
 #'   tau_sd = 1
 #' )
 #' \donttest{
-#' psma_model <- psma(yi, vi, data = metafor::dat.begg1989, prior = prior)
+#' psma_model <- psma(yi, vi, data = metadat::dat.begg1989, prior = prior)
 #' }
 #' \donttest{
-#' cma_model <- psma(yi, vi, data = metafor::dat.begg1989, prior = prior)
+#' cma_model <- psma(yi, vi, data = metadat::dat.begg1989, prior = prior)
 #' }
 #' \donttest{
-#' model <- all(yi, vi, data = metafor::dat.begg1989, prior = prior)
+#' model <- all(yi, vi, data = metadat::dat.begg1989, prior = prior)
 #' }
 #' @references Hedges, Larry V. "Modeling publication selection effects
 #' in meta-analysis." Statistical Science (1992): 246-255.

@@ -53,21 +53,21 @@ set.seed(313) # For reproducibility
 model_psma = publipha::psma(yi = yi,
                             vi = vi,
                             alpha = c(0, 0.025, 0.05, 1),
-                            data = metafor::dat.bangertdrowns2004)
+                            data = metadat::dat.bangertdrowns2004)
 
 # p-hacking model
 set.seed(313)
 model_phma = publipha::phma(yi = yi,
                           vi = vi,
                           alpha = c(0, 0.025, 0.05, 1),
-                          data = metafor::dat.bangertdrowns2004)
+                          data = metadat::dat.bangertdrowns2004)
 
 # Classical model
 set.seed(313)
 model_cma = publipha::cma(yi = yi,
                           vi = vi,
                           alpha = c(0, 0.025, 0.05, 1),
-                          data = metafor::dat.bangertdrowns2004)
+                          data = metadat::dat.bangertdrowns2004)
 ```
 
 You can calculate the posterior means of the meta-analytic mean with
