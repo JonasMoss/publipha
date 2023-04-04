@@ -142,7 +142,7 @@ psma_model <- psma(yi, vi, data = metadat::dat.begg1989, prior = prior)
 cma_model <- psma(yi, vi, data = metadat::dat.begg1989, prior = prior)
 }
 \donttest{
-model <- all(yi, vi, data = metadat::dat.begg1989, prior = prior)
+model <- allma(yi, vi, data = metadat::dat.begg1989, prior = prior)
 }
 }
 \references{

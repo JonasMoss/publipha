@@ -7,20 +7,3 @@
 \description{
 Class \code{mafit}: Fitted Meta-analysis Model
 }
-\section{Slots}{
-
-\describe{
-\item{\code{bias}}{The kind of bias modelled. Can be one of
-\code{publication_selection}, \code{p-hacking} or \code{none}.}
-
-\item{\code{alpha}}{Ordered numeric vector of cutoffs including 0 and 1.}
-
-\item{\code{yi}}{Numeric vector of estimated effect sizes.}
-
-\item{\code{vi}}{Numeric vector of study-specific variances.}
-
-\item{\code{parameters}}{The list of prior parameters used in the fitting.}
-
-\item{\code{tau-prior}}{The prior used for tau.}
-}}
-
