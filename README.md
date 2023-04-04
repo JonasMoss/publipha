@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 # publipha <img src="man/figures/logo.png" align="right" width="177" height="65" />
+
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/publipha)](https://cran.r-project.org/package=publipha)
 [![R-CMD-check](https://github.com/JonasMoss/publipha/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/publipha/actions/workflows/R-CMD-check.yaml)
 
@@ -97,5 +99,4 @@ extract_tau(model_psma, hist)
 
 If you encounter a bug, have a feature request or need some help, open a
 [Github issue](https://github.com/JonasMoss/publipha/issues). Create a
-pull requests to contribute. This project follows a [Contributor Code of
-Conduct](https://www.contributor-covenant.org/version/1/4/code-of-conduct.md).
+pull requests to contribute.

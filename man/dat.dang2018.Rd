@@ -20,7 +20,7 @@ The tibble contains the following columns:
 }
 }
 \source{
-\url{https://link.springer.com/article/10.1007\%2Fs00426-017-0862-x#SupplementaryMaterial}
+\url{https://link.springer.com/article/10.1007/s00426-017-0862-x#SupplementaryMaterial)}
 }
 \usage{
 data(dat.dang2018)

@@ -29,5 +29,5 @@
 #' not seem to rely on a limited resource. Journal of
 #' Experimental Psychology: General, 144(4), 796.
 #'
-#' @source \url{https://link.springer.com/article/10.1007%2Fs00426-017-0862-x#SupplementaryMaterial}
+#' @source \url{https://link.springer.com/article/10.1007/s00426-017-0862-x#SupplementaryMaterial)}
 "dat.dang2018"

@@ -114,4 +114,4 @@ extract_tau(model_psma, hist)
 
 ## How to Contribute or Get Help
 If you encounter a bug, have a feature request or need some help, open a [Github issue](https://github.com/JonasMoss/publipha/issues). Create a pull requests
-to contribute. This project follows a [Contributor Code of Conduct](https://www.contributor-covenant.org/version/1/4/code-of-conduct.md).
+to contribute.
