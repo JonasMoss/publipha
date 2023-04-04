@@ -29,3 +29,4 @@ workspace_old
 ^pkgdown$
 ^README_cache$
 ^\.github$
+^rhub.R$
