@@ -15,7 +15,7 @@ Description: Tools for Bayesian estimation of meta-analysis models that account
 License: GPL-3
 Depends:
     methods,
-    R (>= 4.2.0),
+    R (>= 3.6.0),
     Rcpp (>= 0.12.19)
 Imports:
     rstan (>= 2.18.1),
