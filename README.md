@@ -1,9 +1,8 @@
 
-<!-- README.md isgenerated from README.Rmd. Please edit that file -->
-
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 # publipha <img src="man/figures/logo.png" align="right" width="177" height="65" />
-
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/publipha)](https://cran.r-project.org/package=publipha)
+[![R-CMD-check](https://github.com/JonasMoss/publipha/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/publipha/actions/workflows/R-CMD-check.yaml)
 
 An `R` package for Bayesian meta-analysis that accounts for publication
 bias or *p*-hacking.

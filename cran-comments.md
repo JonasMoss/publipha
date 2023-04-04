@@ -1,14 +1,13 @@
 ## Update
 
-* Response to request for fixing ERROR on Solaris,
-  https://cran.r-project.org/web/checks/check_results_publipha.html
-* Removed every instance of `pow` from C++ code. Now passes CHECK on Solaris.
+* Updated for new rstantools
 
 ## Test environments
-* local Windows 10, R version 3.6.1
-* Ubuntu 16.04 (on R-hub), R version 3.6.1, R-devel.
-* macOS 10.13 (on Travis-CI), R version 3.6.1
-* Oracle Solaris 10, x86, 32 bit, (on R-hub) R-patched
+* local Windows 11 R 4.2.3
+* Rhub:
+  * 2: Debian Linux, R-devel, GCC
+  * 5: Debian Linux, R-release, GCC (debian-gcc-release)
+  * 10: macOS 10.13.6 High Sierra, R-release, CRAN's setup (macos-highsierra-release-cran)
 
 ## R CMD check results
 There were no ERRORs or WARNINGs. Two NOTEs: One about makefile and one about
