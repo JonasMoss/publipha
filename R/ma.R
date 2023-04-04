@@ -1,30 +1,5 @@
-# Estimate Bayesian Meta-analysis models with STAN
-# Copyright (C) 2019 Jonas Moss
-#
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 3
-# of the License, or (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
-# USA.
-
 #' Class \code{mafit}: Fitted Meta-analysis Model
 #'
-#' @slot bias The kind of bias modelled. Can be one of
-#'     \code{publication_selection}, \code{p-hacking} or \code{none}.
-#' @slot alpha Ordered numeric vector of cutoffs including 0 and 1.
-#' @slot yi Numeric vector of estimated effect sizes.
-#' @slot vi Numeric vector of study-specific variances.
-#' @slot parameters The list of prior parameters used in the fitting.
-#' @slot tau-prior The prior used for tau.
 #' @name mafit-class
 #' @rdname mafit-class
 #' @exportClass mafit
@@ -115,7 +90,7 @@ setClass(
 #' cma_model <- psma(yi, vi, data = metadat::dat.begg1989, prior = prior)
 #' }
 #' \donttest{
-#' model <- all(yi, vi, data = metadat::dat.begg1989, prior = prior)
+#' model <- allma(yi, vi, data = metadat::dat.begg1989, prior = prior)
 #' }
 #' @references Hedges, Larry V. "Modeling publication selection effects
 #' in meta-analysis." Statistical Science (1992): 246-255.
