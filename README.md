@@ -1,5 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md isgenerated from README.Rmd. Please edit that file -->
 
 # publipha <img src="man/figures/logo.png" align="right" width="177" height="65" />
 
