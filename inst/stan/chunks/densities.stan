@@ -1,18 +1,19 @@
-real lower_normal_lpdf(real y, real mean, real sd, real lower) {
-  return(normal_lpdf(y | mean, sd) - normal_lccdf(lower | mean, sd));
+real lower_normal_lpdf(real y, real mean, real sd, real lower_input) {
+  return(normal_lpdf(y | mean, sd) - normal_lccdf(lower_input | mean, sd));
 }
 
-real upper_normal_lpdf(real y, real mean, real sd, real upper) {
-  return(normal_lpdf(y | mean, sd) - normal_lcdf(upper | mean, sd));
+real upper_normal_lpdf(real y, real mean, real sd, real upper_input) {
+  return(normal_lpdf(y | mean, sd) - normal_lcdf(upper_input | mean, sd));
 }
 
-real inner_normal_lpdf(real y, real mean, real sd, real lower, real upper) {
+real inner_normal_lpdf(real y, real mean, real sd, real lower_input, real upper_input) {
   return(normal_lpdf(y | mean, sd) -
-         log(normal_cdf(upper, mean, sd) -
-             normal_cdf(lower, mean, sd)));
+         log_diff_exp(normal_lcdf(upper_input | mean, sd),
+                      normal_lcdf(lower_input | mean, sd)));
 }
 
-real double_normal_lpdf(real y, real mean, real sd, real lower, real upper) {
+real double_normal_lpdf(real y, real mean, real sd, real lower_input, real upper_input) {
   return(normal_lpdf(y | mean, sd) -
-         log(normal_cdf(upper, mean, sd) + normal_cdf(-lower, -mean, sd)));
+         log_sum_exp(normal_lcdf(upper_input | mean, sd),
+                      normal_lcdf(-lower_input | -mean, sd)));
 }
