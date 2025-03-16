@@ -4,17 +4,17 @@
 // likelihood.
 
 real normal_lnorm(real theta, real tau, real sigma,
-                  real [] alpha, vector eta) {
+                  array[] real alpha, vector eta) {
   int k = size(alpha);
   real cutoff;
   real cdf;
-  real summands[k - 1];
+  array[k - 1] real summands;
 
   summands[1] = eta[1];
 
   for(i in 2:(k - 1)) {
     cutoff = inv_Phi(1 - alpha[i])*sigma;
-    cdf = normal_cdf(cutoff, theta, sqrt(tau * tau + sigma * sigma));
+    cdf = normal_cdf(cutoff | theta, sqrt(tau * tau + sigma * sigma));
     summands[i] = cdf*(eta[i] - eta[i - 1]);
   }
 
@@ -27,17 +27,17 @@ real normal_lnorm(real theta, real tau, real sigma,
 // normalizing constant.
 
 real psma_normal_prior_mini_lpdf(real theta, real theta0, real tau, real sigma,
-                                 real [] alpha, vector eta) {
+                                 array[] real alpha, vector eta) {
   real y = normal_lpdf(theta | theta0, tau);
   real normalizer = normal_lnorm(theta0, tau, sigma, alpha, eta);
   return(y - normalizer);
 }
 
 real psma_normal_mini_lpdf(real x, real theta, real sigma,
-                           real [] alpha, vector eta) {
+                           array[] real alpha, vector eta) {
   int k = size(alpha);
   real y = normal_lpdf(x | theta, sigma);
-  real u = (1 - normal_cdf(x, 0, sigma));
+  real u = (1 - normal_cdf(x | 0, sigma));
 
   for(i in 1:(k - 1)){
     if(alpha[i] < u && u <= alpha[i + 1]) {
@@ -50,7 +50,7 @@ real psma_normal_mini_lpdf(real x, real theta, real sigma,
 }
 
 real psma_normal_maxi_lpdf(real x, real theta, real sigma,
-                           real [] alpha, vector eta) {
+                           array[] real alpha, vector eta) {
   real y = psma_normal_mini_lpdf(x | theta, sigma, alpha, eta);
   real normalizer = normal_lnorm(theta, 0, sigma, alpha, eta);
   return(y - normalizer);
@@ -59,11 +59,11 @@ real psma_normal_maxi_lpdf(real x, real theta, real sigma,
 // This is the marginal lpdf as in Hedges' paper.
 
 real psma_normal_marginal_lpdf(real x, real theta0, real tau, real sigma,
-                               real [] alpha, vector eta) {
+                               array[] real alpha, vector eta) {
 
   int k = size(alpha);
   real y = normal_lpdf(x | theta0, sqrt(tau * tau + sigma * sigma));
-  real u = (1 - normal_cdf(x, 0, sigma));
+  real u = (1 - normal_cdf(x | 0, sigma));
   real normalizer = normal_lnorm(theta0, tau, sigma, alpha, eta);
 
   for(i in 1:(k - 1)){

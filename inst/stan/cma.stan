@@ -7,9 +7,9 @@ data {
   // Input data.
   int<lower = 0> N;   // Number of observations.
   int<lower = 0> k;   // Length of alpha.
-  real alpha[k];      // The vector of cuttoffs.
-  real yi[N];         // The estimated effect sizes.
-  real vi[N];         // The study-specific variances.
+  array[k] real alpha;      // The vector of cuttoffs.
+  array[N] real yi;         // The estimated effect sizes.
+  array[N] real vi;         // The study-specific variances.
 
   // Prior parameters.
   vector[k - 1] eta0;
@@ -28,7 +28,7 @@ data {
 parameters {
   real theta0;
   real <lower = 0> tau;
-  real theta[N];
+  array[N] real theta;
 
 }
 
