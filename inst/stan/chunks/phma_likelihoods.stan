@@ -1,9 +1,9 @@
 #include /chunks/densities.stan
 
-real phma_normal_lpdf(real x, real theta, real sigma, real [] alpha, vector eta) {
+real phma_normal_lpdf(real x, real theta, real sigma, array[] real alpha, vector eta) {
   int k = size(alpha);
-  real y[k - 1];
-  real u = (1 - normal_cdf(x, 0, sigma));
+  array[k - 1] real y;
+  real u = (1 - normal_cdf(x | 0, sigma));
   real cutoff;
 
   for(i in 1:(k - 2)){
