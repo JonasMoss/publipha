@@ -58,9 +58,9 @@ setClass(
 #'
 #' @export
 #' @name ma
-#' @param yi Numeric vector of length code{k} with observed effect size
+#' @param yi Numeric vector of length \code{k} with observed effect size
 #'     estimates.
-#' @param vi Numeric vector of length code{k} with sampling variances.
+#' @param vi Numeric vector of length \code{k} with sampling variances.
 #' @param bias String; If "publication bias", corrects for publication bias. If
 #'     "p-hacking", corrects for p-hacking.
 #' @param data Optional list or data frame containing \code{yi} and \code{vi}.
@@ -132,10 +132,11 @@ ma <- function(yi,
   if (is.null(prior$scale)) prior$scale <- 1
 
   ## Add prior
-  prior$tau_prior = switch(tau_prior,
-                          "half-normal" = 1,
-                          "uniform" = 2,
-                          "inv_gamma" = 3)
+  prior$tau_prior <- switch(tau_prior,
+    "half-normal" = 1,
+    "uniform" = 2,
+    "inv_gamma" = 3
+  )
 
   ## Allowed names are checked.
 
